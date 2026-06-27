@@ -31,11 +31,15 @@ function Set-ServiceVars {
 Require-Railway
 
 $frontendUrl = Read-Host "Frontend public URL (örn: https://baserow-frontend-production-xxxx.up.railway.app)"
-if ($frontendUrl -notmatch "^https?://") {
-    throw "URL https:// ile başlamalı"
+$backendUrl = Read-Host "Backend public URL (örn: https://baserow-backend-production-xxxx.up.railway.app)"
+foreach ($url in @($frontendUrl, $backendUrl)) {
+    if ($url -notmatch "^https?://") {
+        throw "URL https:// ile başlamalı"
+    }
 }
 
 $frontendHost = ([uri]$frontendUrl).Host
+$backendHost = ([uri]$backendUrl).Host
 $secretKey = New-SecretKey
 
 Write-Host ""
@@ -45,9 +49,10 @@ $backendVars = @{
     SECRET_KEY = $secretKey
     DATABASE_URL = '${{Postgres.DATABASE_URL}}'
     REDIS_URL = '${{Redis.REDIS_URL}}'
-    PUBLIC_BACKEND_URL = $frontendUrl
+    PUBLIC_BACKEND_URL = $backendUrl
     PUBLIC_WEB_FRONTEND_URL = $frontendUrl
-    BASEROW_EXTRA_ALLOWED_HOSTS = "$frontendHost,healthcheck.railway.app"
+    BASEROW_EXTRA_ALLOWED_HOSTS = "$frontendHost,$backendHost,healthcheck.railway.app,baserow-backend.railway.internal"
+    PRIVATE_BACKEND_URL = 'http://baserow-backend.railway.internal:8080'
     BASEROW_BACKEND_PORT = '8080'
     BASEROW_AMOUNT_OF_GUNICORN_WORKERS = '2'
     BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION = 'false'
@@ -56,7 +61,7 @@ $backendVars = @{
 
 $frontendVars = @{
     PUBLIC_WEB_FRONTEND_URL = $frontendUrl
-    PUBLIC_BACKEND_URL = $frontendUrl
+    PUBLIC_BACKEND_URL = $backendUrl
     PRIVATE_BACKEND_URL = 'http://baserow-backend.railway.internal:8080'
     BASEROW_DISABLE_PUBLIC_URL_CHECK = 'true'
 }
@@ -65,7 +70,7 @@ $workerVars = @{
     SECRET_KEY = $secretKey
     DATABASE_URL = '${{Postgres.DATABASE_URL}}'
     REDIS_URL = '${{Redis.REDIS_URL}}'
-    PUBLIC_BACKEND_URL = $frontendUrl
+    PUBLIC_BACKEND_URL = $backendUrl
     PUBLIC_WEB_FRONTEND_URL = $frontendUrl
     BASEROW_BACKEND_PORT = '8080'
     BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION = 'false'
