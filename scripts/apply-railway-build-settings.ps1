@@ -5,10 +5,10 @@ $token = (Get-Content "$env:USERPROFILE\.railway\config.json" -Raw | ConvertFrom
 $envId = "2b783f63-147c-4ffd-a3b4-561dae688c02"
 
 $services = @(
-    @{ Id = "dfaf061c-c264-49b2-8013-a844b9182e1b"; Name = "Baserow Backend"; Config = "/deploy/railway/backend.toml" },
-    @{ Id = "e1825ca7-e907-4cfa-8b7a-8c66be4af7f2"; Name = "Baserow Frontend"; Config = "/deploy/railway/frontend.toml" },
-    @{ Id = "a7852707-f94e-4457-b703-621f58e72dcb"; Name = "Celery Worker"; Config = "/deploy/railway/celery-worker.toml" },
-    @{ Id = "982ebb27-6e89-4c97-8585-55b54190a934"; Name = "Celery Beat"; Config = "/deploy/railway/celery-beat.toml" }
+    @{ Id = "dfaf061c-c264-49b2-8013-a844b9182e1b"; Name = "Baserow Backend"; Config = "/deploy/railway/backend.toml"; Dockerfile = "Dockerfile.railway-backend" },
+    @{ Id = "e1825ca7-e907-4cfa-8b7a-8c66be4af7f2"; Name = "Baserow Frontend"; Config = "/deploy/railway/frontend.toml"; Dockerfile = "Dockerfile.railway-frontend" },
+    @{ Id = "a7852707-f94e-4457-b703-621f58e72dcb"; Name = "Celery Worker"; Config = "/deploy/railway/celery-worker.toml"; Dockerfile = "Dockerfile.railway-backend"; Start = "/baserow/backend/docker/docker-entrypoint.sh celery-worker" },
+    @{ Id = "982ebb27-6e89-4c97-8585-55b54190a934"; Name = "Celery Beat"; Config = "/deploy/railway/celery-beat.toml"; Dockerfile = "Dockerfile.railway-backend"; Start = "/baserow/backend/docker/docker-entrypoint.sh celery-beat" }
 )
 
 function Invoke-RailwayGql($Query, $Variables) {
@@ -22,13 +22,17 @@ function Invoke-RailwayGql($Query, $Variables) {
 }
 
 foreach ($svc in $services) {
+    $input = @{
+        rootDirectory = "baserow"
+        railwayConfigFile = $svc.Config
+        dockerfilePath = $svc.Dockerfile
+    }
+    if ($svc.Start) { $input.startCommand = $svc.Start }
+
     $r = Invoke-RailwayGql 'mutation($serviceId: String!, $environmentId: String!, $input: ServiceInstanceUpdateInput!) { serviceInstanceUpdate(serviceId: $serviceId, environmentId: $environmentId, input: $input) }' @{
         serviceId = $svc.Id
         environmentId = $envId
-        input = @{
-            rootDirectory = "baserow"
-            railwayConfigFile = $svc.Config
-        }
+        input = $input
     }
     if ($r.errors) { throw "$($svc.Name): $($r.errors[0].message)" }
     Write-Host "[OK] $($svc.Name) -> root=baserow, config=$($svc.Config)" -ForegroundColor Green

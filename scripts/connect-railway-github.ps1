@@ -25,6 +25,8 @@ function Invoke-RailwayGql($Query, $Variables) {
     } finally { Remove-Item $tmp -Force -ErrorAction SilentlyContinue }
 }
 
+& (Join-Path $PSScriptRoot "apply-railway-build-settings.ps1")
+
 foreach ($id in $services) {
     $r = Invoke-RailwayGql 'mutation($id: String!, $input: ServiceConnectInput!) { serviceConnect(id: $id, input: $input) { id } }' @{
         id = $id; input = @{ repo = $repo; branch = $branch }
