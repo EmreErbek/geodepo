@@ -1,7 +1,9 @@
 from django.apps import AppConfig
 from django.conf import settings
+from django.db import connection
 from django.db.models import Q
 from django.db.models.signals import post_migrate, pre_migrate
+from django.db.utils import IntegrityError
 
 from health_check.storage.backends import DefaultFileStorageHealthCheck
 
@@ -599,6 +601,25 @@ def start_sync_templates_task_after_migrate(sender, **kwargs):
         sync_templates_task.delay()
 
 
+def _delete_leftover_plugin_operation_refs(operation_ids):
+    leftover_tables = (
+        "baserow_enterprise_role_operations",
+        "baserow_premium_role_operations",
+    )
+    with connection.cursor() as cursor:
+        for table in leftover_tables:
+            cursor.execute(
+                "SELECT 1 FROM information_schema.tables WHERE table_name = %s LIMIT 1",
+                [table],
+            )
+            if cursor.fetchone() is None:
+                continue
+            cursor.execute(
+                f'DELETE FROM "{table}" WHERE operation_id = ANY(%s)',
+                [operation_ids],
+            )
+
+
 def sync_operations_after_migrate(sender, **kwargs):
     apps = kwargs.get("apps", None)
 
@@ -621,8 +642,13 @@ def sync_operations_after_migrate(sender, **kwargs):
             print(f"Created {len(inserted_count)} operations...")
 
             # Delete any existing operations which aren't in the registry.
-            _, deletions = Operation.objects.filter(
-                ~Q(name__in=all_operation_types)
-            ).delete()
+            orphaned_ops = Operation.objects.filter(~Q(name__in=all_operation_types))
+            try:
+                _, deletions = orphaned_ops.delete()
+            except IntegrityError:
+                orphaned_ids = list(orphaned_ops.values_list("id", flat=True))
+                if orphaned_ids:
+                    _delete_leftover_plugin_operation_refs(orphaned_ids)
+                _, deletions = orphaned_ops.delete()
             ops_deleted = deletions.get("core.Operation", 0)
             print(f"Deleted {ops_deleted} un-registered operations...")
