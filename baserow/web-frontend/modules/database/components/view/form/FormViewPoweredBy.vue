@@ -2,13 +2,13 @@
   <div class="form-view__powered-by">
     Powered by
     <a
-      href="https://baserow.io"
+      href="https://geoproje.com.tr"
       target="_blank"
-      title="Baserow - open source no-code database tool and Airtable alternative"
+      title="Geoproje"
     >
       <Logo
         class="form-view__powered-by-logo"
-        alt="Baserow - open source no-code database tool and Airtable alternative"
+        alt="Geoproje"
       />
     </a>
   </div>

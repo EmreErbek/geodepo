@@ -101,7 +101,40 @@ function Update-GeoprojeBranding {
         [System.IO.File]::WriteAllText($path, $text)
     }
 
-    Write-Host "Guncellendi: Geoproje markasi (locale + UI)" -ForegroundColor Green
+    $logoSvg = @'
+<svg xmlns="http://www.w3.org/2000/svg" width="176" height="29" viewBox="0 0 176 29">
+  <defs>
+    <clipPath id="clip-logo">
+      <rect width="176" height="29"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#clip-logo)">
+    <g transform="translate(0.016 0.1)">
+      <path d="M1.559,0H16.526a1.559,1.559,0,0,1,1.559,1.559V5.611A1.559,1.559,0,0,1,16.526,7.17H1.559A1.559,1.559,0,0,1,0,5.611V1.559A1.559,1.559,0,0,1,1.559,0Z" transform="translate(18.169 28.835) rotate(180)" fill="#4d68c4"/>
+      <path d="M1.559,0H27.441A1.559,1.559,0,0,1,29,1.559V5.611A1.559,1.559,0,0,1,27.441,7.17H1.559A1.559,1.559,0,0,1,0,5.611V1.559A1.559,1.559,0,0,1,1.559,0Z" transform="translate(29.084 18.002) rotate(180)" fill="#5190ef"/>
+      <path d="M1.559,0H16.526a1.559,1.559,0,0,1,1.559,1.559V5.611A1.559,1.559,0,0,1,16.526,7.17H1.559A1.559,1.559,0,0,1,0,5.611V1.559A1.559,1.559,0,0,1,1.559,0Z" transform="translate(29.084 7.17) rotate(180)" fill="#2bc3f1"/>
+      <path d="M1.559,0H5.611A1.559,1.559,0,0,1,7.17,1.559V5.611A1.559,1.559,0,0,1,5.611,7.17H1.559A1.559,1.559,0,0,1,0,5.611V1.559A1.559,1.559,0,0,1,1.559,0Z" transform="translate(29.084 28.835) rotate(180)" fill="#4d68c4"/>
+      <path d="M1.559,0H5.611A1.559,1.559,0,0,1,7.17,1.559V5.611A1.559,1.559,0,0,1,5.611,7.17H1.559A1.559,1.559,0,0,1,0,5.611V1.559A1.559,1.559,0,0,1,1.559,0Z" transform="translate(0.084 0)" fill="#2bc3f1"/>
+      <text x="38" y="21" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="16.5" font-weight="600" fill="#202128">Geoproje</text>
+    </g>
+  </g>
+</svg>
+'@
+    $logoWhiteSvg = $logoSvg -replace 'clip-logo', 'clip-logo_white' -replace 'fill="#202128">Geoproje', 'fill="#ffffff">Geoproje'
+    foreach ($rel in @(
+        "web-frontend\modules\core\static\img\logo.svg",
+        "web-frontend\modules\core\server\public\img\logo.svg"
+    )) {
+        [System.IO.File]::WriteAllText((Join-Path $BaserowDir $rel), $logoSvg)
+    }
+    foreach ($rel in @(
+        "web-frontend\modules\core\static\img\logo-white.svg",
+        "web-frontend\modules\core\server\public\img\logo-white.svg"
+    )) {
+        [System.IO.File]::WriteAllText((Join-Path $BaserowDir $rel), $logoWhiteSvg)
+    }
+
+    Write-Host "Guncellendi: Geoproje markasi (locale + UI + logo)" -ForegroundColor Green
 }
 
 function Update-DeployConfigs {
