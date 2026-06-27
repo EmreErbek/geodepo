@@ -1,0 +1,71 @@
+class BaserowFormulaException(Exception):
+    pass
+
+
+class FormulaFunctionTypeDoesNotExist(Exception):
+    """
+    Raised when trying to get a formula function from the registry that doesn't
+    exist.
+    """
+
+
+class InvalidNumberOfArguments(BaserowFormulaException):
+    def __init__(self, function_def, num_args):
+        if num_args == 1:
+            error_prefix = "1 argument was"
+        else:
+            error_prefix = f"{num_args} arguments were"
+
+        if function_def.num_args is None:
+            # This function doesn't take a specific set of `args`, but instead a
+            # variable number of arguments with a minimum number of args.
+            expected = f"at least {function_def.min_args}"
+        else:
+            expected = str(function_def.num_args)
+
+        super().__init__(
+            f"{error_prefix} given to the '{function_def.type}' function, it must "
+            f"instead be given {expected}"
+        )
+
+
+class InvalidFormulaArgumentType(BaserowFormulaException):
+    def __init__(self, function_def, arg):
+        super().__init__(
+            f"The argument {arg} given to the function {function_def} is of the "
+            f"wrong type"
+        )
+
+
+class MaximumFormulaSizeError(BaserowFormulaException):
+    def __init__(self):
+        super().__init__("it exceeded the maximum formula size")
+
+
+class UnknownFieldByIdReference(BaserowFormulaException):
+    def __init__(self, unknown_field_id):
+        super().__init__(
+            f"there is no field with id {unknown_field_id} but the formula"
+            f" included a direct reference to it"
+        )
+
+
+class FieldByIdReferencesAreDeprecated(BaserowFormulaException):
+    def __init__(self):
+        super().__init__(
+            "It is no longer possible to reference a field by it's ID in the Baserow"
+            "formula language."
+        )
+
+
+class UnknownOperator(BaserowFormulaException):
+    def __init__(self, operator_text):
+        super().__init__(f"it used the unknown operator {operator_text}")
+
+
+class BaserowFormulaSyntaxError(BaserowFormulaException):
+    pass
+
+
+class BaserowFormulaExecuteError(BaserowFormulaException):
+    pass

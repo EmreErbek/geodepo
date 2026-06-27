@@ -1,0 +1,65 @@
+# GEO_DEPO - Kaynak koddan uretim benzeri lokal test (Railway build'i oncesi)
+# Kullanim: docker compose -f docker-compose.source.yml up --build
+
+services:
+  db:
+    image: pgvector/pgvector:pg15
+    environment:
+      POSTGRES_USER: baserow
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-baserow}
+      POSTGRES_DB: baserow
+    volumes:
+      - pgdata_prod:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  redis:
+    image: redis:6
+    command: redis-server --requirepass ${REDIS_PASSWORD:-baserow}
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./baserow
+      dockerfile: backend/Dockerfile
+      target: prod
+    environment:
+      SECRET_KEY: ${SECRET_KEY:-change-me-in-env}
+      DATABASE_HOST: db
+      DATABASE_NAME: baserow
+      DATABASE_USER: baserow
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-baserow}
+      DATABASE_PORT: 5432
+      REDIS_HOST: redis
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-baserow}
+      REDIS_PORT: 6379
+      PUBLIC_BACKEND_URL: http://localhost:8000
+      PUBLIC_WEB_FRONTEND_URL: http://localhost:3000
+      BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION: "false"
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - media_prod:/baserow/media
+    depends_on:
+      - db
+      - redis
+    restart: unless-stopped
+
+  web-frontend:
+    build:
+      context: ./baserow
+      dockerfile: web-frontend/Dockerfile
+      target: prod
+    environment:
+      PRIVATE_BACKEND_URL: http://backend:8000
+      PUBLIC_BACKEND_URL: http://localhost:8000
+      PUBLIC_WEB_FRONTEND_URL: http://localhost:3000
+      BASEROW_DISABLE_PUBLIC_URL_CHECK: "true"
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  pgdata_prod:
+  media_prod:

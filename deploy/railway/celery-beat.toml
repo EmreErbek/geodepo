@@ -1,0 +1,19 @@
+# Railway > Celery Beat
+# Servis ayarlari:
+#   Root Directory: baserow
+#   Config File:    /deploy/railway/celery-beat.toml
+
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "backend/Dockerfile"
+watchPatterns = [
+  "backend/**",
+  "premium/backend/**",
+  "enterprise/backend/**",
+  "deploy/**",
+]
+
+[deploy]
+startCommand = "/baserow/backend/docker/docker-entrypoint.sh celery-beat"
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 5

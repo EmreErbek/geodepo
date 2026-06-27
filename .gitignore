@@ -1,0 +1,12 @@
+.env
+.env.local
+*.log
+
+# Railway / arac ciktilari
+agent-tools/
+terminals/
+.railway-config-pull-*/
+
+# OS
+Thumbs.db
+.DS_Store

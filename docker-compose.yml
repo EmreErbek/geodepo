@@ -1,0 +1,90 @@
+# GEO_DEPO - Baserow kaynak koddan lokal calistirma (gelistirme modu)
+#
+# Ilk kurulum:
+#   scripts/setup-baserow-source.ps1
+#   scripts/start-local-dev.ps1
+#
+# Kod degisiklikleri canli yansir (bind mount). Uretim benzeri test icin:
+#   docker compose -f docker-compose.source.yml up --build
+
+services:
+  db:
+    image: pgvector/pgvector:pg15
+    environment:
+      POSTGRES_USER: baserow
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-baserow}
+      POSTGRES_DB: baserow
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  redis:
+    image: redis:6
+    command: redis-server --requirepass ${REDIS_PASSWORD:-baserow}
+    ports:
+      - "127.0.0.1:6379:6379"
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./baserow
+      dockerfile: backend/Dockerfile
+      target: dev
+    image: geo_depo_backend:dev
+    environment:
+      SECRET_KEY: ${SECRET_KEY:-change-me-in-env}
+      DATABASE_HOST: db
+      DATABASE_NAME: baserow
+      DATABASE_USER: baserow
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-baserow}
+      DATABASE_PORT: 5432
+      REDIS_HOST: redis
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-baserow}
+      REDIS_PORT: 6379
+      PUBLIC_BACKEND_URL: http://localhost:8000
+      PUBLIC_WEB_FRONTEND_URL: http://localhost:3000
+      BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION: "false"
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - ./baserow/backend:/baserow/backend
+      - ./baserow/premium/backend:/baserow/premium/backend
+      - ./baserow/enterprise/backend:/baserow/enterprise/backend
+      - ./baserow/docs:/baserow/docs
+      - media:/baserow/media
+    depends_on:
+      - db
+      - redis
+    restart: unless-stopped
+
+  web-frontend:
+    build:
+      context: ./baserow
+      dockerfile: web-frontend/Dockerfile
+      target: dev
+    image: geo_depo_web-frontend:dev
+    command: nuxt-dev
+    environment:
+      PRIVATE_BACKEND_URL: http://backend:8000
+      PUBLIC_BACKEND_URL: http://localhost:8000
+      PUBLIC_WEB_FRONTEND_URL: http://localhost:3000
+      BASEROW_DISABLE_PUBLIC_URL_CHECK: "true"
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - ./baserow/web-frontend:/baserow/web-frontend
+      - ./baserow/premium/web-frontend:/baserow/premium/web-frontend
+      - ./baserow/enterprise/web-frontend:/baserow/enterprise/web-frontend
+      - web_node_modules:/baserow/web-frontend/node_modules
+      - web_nuxt:/baserow/web-frontend/.nuxt
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  media:
+  web_node_modules:
+  web_nuxt:

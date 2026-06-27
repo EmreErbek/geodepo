@@ -1,0 +1,19 @@
+# Railway > Celery Worker
+# Servis ayarlari:
+#   Root Directory: baserow
+#   Config File:    /deploy/railway/celery-worker.toml
+
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "backend/Dockerfile"
+watchPatterns = [
+  "backend/**",
+  "premium/backend/**",
+  "enterprise/backend/**",
+  "deploy/**",
+]
+
+[deploy]
+startCommand = "/baserow/backend/docker/docker-entrypoint.sh celery-worker"
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 5

@@ -1,0 +1,20 @@
+# Railway > Baserow Backend
+# Servis ayarlari:
+#   Root Directory: baserow
+#   Config File:    /deploy/railway/backend.toml
+
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "backend/Dockerfile"
+watchPatterns = [
+  "backend/**",
+  "premium/backend/**",
+  "enterprise/backend/**",
+  "deploy/**",
+]
+
+[deploy]
+healthcheckPath = "/api/_health/"
+healthcheckTimeout = 300
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 5
