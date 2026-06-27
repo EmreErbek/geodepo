@@ -46,6 +46,7 @@ ENV UV_PYTHON_DOWNLOADS=0 \
     UV_VERBOSE=1 \
     PYTHONUNBUFFERED=1 \
     PATH="/baserow/venv/bin:$PATH" \
+    PYTHONPATH="/baserow/backend/src"
 
 # hadolint ignore=DL3022
 COPY --from=ghcr.io/astral-sh/uv:0.9.26 /uv /uvx /bin/
@@ -165,6 +166,8 @@ ENV DOCKER_USER=baserow_docker_user \
     UV_PROJECT_ENVIRONMENT=/baserow/venv \
     UV_CACHE_DIR=/tmp/baserow_uv_cache \
     PATH="/baserow/venv/bin:$PATH" \
+    PYTHONPATH="/baserow/backend/src:/baserow/backend/tests" \
+    DJANGO_SETTINGS_MODULE='baserow.config.settings.test'
 
 RUN groupadd --system --gid $GID ${DOCKER_USER} && \
       useradd --shell /bin/bash -l -u $UID -g $GID -o -c "" -d /baserow -m ${DOCKER_USER} && \
@@ -176,6 +179,7 @@ COPY --from=tool-builder /usr/bin/tini /usr/bin/tini
 COPY --from=ghcr.io/astral-sh/uv:0.9.26 /uv /uvx /bin/
 
 # Create baserow directory structure (including subdirs for COPY targets)
+    chown -R $UID:$GID /baserow/
 
 # Copy the virtual environment and source code with tests
 COPY --chown=$UID:$GID --from=builder-ci /baserow /baserow
@@ -229,6 +233,8 @@ ENV DOCKER_USER=baserow_docker_user \
     UV_CACHE_DIR=/tmp/baserow_uv_cache_dev \
     PYTHONUNBUFFERED=1 \
     PATH=/baserow/venv/bin:$PATH \
+    PYTHONPATH="/baserow/backend/src:/baserow/backend/tests" \
+    DJANGO_SETTINGS_MODULE=baserow.config.settings.dev
 
 RUN getent group $GID || groupadd --system --gid $GID ${DOCKER_USER} && \
     useradd --shell /bin/bash -l -u $UID -g $GID -o -c "" -d /baserow -m ${DOCKER_USER} && \
@@ -243,6 +249,7 @@ COPY --from=tool-builder /usr/bin/dos2unix /usr/local/bin/dos2unix
 COPY --from=ghcr.io/astral-sh/uv:0.9.26 /uv /uvx /bin/
 
 # Create directory structure to install dependencies
+    chown -R $UID:$GID /baserow/
 
 USER $UID:$GID
 WORKDIR /baserow/backend
@@ -292,6 +299,9 @@ ENV POSTGRES_VERSION=15 \
     UV_PROJECT_ENVIRONMENT=/baserow/venv \
     PYTHONUNBUFFERED=1 \
     PATH="/baserow/venv/bin:$PATH" \
+    PYTHONPATH="/baserow/backend/src" \
+    DJANGO_SETTINGS_MODULE='baserow.config.settings.base' \
+    BASEROW_OSS_ONLY=true
 
 # Runtime dependencies only
 RUN apt-get update && \
@@ -325,6 +335,7 @@ COPY --chown=$UID:$GID --from=builder-prod /baserow/backend /baserow/backend/
 COPY --chown=$UID:$GID ./docs /baserow/docs/
 
 # Remove application tests and dev-only directories
+
 COPY --chown=$UID:$GID deploy/plugins/*.sh /baserow/plugins/
 
 USER $UID:$GID
@@ -335,7 +346,7 @@ ENTRYPOINT ["/usr/bin/tini", "--", "/bin/bash", "/baserow/backend/docker/docker-
 CMD ["gunicorn"]
 
 
-ENV BASEROW_OSS_ONLY=true
 FROM local AS prod
 
+ENV BASEROW_OSS_ONLY=true
 CMD ["gunicorn"]

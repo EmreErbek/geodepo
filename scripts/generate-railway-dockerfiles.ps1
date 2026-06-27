@@ -149,19 +149,32 @@ function Remove-PremiumEnterpriseFromDockerfile {
     $skipping = $false
 
     foreach ($line in $lines) {
-        if ($line -match '(?i)premium|enterprise') {
-            if ($line -match '\\\s*$') { $skipping = $true }
-            continue
-        }
         if ($skipping) {
             if ($line -notmatch '\\\s*$') { $skipping = $false }
+            if ($skipping) { continue }
+        }
+
+        if ($line -match 'PYTHONPATH=.*(premium|enterprise)') {
+            $suffix = if ($line -match '\\\s*$') { ' \' } else { '' }
+            if ($line -match 'tests') {
+                $line = "    PYTHONPATH=`"/baserow/backend/src:/baserow/backend/tests`"$suffix"
+            } else {
+                $line = "    PYTHONPATH=`"/baserow/backend/src`"$suffix"
+            }
+            $result.Add($line)
             continue
         }
 
+        if ($line -match '(?i)(COPY|RUN ln -s|RUN mkdir|rm -rf|--from=builder-prod /baserow/premium|/baserow/enterprise)') {
+            if ($line -match '(?i)premium|enterprise') {
+                if ($line -match '\\\s*$') { $skipping = $true }
+                continue
+            }
+        }
+
+        if ($line -match '(?i)premium|enterprise') { continue }
+
         $fixed = $line
-        $fixed = $fixed -replace 'PYTHONPATH="/baserow/backend/src:/baserow/premium/backend/src:/baserow/enterprise/backend/src"', 'PYTHONPATH="/baserow/backend/src"'
-        $fixed = $fixed -replace 'PYTHONPATH="/baserow/backend/src:/baserow/premium/backend/src:/baserow/enterprise/backend/src:/baserow/backend/tests:/baserow/premium/backend/tests:/baserow/enterprise/backend/tests"', 'PYTHONPATH="/baserow/backend/src:/baserow/backend/tests"'
-        $fixed = $fixed -replace 'PYTHONPATH=/baserow/backend/src:/baserow/premium/backend/src:/baserow/enterprise/backend/src:/baserow/backend/tests:/baserow/premium/backend/tests:/baserow/enterprise/backend/tests', 'PYTHONPATH=/baserow/backend/src:/baserow/backend/tests'
         $fixed = $fixed -replace 'RUN mkdir -p /baserow/web-frontend /baserow/premium/web-frontend /baserow/enterprise/web-frontend', 'RUN mkdir -p /baserow/web-frontend'
         $fixed = $fixed -replace 'RUN mkdir -p /baserow/backend/docker /baserow/premium/ /baserow/enterprise/ /baserow/media', 'RUN mkdir -p /baserow/backend/docker /baserow/media'
         $fixed = $fixed -replace 'RUN mkdir -p /baserow/backend/reports /baserow/premium/backend /baserow/enterprise/backend /baserow/media', 'RUN mkdir -p /baserow/backend/reports /baserow/media'
@@ -172,8 +185,8 @@ function Remove-PremiumEnterpriseFromDockerfile {
     if ($IsFrontend -and $content -notmatch 'ENV BASEROW_OSS_ONLY=true') {
         $content = $content -replace '(RUN yarn run build)', "ENV BASEROW_OSS_ONLY=true`n`$1"
     }
-    if (-not $IsFrontend -and $content -notmatch 'ENV BASEROW_OSS_ONLY=true') {
-        $content = $content -replace '(FROM local AS prod)', "ENV BASEROW_OSS_ONLY=true`n`$1"
+    if (-not $IsFrontend -and $content -notmatch 'DJANGO_SETTINGS_MODULE=''baserow.config.settings.base''') {
+        $content = $content -replace '(PATH="/baserow/venv/bin:\$PATH" \\\r?\n)(\r?\n# Runtime dependencies only)', "`$1    PYTHONPATH=`"/baserow/backend/src`" \`n    DJANGO_SETTINGS_MODULE='baserow.config.settings.base' \`n    BASEROW_OSS_ONLY=true`n`$2"
     }
 
     [System.IO.File]::WriteAllText($DockerfilePath, $content)
