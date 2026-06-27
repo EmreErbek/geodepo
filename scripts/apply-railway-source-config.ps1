@@ -61,13 +61,6 @@ foreach ($svc in $services) {
     Write-Host ""
     Write-Host "=== $($svc.Name) ===" -ForegroundColor Cyan
 
-    $disconnect = Invoke-RailwayGql -Query 'mutation($id: String!) { serviceDisconnect(id: $id) { id } }' -Variables @{ id = $svc.Id }
-    if ($disconnect.errors) {
-        Write-Host "Disconnect uyari: $($disconnect.errors[0].message)" -ForegroundColor Yellow
-    } else {
-        Write-Host "Docker image baglantisi kesildi."
-    }
-
     $connect = Invoke-RailwayGql -Query 'mutation($id: String!, $input: ServiceConnectInput!) { serviceConnect(id: $id, input: $input) { id } }' -Variables @{
         id = $svc.Id
         input = @{ repo = $repo; branch = $branch }
