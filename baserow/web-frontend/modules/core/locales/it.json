@@ -229,14 +229,14 @@
         "title": "Dashboard",
         "alertTitle": "Aiutaci!",
         "alertText": "Il tuo feedback è importante per noi, per aiutarci a migliorare il prodotto e a renderlo migliore.",
-        "tweetContent": "Dai un'occhiata a {'@'}baserow, uno strumento di database open source senza codice e un'alternativa a Airtable!",
-        "redditTitle": "Baserow - Un database open source senza codice",
+        "tweetContent": "Dai un'occhiata a {'@'}Geoproje, uno strumento di database open source senza codice e un'alternativa a Airtable!",
+        "redditTitle": "Geoproje - Un database open source senza codice",
         "noWorkspaceTitle": "Nessun progetto",
         "noWorkspaceText": "Non sei membro di nessun progetto. Applicazioni come i database appartengono a un progetto, quindi per crearli devi creare un progetto.",
         "createWorkspace": "Crea progetto",
         "becomeGithubSponsor": "Diventa uno sponsor GitHub",
         "starOnGitlab": "Valutaci su Gitlab",
-        "shareOnTwitter": "Invia un tweet su Baserow",
+        "shareOnTwitter": "Invia un tweet su Geoproje",
         "shareOnReddit": "Condividi su Reddit",
         "shareOnFacebook": "Condividi su Facebook",
         "shareOnLinkedIn": "Condividi su LinkedIn",
@@ -246,7 +246,7 @@
         "knowledgeBase": "Documentazione",
         "knowledgeBaseMessage": "Trova risposta alle tue domande",
         "tutorials": "Tutorial",
-        "tutorialsMessage": "Scopri il potenziale di Baserow",
+        "tutorialsMessage": "Scopri il potenziale di Geoproje",
         "apiDocumentation": "Documentazione API",
         "apiDocumentationMessage": "Scopri di più sul nostro codice",
         "emptyWorkspace": "Questo progetto è vuoto",
@@ -283,7 +283,7 @@
         "title": "Registrati",
         "disabled": "Registrazione disabilitata",
         "disabledMessage": "Non è possibile creare un account perché è stato disabilitato.",
-        "requireFirstUser": "Benvenuto su Baserow!",
+        "requireFirstUser": "Benvenuto su Geoproje!",
         "requireFirstUserMessage": "Per favore, riempi i campi qui sotto per creare un nuovo account con i permessi di admin.",
         "namePlaceholder": "Inserisci il tuo nome..",
         "passwordRepeatPlaceholder": "Conferma la password..",
@@ -303,14 +303,14 @@
     },
     "settings": {
         "settingsTitle": "Impostazioni admin",
-        "baserowInstanceId": "ID istanza",
-        "instanceIdDescription": "L'ID dell'istanza è l'identificatore univoco della tua copia di Baserow.",
+        "GeoprojeInstanceId": "ID istanza",
+        "instanceIdDescription": "L'ID dell'istanza è l'identificatore univoco della tua copia di Geoproje.",
         "accountRestrictions": "Limitazioni account",
         "settingAllowResetPasswordName": "Permetti il reset della password",
         "settingAllowResetPasswordDescription": "Di default, gli utenti possono chiedere il reset della password tramite link.",
         "settingAllowResetPasswordWarning": "Fai attenzione che potrebbe diventare impossibile eseguire l'accesso al sistema se dimentichi la password una volta disabilitata l'opzione per il reset.",
         "settingAllowNewAccountsName": "Consenti la creazione di nuovi account",
-        "settingAllowNewAccountsDescription": "Per impostazione predefinita, qualsiasi utente che visita il tuo dominio Baserow può registrarsi per un nuovo account.",
+        "settingAllowNewAccountsDescription": "Per impostazione predefinita, qualsiasi utente che visita il tuo dominio Geoproje può registrarsi per un nuovo account.",
         "settingAllowSignupsViaWorkspaceInvitationsName": "Consenti l'iscrizione tramite inviti di progetto",
         "settingAllowSignupsViaWorkspaceInvitationDescription": "Anche se la creazione di nuovi account è disabilitata, questa opzione permette agli utenti invitati direttamente di creare un account.",
         "enabled": "abilitato",
@@ -330,8 +330,8 @@
         "emailVerificationRecommended": "Raccomandata",
         "emailVerificationDescription": "Controlla se l'indirizzo email deve essere verificato.",
         "emailVerification": "Verifica email",
-        "baserowVersion": "Versione",
-        "baserowVersionDescription": "Il numero di versione dell'applicazione per questa istanza."
+        "GeoprojeVersion": "Versione",
+        "GeoprojeVersionDescription": "Il numero di versione dell'applicazione per questa istanza."
     },
     "undoRedoNotification": {
         "undoingTitle": "Annullando..",
@@ -584,7 +584,7 @@
     "notificationPanel": {
         "title": "Notifiche",
         "noNotificationTitle": "Non hai nessuna notifica",
-        "noNotification": "Ti invieremo una notifica per aggiornamenti importanti o quando vieni taggato in Baserow.",
+        "noNotification": "Ti invieremo una notifica per aggiornamenti importanti o quando vieni taggato in Geoproje.",
         "markAllAsRead": "Segna tutte come lette",
         "clearAll": "Elimina tutte",
         "newNotificationsAvailable": "Nuova notifica disponibile",
@@ -592,7 +592,7 @@
     },
     "userSessionExpiredToast": {
         "title": "Sessione scaduta",
-        "content": "Sei stato disconnesso perchè il token per la tua sessione è scaduto. Effettua il login nuovamente per tornare ad utilizzare Baserow."
+        "content": "Sei stato disconnesso perchè il token per la tua sessione è scaduto. Effettua il login nuovamente per tornare ad utilizzare Geoproje."
     },
     "copyingToast": {
         "title": "Copiando...",
@@ -729,7 +729,7 @@
     "generativeAIModelType": {
         "openaiOrganization": "Organizzazione (opzionale)",
         "openaiModelsLabel": "Modelli abilitati",
-        "openaiModelsDescription": "Fornire un elenco di [modelli OpenAI](https://platform.openai.com/docs/models/continuous-model-upgrades) separati da virgole che possono essere utilizzati in Baserow. (ad esempio `gpt-3.5-turbo,gpt-4`)",
+        "openaiModelsDescription": "Fornire un elenco di [modelli OpenAI](https://platform.openai.com/docs/models/continuous-model-upgrades) separati da virgole che possono essere utilizzati in Geoproje. (ad esempio `gpt-3.5-turbo,gpt-4`)",
         "ollama": "Ollama",
         "ollamaHostLabel": "Host",
         "ollamaModelsLabel": "Modelli abilitati",
@@ -789,7 +789,7 @@
         "title": "Raccontaci di più",
         "roleOrJob": "Ruolo o titolo...",
         "people": "Quante persone siete in azienda?",
-        "share": "Accetto di condividere queste informazioni con il team di Baserow per migliorare il prodotto",
+        "share": "Accetto di condividere queste informazioni con il team di Geoproje per migliorare il prodotto",
         "country": "Paese"
     },
     "teamStep": {
@@ -960,7 +960,7 @@
     },
     "mcpEndpoint": {
         "windsurfInstructions": "Due passaggi semplici per impostare MCP con Cascase in Windsurf.\n\n1. Vai a Windsurf - Impostazioni -> Impostazioni Avanzate o Command Palette -> Apri la pagina delle impostazioni di Windsurf.\n2. Scorri verso il basso fino alla sezione Cascade e troverai l'opzione per aggiungere un nuovo server, visualizzare i server esistenti e un pulsante per visualizzare il file di configurazione JSON grezzo a `mcp_config.json`. Aggiungi quanto segue ad esso:",
-        "claudeInstructions": "Tre passaggi semplici per iniziare con Claude Desktop e il Baserow MCP.\n\n1. Apri le impostazioni di Claude Desktop dalla barra di navigazione. (⌘+,)\n2. Vai alla scheda \"Develop\" e clicca su \"Edit Config\".\n3. Includi la seguente configurazione JSON in `claude_desktop_config.json`."
+        "claudeInstructions": "Tre passaggi semplici per iniziare con Claude Desktop e il Geoproje MCP.\n\n1. Apri le impostazioni di Claude Desktop dalla barra di navigazione. (⌘+,)\n2. Vai alla scheda \"Develop\" e clicca su \"Edit Config\".\n3. Includi la seguente configurazione JSON in `claude_desktop_config.json`."
     },
     "saveBackupCode": {
         "description": "Se perdi l'accesso alla tua app di autenticazione o al telefono e non puoi ricevere o generare codici di autenticazione, puoi usare questo backup. Puoi usarlo solo una volta. Assicurati di scriverlo o copiarlo in un luogo sicuro in modo da poterlo accedere senza effettuare l'accesso."
@@ -969,6 +969,6 @@
         "content": "La barra laterale sinistra ti aiuta a gestire il tuo spazio di lavoro:\n\n- Home – Accedi alla tua dashboard principale.\n- Notifiche – Rimani aggiornato su cambiamenti e menzioni.\n- Invita Membri – Collabora aggiungendo membri del team.\n- Cestino – Elenca e recupera tutti i tuoi elementi eliminati."
     },
     "mcpEndpointSettings": {
-        "noEndpointsMessage": "Nessun endpoint del server MCP (Model Context Protocol) è stato aggiunto. Questi possono essere usati per integrare direttamente con un LLM come Claude e permettere all'LLM di eseguire azioni direttamente in Baserow. Crea un endpoint del server per iniziare."
+        "noEndpointsMessage": "Nessun endpoint del server MCP (Model Context Protocol) è stato aggiunto. Questi possono essere usati per integrare direttamente con un LLM come Claude e permettere all'LLM di eseguire azioni direttamente in Geoproje. Crea un endpoint del server per iniziare."
     }
 }

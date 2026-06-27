@@ -75,7 +75,7 @@ foreach ($svc in $services) {
         railwayConfigFile = $svc.Config
         dockerfilePath = $svc.Dockerfile
         builder = "DOCKERFILE"
-        watchPatterns = @("backend/**", "premium/**", "enterprise/**", "web-frontend/**", "deploy/**")
+        watchPatterns = @("backend/**", "web-frontend/**", "deploy/**")
     }
     if ($svc.Start) { $input.startCommand = $svc.Start }
 

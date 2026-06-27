@@ -3,7 +3,7 @@
         "title": "Workflow"
     },
     "automationWelcomeGuidedTourStep": {
-        "title": "Willkommen bei Baserow Automatisierungen!",
+        "title": "Willkommen bei Geoproje Automatisierungen!",
         "content": "Machen wir eine kurze Tour. Sie sehen, wie Sie Trigger einrichten, Aktionen hinzufügen, Ihren Workflow testen und veröffentlichen — ganz ohne Programmierung."
     },
     "automationGraphGuidedTourStep": {
@@ -28,7 +28,7 @@
     },
     "automationDocsGuidedTourStep": {
         "title": "Dokumentation durchsuchen",
-        "content": "Wenn Sie einmal nicht weiterkommen oder mehr lernen möchten, klicken Sie auf die hervorgehobene Schaltfläche für ausführliche Anleitungen und FAQs zum Erstellen von Automatisierungen in Baserow."
+        "content": "Wenn Sie einmal nicht weiterkommen oder mehr lernen möchten, klicken Sie auf die hervorgehobene Schaltfläche für ausführliche Anleitungen und FAQs zum Erstellen von Automatisierungen in Geoproje."
     },
     "sidebarComponentAutomation": {
         "createAutomationWorkflow": "Neuer Workflow"

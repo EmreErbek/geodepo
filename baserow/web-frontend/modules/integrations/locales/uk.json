@@ -8,15 +8,15 @@
         "multipleRows": "декілька рядків"
     },
     "integrationType": {
-        "localBaserow": "Локальний Baserow",
+        "localGeoproje": "Локальний Geoproje",
         "smtp": "SMTP Email",
         "slackBot": "Slack бот",
         "ai": "ШІ"
     },
-    "localBaserowIntegrationType": {
-        "localBaserowSummary": "Локальний Baserow - {name}, {username}",
-        "localBaserowNoUser": "Локальний Baserow - Не налаштовано",
-        "localBaserowWarning": "Авторизація вашого облікового запису надає кожному, хто має дозвіл на редагування застосунку, повний доступ до даних, до яких ви маєте доступ. Можна створити другого користувача, надати йому відповідні дозволи та використовувати його."
+    "localGeoprojeIntegrationType": {
+        "localGeoprojeSummary": "Локальний Geoproje - {name}, {username}",
+        "localGeoprojeNoUser": "Локальний Geoproje - Не налаштовано",
+        "localGeoprojeWarning": "Авторизація вашого облікового запису надає кожному, хто має дозвіл на редагування застосунку, повний доступ до даних, до яких ви маєте доступ. Можна створити другого користувача, надати йому відповідні дозволи та використовувати його."
     },
     "aiIntegrationType": {
         "inheritingWorkspace": "Успадковування налаштувань ШІ робочого простору",
@@ -27,24 +27,24 @@
         "slackBotNoToken": "Slack бот - Не налаштовано"
     },
     "serviceType": {
-        "localBaserowGetRow": "Отримати один рядок",
-        "localBaserowGetRowDescription": "Прочитати один рядок з таблиці Baserow.",
-        "localBaserowListRows": "Отримати декілька рядків",
-        "localBaserowListRowsDescription": "Читає декілька рядків з таблиці Baserow.",
-        "localBaserowAggregateRows": "Підсумувати поле",
-        "localBaserowAggregateRowsDescription": "Підсумовує поле в таблиці Baserow.",
-        "localBaserowCreateRow": "Створити рядок",
-        "localBaserowCreateRowDescription": "Створює новий рядок у таблиці Baserow.",
-        "localBaserowUpdateRow": "Оновити рядок",
-        "localBaserowUpdateRowDescription": "Оновлює існуючий рядок у таблиці Baserow.",
-        "localBaserowDeleteRow": "Видалити рядок",
-        "localBaserowDeleteRowDescription": "Видаляє рядок у таблиці Baserow.",
-        "localBaserowRowsCreated": "Рядки створено",
-        "localBaserowRowsCreatedDescription": "Спрацьовує, коли рядки створюються в таблиці Baserow.",
-        "localBaserowRowsUpdated": "Рядки оновлено",
-        "localBaserowRowsUpdatedDescription": "Спрацьовує, коли рядки оновлюються в таблиці Baserow.",
-        "localBaserowRowsDeleted": "Рядки видалено",
-        "localBaserowRowsDeletedDescription": "Спрацьовує, коли рядки видаляються в таблиці Baserow.",
+        "localGeoprojeGetRow": "Отримати один рядок",
+        "localGeoprojeGetRowDescription": "Прочитати один рядок з таблиці Geoproje.",
+        "localGeoprojeListRows": "Отримати декілька рядків",
+        "localGeoprojeListRowsDescription": "Читає декілька рядків з таблиці Geoproje.",
+        "localGeoprojeAggregateRows": "Підсумувати поле",
+        "localGeoprojeAggregateRowsDescription": "Підсумовує поле в таблиці Geoproje.",
+        "localGeoprojeCreateRow": "Створити рядок",
+        "localGeoprojeCreateRowDescription": "Створює новий рядок у таблиці Geoproje.",
+        "localGeoprojeUpdateRow": "Оновити рядок",
+        "localGeoprojeUpdateRowDescription": "Оновлює існуючий рядок у таблиці Geoproje.",
+        "localGeoprojeDeleteRow": "Видалити рядок",
+        "localGeoprojeDeleteRowDescription": "Видаляє рядок у таблиці Geoproje.",
+        "localGeoprojeRowsCreated": "Рядки створено",
+        "localGeoprojeRowsCreatedDescription": "Спрацьовує, коли рядки створюються в таблиці Geoproje.",
+        "localGeoprojeRowsUpdated": "Рядки оновлено",
+        "localGeoprojeRowsUpdatedDescription": "Спрацьовує, коли рядки оновлюються в таблиці Geoproje.",
+        "localGeoprojeRowsDeleted": "Рядки видалено",
+        "localGeoprojeRowsDeletedDescription": "Спрацьовує, коли рядки видаляються в таблиці Geoproje.",
         "coreHTTPTrigger": "Отримати HTTP-запит",
         "coreHTTPTriggerDescription": "Спрацьовує, коли отримано HTTP-запит.",
         "coreHTTPRequest": "Надіслати HTTP-запит",
@@ -86,11 +86,11 @@
         "slackWriteMessageMissingIntegration": "Інтеграцію Slack не вибрано."
     },
     "userSourceType": {
-        "localBaserow": "Автентифікація через таблицю Baserow"
+        "localGeoproje": "Автентифікація через таблицю Geoproje"
     },
-    "localBaserowForm": {
+    "localGeoprojeForm": {
         "user": "Користувач",
-        "userMessage": "Створюючи це підключення, ви дозволяєте застосунку використовувати ваш обліковий запис для внесення змін у ваш локальний робочий простір Baserow."
+        "userMessage": "Створюючи це підключення, ви дозволяєте застосунку використовувати ваш обліковий запис для внесення змін у ваш локальний робочий простір Geoproje."
     },
     "aiForm": {
         "description": "Налаштуйте параметри провайдера ШІ для цієї інтеграції. За замовчуванням успадковуються налаштування ШІ робочого простору.",
@@ -120,7 +120,7 @@
         "addChoice": "Додати варіант",
         "choicesRequired": "Потрібен принаймні один варіант"
     },
-    "localBaserowGetRowForm": {
+    "localGeoprojeGetRowForm": {
         "rowFieldLabel": "ID рядка",
         "invalidFormula": "Формула недійсна",
         "rowFieldPlaceHolder": "Виберіть ідентифікатор одного рядка",
@@ -129,7 +129,7 @@
         "noTableChosenForFiltering": "Виберіть таблицю, щоб почати використовувати фільтри джерела даних.",
         "noTableChosenForSorting": "Виберіть таблицю, щоб почати використовувати сортування джерела даних."
     },
-    "localBaserowListRowsForm": {
+    "localGeoprojeListRowsForm": {
         "searchFieldPlaceHolder": "Введіть пошуковий запит...",
         "noTableChosenForFiltering": "Виберіть таблицю, щоб почати використовувати фільтри джерела даних.",
         "noTableChosenForSorting": "Виберіть таблицю, щоб почати використовувати сортування джерела даних.",
@@ -147,16 +147,16 @@
         "noTableChosenForSorting": "Виберіть таблицю, щоб почати використовувати сортування джерела даних.",
         "refinements": "Уточнення"
     },
-    "localBaserowAggregateRowsForm": {
+    "localGeoprojeAggregateRowsForm": {
         "aggregationFieldLabel": "Поле",
         "aggregationTypeLabel": "Агрегація",
         "searchFieldPlaceHolder": "Введіть пошуковий запит...",
         "noTableChosenForFiltering": "Виберіть таблицю, щоб почати використовувати фільтри джерела даних."
     },
-    "localBaserowTableServiceConditionalForm": {
+    "localGeoprojeTableServiceConditionalForm": {
         "addFilter": "Додати додатковий фільтр",
         "noFilterTitle": "Ви ще не створили фільтр джерела даних",
-        "noFilterText": "Фільтри джерела даних дозволяють показувати рядки таблиці Baserow, які відповідають вашим умовам.",
+        "noFilterText": "Фільтри джерела даних дозволяють показувати рядки таблиці Geoproje, які відповідають вашим умовам.",
         "relatedFieldNotFound": "Пов'язане поле не знайдено.",
         "filterTypeNotFound": "Тип фільтра несумісний.",
         "noCompatibleFilterTypesErrorTitle": "Немає сумісних типів фільтрів",
@@ -166,7 +166,7 @@
         "useFormulaForValue": "Використовувати формулу для цього фільтра",
         "useDefaultForValue": "Використовувати стандартний фільтр для цього поля"
     },
-    "localBaserowTableServiceSortForm": {
+    "localGeoprojeTableServiceSortForm": {
         "noSortTitle": "Ви ще не створили сортування джерела даних",
         "noSortText": "Сортування дозволяє сортувати рядки за полем.",
         "sortBy": "Сортувати за",
@@ -225,7 +225,7 @@
         "messagePlaceholder": "Введіть повідомлення...",
         "channelNoPrefix": "Видаліть \"#\" перед назвою каналу."
     },
-    "localBaserowTableSelector": {
+    "localGeoprojeTableSelector": {
         "viewFieldLabel": "Вигляд",
         "tableFieldLabel": "Таблиця",
         "chooseNoView": "Не вибрано",
@@ -315,14 +315,14 @@
         "deactivatedTitle": "Періодичний тригер деактивовано",
         "deactivatedText": "Цей періодичний тригер було автоматично деактивовано через послідовні невдачі."
     },
-    "localBaserowServiceForm": {
+    "localGeoprojeServiceForm": {
         "integrationDropdownLabel": "Інтеграція",
         "rowIdLabel": "ID рядка",
         "rowIdPlaceholder": "Виберіть ідентифікатор одного рядка"
     },
-    "localBaserowUpsertRowServiceForm": {
+    "localGeoprojeUpsertRowServiceForm": {
         "fieldMappingPlaceholderArray": "Виберіть значення масиву, наприклад [42]",
-        "fieldMappingPlaceholderString": "Виберіть рядкове значення, наприклад \\'baserow\\'",
+        "fieldMappingPlaceholderString": "Виберіть рядкове значення, наприклад \\'Geoproje\\'",
         "fieldMappingPlaceholderNumber": "Виберіть числове значення, наприклад 42",
         "fieldMappingPlaceholderBoolean": "Виберіть булеве значення, наприклад true",
         "fieldMappingPlaceholderDate": "Виберіть значення дати, наприклад 2025-07-25",

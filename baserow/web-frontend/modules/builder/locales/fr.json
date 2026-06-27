@@ -695,7 +695,7 @@
         "loggedInVisitors": "Visiteurs connectés",
         "notLoggedInVisitors": "Visiteurs déconnectés",
         "warningTitle": "C'est un dispositif de sécurité",
-        "warningMessage": "Veuillez consulter la &lt;a href='https://baserow.io/user-docs/application-builder-element-visibility#note-accessing-hidden-data-via-api' target='_blank'&gt;documentation&lt;/a&gt; pour plus d'informations sur la sécurité des données.",
+        "warningMessage": "Veuillez consulter la &lt;a href='https://Geoproje.io/user-docs/application-builder-element-visibility#note-accessing-hidden-data-via-api' target='_blank'&gt;documentation&lt;/a&gt; pour plus d'informations sur la sécurité des données.",
         "excludedRolesLabel": "tous les rôles sauf",
         "switchAllowLabel": "Autoriser",
         "switchDisallowLabel": "Interdir",
@@ -935,7 +935,7 @@
         "horizontalSeparatorSize": "Taille horizontale",
         "fontWeight": "Graisse de la police"
     },
-    "localBaserowServiceForm": {
+    "localGeoprojeServiceForm": {
         "integrationDropdownLabel": "Intégration",
         "rowIdPlaceholder": "Saisir l'ID d'une ligne",
         "rowIdLabel": "ID de ligne"
@@ -1178,7 +1178,7 @@
     },
     "dataGuidedTourStep": {
         "title": "Connectez vos données",
-        "content": "Liez vos tables Baserow ici pour afficher, filtrer et mettre à jour vos données de manière dynamique sur différents éléments."
+        "content": "Liez vos tables Geoproje ici pour afficher, filtrer et mettre à jour vos données de manière dynamique sur différents éléments."
     },
     "previewGuidedTourStep": {
         "title": "Votre centre de contrôle",

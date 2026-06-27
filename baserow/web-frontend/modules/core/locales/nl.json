@@ -202,7 +202,7 @@
         "tableDesc": "Maak een nieuwe plaats om gegevens in je database te beheren.",
         "fromTemplateDesc": "Begin snel met een van onze aanbevolen templates",
         "importWorkspace": "Data importeren",
-        "importWorkspaceDesc": "Bestaande gegevens van een Baserow instantie toevoegen."
+        "importWorkspaceDesc": "Bestaande gegevens van een Geoproje instantie toevoegen."
     },
     "applicationForm": {
         "nameLabel": "Naam",
@@ -231,15 +231,15 @@
     "dashboard": {
         "title": "Dashboard",
         "alertTitle": "We hebben je hulp nodig!",
-        "alertText": "Als je Baserow nuttig vindt, dan waarderen we het zeer als je ons wilt sponsoren, sterren wilt geven of ons met anderen wilt delen. Door ons te sponsoren op GitHub krijg je vroegtijdige toegang tot de premium functies!",
-        "tweetContent": "Check {'@'}baserow, een open source no-code database tool en Airtable alternatief!",
-        "redditTitle": "'Baserow - Een open source no-code database",
+        "alertText": "Als je Geoproje nuttig vindt, dan waarderen we het zeer als je ons wilt sponsoren, sterren wilt geven of ons met anderen wilt delen. Door ons te sponsoren op GitHub krijg je vroegtijdige toegang tot de premium functies!",
+        "tweetContent": "Check {'@'}Geoproje, een open source no-code database tool en Airtable alternatief!",
+        "redditTitle": "'Geoproje - Een open source no-code database",
         "noWorkspaceTitle": "Geen werkruimtes gevonden",
         "noWorkspaceText": "Je bent geen lid van een werkruimte. Toepassingen zoals databases horen bij een werkruimte, dus om die te maken moet je eerst een werkruimte aanmaken.",
         "createWorkspace": "Werkruimte aanmaken",
         "becomeGithubSponsor": "Word een GitHub sponsor",
         "starOnGitlab": "Geef ons een ster op Gitlab",
-        "shareOnTwitter": "Tweet over Baserow",
+        "shareOnTwitter": "Tweet over Geoproje",
         "shareOnReddit": "Deel op Reddit",
         "shareOnFacebook": "Deel op Facebook",
         "shareOnLinkedIn": "Deel op LinkedIn",
@@ -253,7 +253,7 @@
         "knowledgeBase": "Kennisbank",
         "knowledgeBaseMessage": "Vind antwoorden op al je vragen",
         "tutorials": "Tutorials",
-        "tutorialsMessage": "Ontdek het potentieel van Baserow",
+        "tutorialsMessage": "Ontdek het potentieel van Geoproje",
         "emptyWorkspaceMessage": "Begin met het maken van een nieuwe database of applicatie.",
         "addNew": "Nieuwe toevoegen...",
         "noWorkspace": "Geen werkruimte",
@@ -281,14 +281,14 @@
         "errorLinkExpiredMessage": "De link voor het resetten van je wachtwoord is verlopen. Vraag een nieuwe link aan.",
         "disabled": "Wachtwoord opnieuw instellen is uitgeschakeld",
         "disabledMessage": "Het is niet mogelijk om het wachtwoord te resetten omdat het is uitgeschakeld.",
-        "message": "Je kunt nu inloggen op Baserow met je nieuwe wachtwoord."
+        "message": "Je kunt nu inloggen op Geoproje met je nieuwe wachtwoord."
     },
     "signup": {
         "headTitle": "Nieuw account aanmaken",
         "title": "Aanmelden",
         "disabled": "Aanmelden is uitgeschakeld",
         "disabledMessage": "Het is niet mogelijk om een account aan te maken omdat het is uitgeschakeld.",
-        "requireFirstUser": "Welkom bij Baserow!",
+        "requireFirstUser": "Welkom bij Geoproje!",
         "requireFirstUserMessage": "Vul het onderstaande formulier in om de admin gebruiker aan te maken.",
         "passwordPlaceholder": "Voer je wachtwoord in.",
         "namePlaceholder": "Voer je naam in..",
@@ -313,14 +313,14 @@
     },
     "settings": {
         "settingsTitle": "Beheerdersinstellingen",
-        "baserowInstanceId": "Installatie-ID",
-        "instanceIdDescription": "De installatie-ID is de unieke identificatiecode van je Baserow instantie.",
+        "GeoprojeInstanceId": "Installatie-ID",
+        "instanceIdDescription": "De installatie-ID is de unieke identificatiecode van je Geoproje instantie.",
         "accountRestrictions": "Accountbeperkingen",
         "settingAllowResetPasswordName": "Wachtwoord opnieuw instellen toestaan",
         "settingAllowResetPasswordDescription": "Standaard kunnen gebruikers een link aanvragen om hun wachtwoord te resetten.",
         "settingAllowResetPasswordWarning": "Houd er rekening mee dat u zichzelf van het systeem kunt uitsluiten en dat de toegang niet kan worden hersteld als u uw wachtwoord vergeet.",
         "settingAllowNewAccountsName": "Toestaan aanmaken van nieuwe accounts",
-        "settingAllowNewAccountsDescription": "Standaard kan elke gebruiker die je Baserow-domein bezoekt zich aanmelden voor een nieuw account.",
+        "settingAllowNewAccountsDescription": "Standaard kan elke gebruiker die je Geoproje-domein bezoekt zich aanmelden voor een nieuw account.",
         "enabled": "ingeschakeld",
         "settingAllowSignupsViaWorkspaceInvitationsName": "Aanmeldingen via werkruimte uitnodigingen toestaan",
         "settingAllowSignupsViaWorkspaceInvitationDescription": "Zelfs als het aanmaken van nieuwe accounts is uitgeschakeld, kunnen direct uitgenodigde gebruikers met deze optie toch een account aanmaken.",
@@ -340,8 +340,8 @@
         "emailVerificationNoVerification": "Geen verificatie",
         "emailVerificationRecommended": "Aanbevolen",
         "emailVerificationEnforced": "Afgedwongen",
-        "baserowVersionDescription": "Het versienummer van deze instantie.",
-        "baserowVersion": "Baserow versie",
+        "GeoprojeVersionDescription": "Het versienummer van deze instantie.",
+        "GeoprojeVersion": "Geoproje versie",
         "settingsVerifyImportSignatureDescription": "Indien ingeschakeld, wordt de handtekening van de geïmporteerde gegevens geverifieerd om er zeker van te zijn dat er niet met de gegevens geknoeid is.",
         "settingsVerifyImportSignature": "Verifieer import handtekening"
     },
@@ -456,7 +456,7 @@
         "password": "Wachtwoord",
         "errorInvalidPasswordTitle": "Ongeldig wachtwoord",
         "errorInvalidPasswordMessage": "Uw account kan niet worden verwijderd omdat uw wachtwoord ongeldig is.",
-        "errorUserIsLastAdminMessage": "Kan uw account niet verwijderen omdat u de laatste beheerder van deze Baserow instance bent.",
+        "errorUserIsLastAdminMessage": "Kan uw account niet verwijderen omdat u de laatste beheerder van deze Geoproje instance bent.",
         "accountDeletedSuccessTitle": "Verwijdering van account gepland",
         "accountDeletedSuccessMessage": "Uw account staat op de planning om verwijderd te worden."
     },
@@ -592,7 +592,7 @@
         "title": "Meldingen",
         "markAllAsRead": "Alles markeren als gelezen",
         "clearAll": "Alles wissen",
-        "noNotification": "We zullen u op de hoogte brengen van belangrijke updates en wanneer u op Baserow wordt vermeld.",
+        "noNotification": "We zullen u op de hoogte brengen van belangrijke updates en wanneer u op Geoproje wordt vermeld.",
         "noNotificationTitle": "Je hebt geen meldingen",
         "newNotificationsAvailable": "Nieuwe meldingen beschikbaar",
         "refresh": "Vernieuwen"
@@ -754,7 +754,7 @@
         "openai": "OpenAI",
         "openaiOrganization": "Organisatie (optioneel)",
         "openaiModelsLabel": "Ingeschakelde modellen",
-        "openaiModelsDescription": "Geef een lijst met door komma's gescheiden [OpenAI-modellen] (https://platform.openai.com/docs/models/continuous-model-upgrades) die kunnen worden gebruikt in Baserow. (bijv. `gpt-3.5-turbo,gpt-4`)",
+        "openaiModelsDescription": "Geef een lijst met door komma's gescheiden [OpenAI-modellen] (https://platform.openai.com/docs/models/continuous-model-upgrades) die kunnen worden gebruikt in Geoproje. (bijv. `gpt-3.5-turbo,gpt-4`)",
         "ollamaHostLabel": "Host",
         "ollamaModelsLabel": "Ingeschakelde modellen",
         "openaiApiKeyLabel": "API-sleutel",
@@ -768,15 +768,15 @@
         "anthropicApiKeyLabel": "API-sleutel",
         "anthropicApiKeyDescription": "Geef een Anthropic API-sleutel op als u de integratie wilt inschakelen. [Instructies voor het verkrijgen van een API-sleutel](https://docs.anthropic.com/en/api/getting-started).",
         "anthropicModelsLabel": "Ingeschakelde modellen",
-        "anthropicModelsDescription": "Geef een lijst van door komma's gescheiden [Anthropic modellen] (https://docs.anthropic.com/en/docs/about-claude/models) die kunnen worden gebruikt in Baserow. (e.g. `claude-3-5-sonnet-20241022,claude-3-opus-20240229`)",
+        "anthropicModelsDescription": "Geef een lijst van door komma's gescheiden [Anthropic modellen] (https://docs.anthropic.com/en/docs/about-claude/models) die kunnen worden gebruikt in Geoproje. (e.g. `claude-3-5-sonnet-20241022,claude-3-opus-20240229`)",
         "mistralApiKeyLabel": "API-sleutel",
-        "mistralModelsDescription": "Geef een lijst met door komma's gescheiden [Mistral modellen] (https://docs.mistral.ai/getting-started/models/models_overview/) die kunnen worden gebruikt in Baserow. (bijv. `mistral-large-latest,mistral-small-latest`)",
+        "mistralModelsDescription": "Geef een lijst met door komma's gescheiden [Mistral modellen] (https://docs.mistral.ai/getting-started/models/models_overview/) die kunnen worden gebruikt in Geoproje. (bijv. `mistral-large-latest,mistral-small-latest`)",
         "mistralApiKeyDescription": "Geef een Mistral API-sleutel als u de integratie wilt inschakelen. [Instructies voor het verkrijgen van een API-sleutel](https://docs.mistral.ai/getting-started/quickstart/).",
         "openRouterApiKeyLabel": "API-sleutel",
         "openRouterOrganization": "Organisatie (optioneel)",
         "openRouter": "OpenRouter",
         "openRouterModelsLabel": "Ingeschakelde modellen",
-        "openRouterModelsDescription": "Geef een lijst met door komma's gescheiden [OpenRouter modellen] (https://openrouter.ai/models) die kunnen worden gebruikt in Baserow. (bijv. `openai/gpt-4o,anthropic/claude-3-haiku`)",
+        "openRouterModelsDescription": "Geef een lijst met door komma's gescheiden [OpenRouter modellen] (https://openrouter.ai/models) die kunnen worden gebruikt in Geoproje. (bijv. `openai/gpt-4o,anthropic/claude-3-haiku`)",
         "openRouterApiKeyDescription": "Geef een OpenRouter API-key op als u de integratie wilt inschakelen. [get an API key](https://openrouter.ai/settings/keys).",
         "openaiBaseUrl": "Basis URL",
         "openaiBaseUrlDescription": "Gebruikt standaard de OpenAI basis URL als deze leeg is. Kan optioneel worden gewijzigd in https://eu.api.openai.com/v1, https://&lt;uw-bronnaam&gt;.openai.azure.com, of een andere OpenAI-compatibele API."
@@ -818,7 +818,7 @@
     },
     "moreStep": {
         "people": "Hoeveel mensen zitten er in je team?",
-        "share": "Ik wil dit graag delen met het Baserow team",
+        "share": "Ik wil dit graag delen met het Geoproje team",
         "title": "Vertel ons wat meer",
         "roleOrJob": "Rol of functie...",
         "country": "Land",
@@ -897,7 +897,7 @@
         "created": "gemaakt",
         "cancel": "Annuleren",
         "title": "Exporteren",
-        "description": "Je gegevens worden geëxporteerd als een ZIP-bestand, dat je kunt importeren in een andere Baserow-instantie.",
+        "description": "Je gegevens worden geëxporteerd als een ZIP-bestand, dat je kunt importeren in een andere Geoproje-instantie.",
         "export": "Data exporteren",
         "download": "Downloaden",
         "importingState": "Importeren",
@@ -915,8 +915,8 @@
         "deselectAll": "Deselecteer alles"
     },
     "importWorkspaceModal": {
-        "title": "Baserow data importeren",
-        "description": "Je kunt bestaand Baserow data importeren door het .zip-bestand van een andere Baserow instantie te uploaden.",
+        "title": "Geoproje data importeren",
+        "description": "Je kunt bestaand Geoproje data importeren door het .zip-bestand van een andere Geoproje instantie te uploaden.",
         "upload": "Uploaden",
         "cancel": "Annuleren",
         "chooseFile": "Kies bestand",
@@ -925,7 +925,7 @@
         "selectAll": "Selecteer alles",
         "databases": "Databases",
         "applications": "Applicaties",
-        "successTitle": "De Baserow data is succesvol geïmporteerd",
+        "successTitle": "De Geoproje data is succesvol geïmporteerd",
         "successMessage": "{count} applicaties geïmporteerd",
         "signatureVerificationNote": "Het is niet mogelijk om een zipbestand van een onbetrouwbare bron te importeren.",
         "import": "Data importeren",
@@ -934,7 +934,7 @@
         "close": "Sluit",
         "retry": "Opnieuw proberen",
         "invalidResourceTitle": "Ongeldige bron",
-        "invalidResourceMessage": "Het geleverde bestand is geen geldige Baserow export.",
+        "invalidResourceMessage": "Het geleverde bestand is geen geldige Geoproje export.",
         "untrustedPublicKeyTitle": "Onbetrouwbare handtekening",
         "untrustedPublicKeyMessage": "Het geleverde bestand is ondertekend met een onbetrouwbare openbare sleutel. Vraag je beheerder om de openbare sleutel toe te voegen aan de lijst van vertrouwde sleutels of de handtekeningverificatie uit te schakelen om dit bestand te kunnen importeren.",
         "importingState": "Importeren",
@@ -1064,7 +1064,7 @@
         "back": "Terug"
     },
     "welcomeGuidedTourStep": {
-        "title": "Welkom bij Baserow",
+        "title": "Welkom bij Geoproje",
         "content": "We geven je een korte rondleiding om je vertrouwd te maken met de basisprincipes. In slechts een paar klikken leer je hoe je je gegevens moeiteloos kunt organiseren en visualiseren",
         "buttonText": "Start de rondleiding"
     },
@@ -1074,12 +1074,12 @@
     },
     "controlCenterGuidedTourStep": {
         "content": "In de linkerzijbalk kun je je werkruimte beheren:\n\n- Home - Toegang tot je hoofddashboard.\n- Meldingen - Blijf op de hoogte van wijzigingen en vermeldingen.\n- Nodig anderen uit - Werk samen door teamleden toe te voegen.\n- Prullenbak - Al je verwijderde items weergeven en herstellen.",
-        "title": "Jouw Baserow Controle Centrum"
+        "title": "Jouw Geoproje Controle Centrum"
     },
     "mcpEndpointSettings": {
         "title": "MCP server",
         "backToOverview": "Terug",
-        "noEndpointsMessage": "Er zijn geen MCP (Model Context Protocol) server eindpunten toegevoegd. Deze kunnen worden gebruikt om direct te integreren met een LLM zoals Claude, en de LLM direct acties te laten uitvoeren in Baserow. Maak een server eindpunt om te beginnen.",
+        "noEndpointsMessage": "Er zijn geen MCP (Model Context Protocol) server eindpunten toegevoegd. Deze kunnen worden gebruikt om direct te integreren met een LLM zoals Claude, en de LLM direct acties te laten uitvoeren in Geoproje. Maak een server eindpunt om te beginnen.",
         "createEndpoint": "Eindpunt maken",
         "createNewTitle": "MCP-server eindpunt maken"
     },
@@ -1089,12 +1089,12 @@
     },
     "mcpEndpoint": {
         "reveal": "Volledige URL weergeven",
-        "warning": "Behandel je MCP URL als een wachtwoord, omdat je hiermee gegevens in Baserow kunt wijzigen.",
+        "warning": "Behandel je MCP URL als een wachtwoord, omdat je hiermee gegevens in Geoproje kunt wijzigen.",
         "detailLabel": "Meer details",
-        "claudeInstructions": "Drie eenvoudige stappen om aan de slag te gaan met Claude Desktop en de Baserow MCP.\n\n1. Open de instellingen van Claude Desktop in de navigatiebalk (⌘+,)\n1. Ga naar het tabblad \"Ontwikkelen\" en klik op \"Edit Config\".\n1. Neem de volgende JSON-configuratie op in `claude_desktop_config.json`.",
+        "claudeInstructions": "Drie eenvoudige stappen om aan de slag te gaan met Claude Desktop en de Geoproje MCP.\n\n1. Open de instellingen van Claude Desktop in de navigatiebalk (⌘+,)\n1. Ga naar het tabblad \"Ontwikkelen\" en klik op \"Edit Config\".\n1. Neem de volgende JSON-configuratie op in `claude_desktop_config.json`.",
         "windsurfInstructions": "Twee eenvoudige stappen om MCP in te stellen met Cascase in Windsurf.\n\n1. Navigeer naar Windsurf - Settings -> Advanced Settings of Command Palette -> Open Windsurf settings page.\n1. Scroll naar beneden naar de Cascade sectie en je zult de optie vinden om een nieuwe server toe te voegen, bestaande servers te bekijken en een knop om het ruwe JSON config bestand `mcp_config.json` te bekijken. Voeg daar het volgende aan toe:",
         "endpointURLIntro": "De MCP (Model Context Protocol) server URL kan worden toegevoegd aan elke client die MCP-servers ondersteunt. Het is een uniek eindpunt dat de LLM directe toegang geeft om namens jou acties uit te voeren in de werkruimte.",
-        "cursorInstructions": "Drie eenvoudige stappen om aan de slag te gaan met Cursor en het Baserow MCP.\n\n1. Cursorinstellingen openen (⇧+⌘+J)\n1. Navigeer naar het tabblad \"MCP\" en klik op \"Add MCP Server\" (MCP-server toevoegen)\n1. Voeg de volgende JSON-configuratie toe."
+        "cursorInstructions": "Drie eenvoudige stappen om aan de slag te gaan met Cursor en het Geoproje MCP.\n\n1. Cursorinstellingen openen (⇧+⌘+J)\n1. Navigeer naar het tabblad \"MCP\" en klik op \"Add MCP Server\" (MCP-server toevoegen)\n1. Voeg de volgende JSON-configuratie toe."
     },
     "importWorkspaceForm": {
         "selectApplicationsToImport": "Applicaties selecteren om te importeren"
@@ -1245,7 +1245,7 @@
         "title": "Bevestig e-mailwijziging",
         "submit": "Bevestig e-mailwijziging",
         "changed": "E-mailadres gewijzigd",
-        "message": "Je e-mailadres is succesvol gewijzigd. Je kunt nu inloggen op Baserow met je nieuwe e-mailadres.",
+        "message": "Je e-mailadres is succesvol gewijzigd. Je kunt nu inloggen op Geoproje met je nieuwe e-mailadres.",
         "errorInvalidLinkTitle": "Ongeldige link",
         "errorInvalidLinkMessage": "We konden het e-mailadres niet wijzigen omdat de link ongeldig is.",
         "errorLinkExpiredTitle": "Link verlopen",

@@ -3,7 +3,7 @@
         "title": "Flujo de trabajo"
     },
     "automationWelcomeGuidedTourStep": {
-        "title": "¡Bienvenido a las Automatizaciones de Baserow!",
+        "title": "¡Bienvenido a las Automatizaciones de Geoproje!",
         "content": "Vamos a hacer un recorrido rápido. Verás cómo configurar disparadores, añadir acciones, probar tu flujo de trabajo y publicarlo — no se requiere codificación."
     },
     "automationGraphGuidedTourStep": {
@@ -28,7 +28,7 @@
     },
     "automationDocsGuidedTourStep": {
         "title": "Explora la documentación",
-        "content": "Si alguna vez te quedas atascado o quieres aprender más, haz clic en el botón resaltado para obtener guías detalladas y respuestas a preguntas frecuentes sobre cómo crear automatizaciones en Baserow."
+        "content": "Si alguna vez te quedas atascado o quieres aprender más, haz clic en el botón resaltado para obtener guías detalladas y respuestas a preguntas frecuentes sobre cómo crear automatizaciones en Geoproje."
     },
     "sidebarComponentAutomation": {
         "createAutomationWorkflow": "Nuevo flujo de trabajo"
@@ -96,7 +96,7 @@
         "noRunsDescription": "Cuando este flujo de trabajo se haya ejecutado, los resultados se mostrarán aquí.",
         "statusSuccess": "Ejecutado con éxito",
         "statusError": "Fallo al ejecutar",
-        "statusDisabled": "Deshabilitado por Baserow",
+        "statusDisabled": "Deshabilitado por Geoproje",
         "completedInSeconds": "Completado en {s} segundos.",
         "completedInLessThanSecond": "Completado en menos de 1 segundo.",
         "testRun": "Prueba",
@@ -105,15 +105,15 @@
     },
     "nodeType": {
         "triggerDeletionError": "Los disparadores no pueden eliminarse, solo reemplazarse.",
-        "localBaserowRowsCreatedLabel": "Filas creadas en {tableName}",
-        "localBaserowRowsUpdatedLabel": "Filas actualizadas en {tableName}",
-        "localBaserowRowsDeletedLabel": "Filas eliminadas en {tableName}",
-        "localBaserowCreateRowLabel": "Crear una fila en {tableName}",
-        "localBaserowUpdateRowLabel": "Actualizar una fila en {tableName}",
-        "localBaserowDeleteRowLabel": "Eliminar una fila en {tableName}",
-        "localBaserowGetRowLabel": "Leer una fila en {tableName}",
-        "localBaserowListRowsLabel": "Listar filas en {tableName}",
-        "localBaserowAggregateRowsLabel": "Resumir filas en {tableName}",
+        "localGeoprojeRowsCreatedLabel": "Filas creadas en {tableName}",
+        "localGeoprojeRowsUpdatedLabel": "Filas actualizadas en {tableName}",
+        "localGeoprojeRowsDeletedLabel": "Filas eliminadas en {tableName}",
+        "localGeoprojeCreateRowLabel": "Crear una fila en {tableName}",
+        "localGeoprojeUpdateRowLabel": "Actualizar una fila en {tableName}",
+        "localGeoprojeDeleteRowLabel": "Eliminar una fila en {tableName}",
+        "localGeoprojeGetRowLabel": "Leer una fila en {tableName}",
+        "localGeoprojeListRowsLabel": "Listar filas en {tableName}",
+        "localGeoprojeAggregateRowsLabel": "Resumir filas en {tableName}",
         "httpRequestLabel": "Enviar una solicitud HTTP",
         "smtpEmailLabel": "Enviar un correo electrónico",
         "iterationLabel": "Itera sobre los elementos",

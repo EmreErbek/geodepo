@@ -8,8 +8,6 @@ builder = "DOCKERFILE"
 dockerfilePath = "Dockerfile.railway-backend"
 watchPatterns = [
   "backend/**",
-  "premium/backend/**",
-  "enterprise/backend/**",
   "deploy/**",
 ]
 

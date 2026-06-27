@@ -13,8 +13,6 @@ supported-markers = [
 [manifest]
 members = [
     "baserow",
-    "baserow-enterprise",
-    "baserow-premium",
 ]
 
 [[package]]
@@ -458,16 +456,6 @@ dev = [
     { name = "snoop", specifier = "==0.6.0" },
     { name = "watchdog", specifier = "==6.0.0" },
 ]
-
-[[package]]
-name = "baserow-enterprise"
-version = "2.2.2"
-source = { editable = "../enterprise/backend" }
-
-[[package]]
-name = "baserow-premium"
-version = "2.2.2"
-source = { editable = "../premium/backend" }
 
 [[package]]
 name = "billiard"

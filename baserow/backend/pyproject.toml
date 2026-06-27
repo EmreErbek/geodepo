@@ -198,7 +198,7 @@ ignore = [
 "src/baserow/config/settings/local.py" = ["S105"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["baserow", "baserow_premium", "baserow_enterprise"]
+known-first-party = ["baserow"]
 section-order = ["future", "standard-library", "django", "third-party", "first-party", "local-folder"]
 
 [tool.ruff.lint.isort.sections]
@@ -208,14 +208,7 @@ django = ["django"]
 package = true
 environments = ["sys_platform == 'linux'", "sys_platform == 'darwin'"]
 
-[tool.uv.workspace]
-members = ["../premium/backend", "../enterprise/backend"]
-
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "baserow.config.settings.test"
 python_files = ["test_*.py", "*_test.py"]
-pythonpath = [
-    "tests",
-    "../premium/backend/tests",
-    "../enterprise/backend/tests",
-]
+pythonpath = ["tests"]

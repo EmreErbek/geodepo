@@ -47,11 +47,10 @@ else:
     BASEROW_PLUGIN_FOLDERS = []
 
 BASEROW_BACKEND_PLUGIN_NAMES = [d.name for d in BASEROW_PLUGIN_FOLDERS]
-BASEROW_OSS_ONLY = bool(os.getenv("BASEROW_OSS_ONLY", ""))
-if BASEROW_OSS_ONLY:
-    BASEROW_BUILT_IN_PLUGINS = []
-else:
-    BASEROW_BUILT_IN_PLUGINS = ["baserow_premium", "baserow_enterprise"]
+
+# Geoproje fork: premium/enterprise repodan kaldirildi
+BASEROW_OSS_ONLY = True
+BASEROW_BUILT_IN_PLUGINS = []
 
 # SECURITY WARNING: keep the secret key used in production secret!
 if "SECRET_KEY" in os.environ:
@@ -408,7 +407,7 @@ REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "baserow.api.openapi.AutoSchema",
 }
 
-# Throttling / rate-limiting — see docs/installation/configuration.md
+# Throttling / rate-limiting â€” see docs/installation/configuration.md
 BASEROW_MAX_CONCURRENT_USER_REQUESTS = int(
     os.getenv("BASEROW_MAX_CONCURRENT_USER_REQUESTS", "") or -1
 )
@@ -1198,7 +1197,7 @@ TOTP_ISSUER_NAME = os.getenv("BASEROW_TOTP_ISSUER_NAME", "Baserow")
 # ======== WARNING ========
 # Please read and understand everything at:
 # https://docs.djangoproject.com/en/3.2/ref/settings/#secure-proxy-ssl-header
-# before enabling this setting otherwise you can compromise your site’s security.
+# before enabling this setting otherwise you can compromise your siteâ€™s security.
 # This setting will ensure the "next" urls provided by the various paginated API
 # endpoints will be returned with https when appropriate.
 # If using gunicorn also behind the proxy you might also need to set

@@ -3,7 +3,7 @@
         "pageParameter": "Parametr",
         "dataSource": "Źródło danych"
     },
-    "localBaserowListRowsForm": {
+    "localGeoprojeListRowsForm": {
         "searchFieldPlaceHolder": "Wprowadź wyszukiwane hasło...",
         "noTableChosenForFiltering": "Wybierz tabelę, aby rozpocząć korzystanie z filtrów źródła danych.",
         "noTableChosenForSorting": "Wybierz tabelę, aby rozpocząć korzystanie z sortowania źródła danych.",
@@ -11,7 +11,7 @@
         "sortTabTitle": "Sortowanie",
         "searchTabTitle": "Szukaj"
     },
-    "localBaserowTableServiceSortForm": {
+    "localGeoprojeTableServiceSortForm": {
         "thenBy": "Następnie przez",
         "addSort": "Dodaj dodatkowe sortowanie",
         "noTableChosenForSorting": "Wybierz tabelę, aby rozpocząć korzystanie z sortowania źródła danych.",
@@ -20,12 +20,12 @@
         "noSortText": "Sortowanie pozwala na sortowanie wierszy według pola.",
         "sortMisconfigured": "Pole, z którym powiązane jest to sortowanie, zostało usunięte."
     },
-    "localBaserowTableServiceConditionalForm": {
+    "localGeoprojeTableServiceConditionalForm": {
         "relatedFieldNotFound": "Powiązane pole nie zostało znalezione.",
         "filterTypeNotFound": "Niezgodny typ filtra.",
         "addFilter": "Dodaj dodatkowy filtr",
         "noFilterTitle": "Filtr źródła danych nie został jeszcze utworzony",
-        "noFilterText": "Filtry źródła danych umożliwiają wyświetlanie wierszy tabeli Baserow, które spełniają określone warunki.",
+        "noFilterText": "Filtry źródła danych umożliwiają wyświetlanie wierszy tabeli Geoproje, które spełniają określone warunki.",
         "noCompatibleFilterTypesErrorTitle": "Brak kompatybilnych typów filtrów",
         "noCompatibleFilterTypesErrorMessage": "Żadne z twoich pól nie ma kompatybilnych typów filtrów",
         "formulaFilterInputPlaceholder": "Wprowadź tekst...",
@@ -33,20 +33,20 @@
         "useDefaultForValue": "Użyj domyślnego filtra dla tego pola"
     },
     "serviceType": {
-        "localBaserowGetRow": "Pobierz jeden wiersz",
-        "localBaserowListRows": "Pobierz wiele wierszy",
-        "localBaserowAggregateRows": "Pole podsumowania",
+        "localGeoprojeGetRow": "Pobierz jeden wiersz",
+        "localGeoprojeListRows": "Pobierz wiele wierszy",
+        "localGeoprojeAggregateRows": "Pole podsumowania",
         "misconfigured": "Nieprawidłowa konfiguracja",
         "trashedField": "Pole usunięte"
     },
     "userSourceType": {
-        "localBaserow": "Uwierzytelnianie tabeli bazowej Baserow"
+        "localGeoproje": "Uwierzytelnianie tabeli bazowej Geoproje"
     },
-    "localBaserowForm": {
+    "localGeoprojeForm": {
         "user": "Użytkownik",
-        "userMessage": "Tworząc to połączenie, upoważniasz aplikację do korzystania z Twojego konta w celu wprowadzania zmian w lokalnym obszarze roboczym Baserow."
+        "userMessage": "Tworząc to połączenie, upoważniasz aplikację do korzystania z Twojego konta w celu wprowadzania zmian w lokalnym obszarze roboczym Geoproje."
     },
-    "localBaserowTableSelector": {
+    "localGeoprojeTableSelector": {
         "databaseFieldLabel": "Baza danych",
         "viewFieldLabel": "Widok",
         "tableFieldLabel": "Tabela",
@@ -54,11 +54,11 @@
         "dataSyncedTableDescription": "Tabela synchronizowanych danych"
     },
     "integrationType": {
-        "localBaserow": "Lokalny Baserow",
-        "localBaserowSummary": "Lokalny Baserow - {name}, {username}",
-        "localBaserowWarning": "Autoryzacja konta daje każdemu, kto ma uprawnienia do edycji aplikacji, pełny dostęp do danych, do których masz dostęp. Możliwe jest utworzenie drugiego użytkownika, nadanie mu odpowiednich uprawnień i korzystanie z niego."
+        "localGeoproje": "Lokalny Geoproje",
+        "localGeoprojeSummary": "Lokalny Geoproje - {name}, {username}",
+        "localGeoprojeWarning": "Autoryzacja konta daje każdemu, kto ma uprawnienia do edycji aplikacji, pełny dostęp do danych, do których masz dostęp. Możliwe jest utworzenie drugiego użytkownika, nadanie mu odpowiednich uprawnień i korzystanie z niego."
     },
-    "localBaserowGetRowForm": {
+    "localGeoprojeGetRowForm": {
         "noTableChosenForSorting": "Wybierz tabelę, aby rozpocząć korzystanie z sortowania źródła danych.",
         "rowFieldLabel": "Identyfikator wiersza",
         "invalidFormula": "Formuła jest nieprawidłowa",
@@ -73,12 +73,12 @@
         "singleRow": "pojedynczy rząd",
         "multipleRows": "wiele wierszy"
     },
-    "localBaserowIntegrationType": {
-        "localBaserowWarning": "Autoryzacja konta daje każdemu, kto ma uprawnienia do edycji aplikacji, pełny dostęp do danych, do których masz dostęp. Możliwe jest utworzenie drugiego użytkownika, nadanie mu odpowiednich uprawnień i korzystanie z niego.",
-        "localBaserowSummary": "Lokalny Baserow - {name}, {username}",
-        "localBaserowNoUser": "Lokalny Baserow - Nie skonfigurowany"
+    "localGeoprojeIntegrationType": {
+        "localGeoprojeWarning": "Autoryzacja konta daje każdemu, kto ma uprawnienia do edycji aplikacji, pełny dostęp do danych, do których masz dostęp. Możliwe jest utworzenie drugiego użytkownika, nadanie mu odpowiednich uprawnień i korzystanie z niego.",
+        "localGeoprojeSummary": "Lokalny Geoproje - {name}, {username}",
+        "localGeoprojeNoUser": "Lokalny Geoproje - Nie skonfigurowany"
     },
-    "localBaserowAggregateRowsForm": {
+    "localGeoprojeAggregateRowsForm": {
         "filterTabTitle": "Filtry",
         "searchTabTitle": "Wyszukaj",
         "aggregationFieldLabel": "Pole",

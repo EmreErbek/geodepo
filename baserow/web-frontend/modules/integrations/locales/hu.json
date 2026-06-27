@@ -1,17 +1,17 @@
 {
     "integrationType": {
-        "localBaserow": "Helyi Baserow",
-        "localBaserowSummary": "Helyi Baserow - {name}, {username}",
-        "localBaserowWarning": "Fiókjának engedélyezésével mindenki, aki szerkesztési jogosultsággal rendelkezik az alkalmazáshoz, teljes hozzáférést biztosít azokhoz az adatokhoz, amelyekhez Ön hozzáfér. Létrehozhat egy második felhasználót, megadhatja a megfelelő engedélyeket és használhatja azt."
+        "localGeoproje": "Helyi Geoproje",
+        "localGeoprojeSummary": "Helyi Geoproje - {name}, {username}",
+        "localGeoprojeWarning": "Fiókjának engedélyezésével mindenki, aki szerkesztési jogosultsággal rendelkezik az alkalmazáshoz, teljes hozzáférést biztosít azokhoz az adatokhoz, amelyekhez Ön hozzáfér. Létrehozhat egy második felhasználót, megadhatja a megfelelő engedélyeket és használhatja azt."
     },
     "userSourceType": {
-        "localBaserow": "Baserow tábla hitelesítés"
+        "localGeoproje": "Geoproje tábla hitelesítés"
     },
-    "localBaserowForm": {
+    "localGeoprojeForm": {
         "user": "Felhasználó",
-        "userMessage": "Ezzel a kapcsolat létrehozásával engedélyezed az alkalmazásnak, hogy használja a fiókodat, és változtatásokat végezzen a helyi Baserow munkaterületeden."
+        "userMessage": "Ezzel a kapcsolat létrehozásával engedélyezed az alkalmazásnak, hogy használja a fiókodat, és változtatásokat végezzen a helyi Geoproje munkaterületeden."
     },
-    "localBaserowGetRowForm": {
+    "localGeoprojeGetRowForm": {
         "rowFieldLabel": "Sorazonosító",
         "invalidFormula": "A képlet érvénytelen",
         "rowFieldPlaceHolder": "Válasszon ki egy sorazonosítót",
@@ -22,7 +22,7 @@
         "searchTabTitle": "Keresés",
         "noTableChosenForSorting": "Válasszon egy táblázatot az adatforrás-rendezések használatának megkezdéséhez."
     },
-    "localBaserowListRowsForm": {
+    "localGeoprojeListRowsForm": {
         "filterTabTitle": "Szűrők",
         "sortTabTitle": "Rendezések",
         "searchTabTitle": "Keresés",
@@ -30,7 +30,7 @@
         "noTableChosenForFiltering": "Válassz egy táblát az adatforrás-szűrők használatához.",
         "noTableChosenForSorting": "Válassz egy táblát az adatforrások rendezéseinek használatához."
     },
-    "localBaserowTableServiceConditionalForm": {
+    "localGeoprojeTableServiceConditionalForm": {
         "noFilterTitle": "Még nem hoztál létre adatforrás-szűrőt",
         "relatedFieldNotFound": "A kapcsolódó mező nem található.",
         "filterTypeNotFound": "A szűrő típusa nem kompatibilis.",
@@ -40,6 +40,6 @@
         "useFormulaForValue": "Használj egy képletet ehhez a szűrőhöz",
         "useDefaultForValue": "Használd az alapértelmezett szűrőt erre a mezőre",
         "addFilter": "Adj hozzá további szűrőt",
-        "noFilterText": "Az adatforrás-szűrők lehetővé teszik, hogy megjelenítsd a Baserow táblasorait, amelyek megfelelnek a feltételeidnek."
+        "noFilterText": "Az adatforrás-szűrők lehetővé teszik, hogy megjelenítsd a Geoproje táblasorait, amelyek megfelelnek a feltételeidnek."
     }
 }

@@ -1,6 +1,6 @@
 export default {
-  title: 'Baserow',
-  titleTemplate: '%s | Baserow',
+  title: 'Geoproje',
+  titleTemplate: '%s | Geoproje',
   meta: [
     { charset: 'utf-8' },
     {

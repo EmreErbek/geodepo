@@ -95,7 +95,7 @@
         ></MarkdownIt>
         <pre><code class="mcp-endpoint__code">{
   "mcpServers": {
-    "Baserow MCP": {
+    "Geoproje MCP": {
       "command": "npx",
       "args": [
         "mcp-remote",
@@ -115,7 +115,7 @@
         ></MarkdownIt>
         <pre><code class="mcp-endpoint__code">{
   "mcpServers": {
-    "Baserow MCP": {
+    "Geoproje MCP": {
       "url": "{{ endpointUrl }}"
     }
   }
@@ -131,7 +131,7 @@
         ></MarkdownIt>
         <pre><code class="mcp-endpoint__code">{
   "mcpServers": {
-    "Baserow MCP": {
+    "Geoproje MCP": {
       "serverUrl": "{{ endpointUrl }}"
     }
   }
@@ -166,7 +166,7 @@ export default {
   },
   computed: {
     endpointUrl() {
-      const key = this.reveal ? this.endpoint.key : '•••••••'
+      const key = this.reveal ? this.endpoint.key : 'â€¢â€¢â€¢â€¢â€¢â€¢â€¢'
       return this.getEndpointUrl(key)
     },
     workspace() {

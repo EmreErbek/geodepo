@@ -10,7 +10,7 @@
         "body": "Sei sicuro di voler eliminare questo webhook? Non sarà più possibile ripristinarlo."
     },
     "webhookList": {
-        "noWebhooksMessage": "Non hai ancora creato nessun webhook. I webhook possono essere usati per informare sistemi di terze parti quando una riga in Baserow è stata creata, aggiornata o eliminata."
+        "noWebhooksMessage": "Non hai ancora creato nessun webhook. I webhook possono essere usati per informare sistemi di terze parti quando una riga in Geoproje è stata creata, aggiornata o eliminata."
     },
     "testWebhookModal": {
         "title": "Testa webhook",
@@ -127,7 +127,7 @@
         "notFoundDescription": "Riga o tabella non trovate.",
         "requestEntityTooLargeDescription": "La richiesta ha superato la dimensione massima consentita del carico utile.",
         "internalErrorDescription": "Il server ha incontrato una condizione inaspettata.",
-        "badGatewayDescription": "Baserow si sta riavviando o si sta verificando un'interruzione imprevista.",
+        "badGatewayDescription": "Geoproje si sta riavviando o si sta verificando un'interruzione imprevista.",
         "unavailableDescription": "Il server non ha potuto elaborare la tua richiesta in tempo."
     },
     "apiDocsTableFields": {
@@ -194,7 +194,7 @@
         "before": "Se fornito, la riga appena creata sarà posizionata prima della riga con l'id fornito."
     },
     "apiDocsAuth": {
-        "description": "Baserow usa una semplice autenticazione basata su token. È necessario generare almeno un Database token nel tuo {settingsLink} per utilizzare gli endpoint descritti di seguito. È possibile dare autorizzazioni di creazione, lettura, aggiornamento ed eliminazione per token fino al livello di tabella. Puoi autenticarti all'API fornendo il tuo token API nell'header del token del portatore di autorizzazione HTTP. Tutte le richieste alle API devono essere autenticate e fatte su HTTPS.",
+        "description": "Geoproje usa una semplice autenticazione basata su token. È necessario generare almeno un Database token nel tuo {settingsLink} per utilizzare gli endpoint descritti di seguito. È possibile dare autorizzazioni di creazione, lettura, aggiornamento ed eliminazione per token fino al livello di tabella. Puoi autenticarti all'API fornendo il tuo token API nell'header del token del portatore di autorizzazione HTTP. Tutte le richieste alle API devono essere autenticate e fatte su HTTPS.",
         "settingsLink": "impostazioni"
     },
     "apiDocsFilters": {
@@ -602,7 +602,7 @@
     },
     "apiDocsComponent": {
         "title": "API REST",
-        "intro": "Dopo aver creato lo schema di database e la chiave API nel {settingsLink}, il database Baserow fornisce i propri endpoint API REST per creare, leggere, aggiornare ed eliminare le righe.",
+        "intro": "Dopo aver creato lo schema di database e la chiave API nel {settingsLink}, il database Geoproje fornisce i propri endpoint API REST per creare, leggere, aggiornare ed eliminare le righe.",
         "settings": "impostazioni",
         "selectApplicationTitle": "Per quale database vuoi vedere la documentazione?",
         "signIn": "Registrati per iniziare",
@@ -651,7 +651,7 @@
         "stateFailed": "Non riuscito",
         "stateFinished": "Concluso",
         "stateDownloadingBase": "Download schema base in corso",
-        "stateConverting": "Conversione a Baserow in corso",
+        "stateConverting": "Conversione a Geoproje in corso",
         "stateDownloadingFiles": "Download file in corso",
         "stateImporting": "Importazione in corso",
         "stateImportingTable": "Importazione tabella {table} in corso",
@@ -827,12 +827,12 @@
         "name": "Duplica tabella"
     },
     "apiDocsUploadFile": {
-        "description": "Carica un file su Baserow. Deve essere carico come `file multipart`. La risposta può essere per [caricare un file in una riga] ({PUBLIC_BACKEND_URL}/api/redoc/#tag/Database-table-rows/operation/update_database_table_row).",
+        "description": "Carica un file su Geoproje. Deve essere carico come `file multipart`. La risposta può essere per [caricare un file in una riga] ({PUBLIC_BACKEND_URL}/api/redoc/#tag/Database-table-rows/operation/update_database_table_row).",
         "file": "Il `file` multipart contenente il contenuto del file."
     },
     "apiDocsUploadFileViaURL": {
-        "description": "Carica un file su Baserow fornendo un URL da cui scaricarlo. La risposta può essere usata per [caricare un file in una riga]({PUBLIC_BACKEND_URL}/api/redoc/#tag/Database-table-rows/operation/update_database_table_row).",
-        "url": "L'URL ad cui Baserow scaricherà il file per salvarlo tra i tuoi file."
+        "description": "Carica un file su Geoproje fornendo un URL da cui scaricarlo. La risposta può essere usata per [caricare un file in una riga]({PUBLIC_BACKEND_URL}/api/redoc/#tag/Database-table-rows/operation/update_database_table_row).",
+        "url": "L'URL ad cui Geoproje scaricherà il file per salvarlo tra i tuoi file."
     },
     "fileField": {
         "errorEmptyFileNameMessage": "Non puoi impostare un nome vuoto.",
@@ -940,7 +940,7 @@
         "campaigns": "Campagne"
     },
     "databaseImportStep": {
-        "description": "Carica i tuoi dati in Baserow in pochi click.",
+        "description": "Carica i tuoi dati in Geoproje in pochi click.",
         "title": "Importa i tuoi dati",
         "tableNameLabel": "Nome tabella"
     },
@@ -1023,7 +1023,7 @@
     },
     "iCalCalendarDataSync": {
         "name": "URL iCal",
-        "description": "La sincronizzazione iCal importerà automaticamente tutti gli eventi dal tuo calendario in Baserow. Supporta solo il formato ICS (Internet Calendar and Scheduling)."
+        "description": "La sincronizzazione iCal importerà automaticamente tutti gli eventi dal tuo calendario in Geoproje. Supporta solo il formato ICS (Internet Calendar and Scheduling)."
     },
     "createDataSync": {
         "next": "Avanti",
@@ -1075,7 +1075,7 @@
         "schema": "Schema",
         "table": "Tabella",
         "port": "Porta",
-        "description": "Sincronizza una tabella PostgreSQL con una tabella Baserow corrispondente ai dettagli forniti di seguito. Si noti che all'avvio della sincronizzazione, verranno selezionate tutte le righe nella tabella specificata. Sebbene Baserow selezioni solo i dati, si consiglia vivamente di limitare l'utente a una connessione di sola lettura.",
+        "description": "Sincronizza una tabella PostgreSQL con una tabella Geoproje corrispondente ai dettagli forniti di seguito. Si noti che all'avvio della sincronizzazione, verranno selezionate tutte le righe nella tabella specificata. Sebbene Geoproje selezioni solo i dati, si consiglia vivamente di limitare l'utente a una connessione di sola lettura.",
         "sslMode": "Modalità SSL"
     },
     "viewFieldConditionItem": {

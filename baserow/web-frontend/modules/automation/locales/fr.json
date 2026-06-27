@@ -3,7 +3,7 @@
         "title": "Scénario"
     },
     "automationWelcomeGuidedTourStep": {
-        "title": "Bienvenue sur les Automatisations de Baserow !",
+        "title": "Bienvenue sur les Automatisations de Geoproje !",
         "content": "Faisons une découverte rapide. Vous allez voir comment configurer des déclencheurs, ajouter des actions, tester votre scénario et le publier, sans avoir besoin de coder."
     },
     "automationGraphGuidedTourStep": {
@@ -28,7 +28,7 @@
     },
     "automationDocsGuidedTourStep": {
         "title": "Explorer la documentation",
-        "content": "Si vous vous voulez en savoir plus, cliquez sur ce bouton pour consulter les guides détaillés et les FAQs sur les Automatisations dans Baserow."
+        "content": "Si vous vous voulez en savoir plus, cliquez sur ce bouton pour consulter les guides détaillés et les FAQs sur les Automatisations dans Geoproje."
     },
     "sidebarComponentAutomation": {
         "createAutomationWorkflow": "Nouveau scénario"
@@ -96,7 +96,7 @@
         "noRunsDescription": "Lorsque ce scénario s'exécutera, les résultats seront affichés ici.",
         "statusSuccess": "Terminé avec succès",
         "statusError": "Échec de l’exécution",
-        "statusDisabled": "Désactivé par Baserow",
+        "statusDisabled": "Désactivé par Geoproje",
         "completedInSeconds": "Complété en {s} secondes.",
         "completedInLessThanSecond": "Complété en moins d'une seconde.",
         "testRun": "Essai",
@@ -105,15 +105,15 @@
     },
     "nodeType": {
         "triggerDeletionError": "Les déclencheurs ne peuvent être supprimés, seulement remplacés.",
-        "localBaserowRowsCreatedLabel": "Des lignes sont créées dans {tableName}",
-        "localBaserowRowsUpdatedLabel": "Des lignes sont mises à jour dans {tableName}",
-        "localBaserowRowsDeletedLabel": "Des lignes sont supprimées dans {tableName}",
-        "localBaserowCreateRowLabel": "Créer une ligne dans {tableName}",
-        "localBaserowUpdateRowLabel": "Modifier une ligne dans {tableName}",
-        "localBaserowDeleteRowLabel": "Supprimer une ligne dans {tableName}",
-        "localBaserowGetRowLabel": "Lire une ligne dans {tableName}",
-        "localBaserowListRowsLabel": "Lister les lignes de {tableName}",
-        "localBaserowAggregateRowsLabel": "Résumer les lignes dans {tableName}",
+        "localGeoprojeRowsCreatedLabel": "Des lignes sont créées dans {tableName}",
+        "localGeoprojeRowsUpdatedLabel": "Des lignes sont mises à jour dans {tableName}",
+        "localGeoprojeRowsDeletedLabel": "Des lignes sont supprimées dans {tableName}",
+        "localGeoprojeCreateRowLabel": "Créer une ligne dans {tableName}",
+        "localGeoprojeUpdateRowLabel": "Modifier une ligne dans {tableName}",
+        "localGeoprojeDeleteRowLabel": "Supprimer une ligne dans {tableName}",
+        "localGeoprojeGetRowLabel": "Lire une ligne dans {tableName}",
+        "localGeoprojeListRowsLabel": "Lister les lignes de {tableName}",
+        "localGeoprojeAggregateRowsLabel": "Résumer les lignes dans {tableName}",
         "httpRequestLabel": "Envoyer une requête HTTP",
         "smtpEmailLabel": "Envoyer un courriel",
         "routerLabel": "Suivre 1 des {edgeCount} branches",

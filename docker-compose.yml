@@ -46,12 +46,11 @@ services:
       PUBLIC_BACKEND_URL: http://localhost:8000
       PUBLIC_WEB_FRONTEND_URL: http://localhost:3000
       BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION: "false"
+      BASEROW_OSS_ONLY: "true"
     ports:
       - "127.0.0.1:8000:8000"
     volumes:
       - ./baserow/backend:/baserow/backend
-      - ./baserow/premium/backend:/baserow/premium/backend
-      - ./baserow/enterprise/backend:/baserow/enterprise/backend
       - ./baserow/docs:/baserow/docs
       - media:/baserow/media
     depends_on:
@@ -71,12 +70,11 @@ services:
       PUBLIC_BACKEND_URL: http://localhost:8000
       PUBLIC_WEB_FRONTEND_URL: http://localhost:3000
       BASEROW_DISABLE_PUBLIC_URL_CHECK: "true"
+      BASEROW_OSS_ONLY: "true"
     ports:
       - "127.0.0.1:3000:3000"
     volumes:
       - ./baserow/web-frontend:/baserow/web-frontend
-      - ./baserow/premium/web-frontend:/baserow/premium/web-frontend
-      - ./baserow/enterprise/web-frontend:/baserow/enterprise/web-frontend
       - web_node_modules:/baserow/web-frontend/node_modules
       - web_nuxt:/baserow/web-frontend/.nuxt
     depends_on:

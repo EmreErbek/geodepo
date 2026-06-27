@@ -78,6 +78,7 @@ $backendVars = @{
     BASEROW_AMOUNT_OF_GUNICORN_WORKERS = '2'
     BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION = 'false'
     BASEROW_ENABLE_SECURE_PROXY_SSL_HEADER = 'true'
+    BASEROW_OSS_ONLY = 'true'
 }
 
 $frontendVars = @{
@@ -85,6 +86,7 @@ $frontendVars = @{
     PUBLIC_BACKEND_URL = $backendUrl
     PRIVATE_BACKEND_URL = 'http://baserow-backend.railway.internal:8080'
     BASEROW_DISABLE_PUBLIC_URL_CHECK = 'true'
+    BASEROW_OSS_ONLY = 'true'
 }
 
 $workerVars = @{

@@ -30,12 +30,7 @@ function baserowModuleConfig(
     `./modules/integrations/module.js`,
   ]
 
-  if (!process.env.BASEROW_OSS_ONLY) {
-    baseModules.push(
-      premiumBase + '/modules/baserow_premium/module.js',
-      enterpriseBase + '/modules/baserow_enterprise/module.js'
-    )
-  }
+  // Geoproje fork: premium/enterprise modulleri yuklenmez
 
   const modules = baseModules.concat(additionalModules)
 
@@ -85,7 +80,7 @@ export default defineNuxtConfig({
       preprocessorOptions: {
         scss: {
           // TODO: Migrate all @import rules to @use/@forward (Dart Sass 3.0 will remove @import).
-          //  Also fix global-builtin (unquote → string.unquote in colors.module.scss)
+          //  Also fix global-builtin (unquote â†’ string.unquote in colors.module.scss)
           //  and if-function (old if() syntax in abstracts/_helpers.scss).
           //  See https://sass-lang.com/d/import for the migration guide and automated migrator.
           silenceDeprecations: [
@@ -100,7 +95,7 @@ export default defineNuxtConfig({
     plugins: [
       nodePolyfills({
         include: ['util'],
-        // ✅ prevent "process already declared" in Nitro/Node
+        // âœ… prevent "process already declared" in Nitro/Node
         globals: {
           process: false,
           Buffer: false,

@@ -141,5 +141,46 @@ function Add-FrontendSymlinkFixes {
 
 Add-FrontendSymlinkFixes (Join-Path $RepoRoot "baserow\Dockerfile.railway-frontend")
 
+function Remove-PremiumEnterpriseFromDockerfile {
+    param([string]$DockerfilePath, [switch]$IsFrontend)
+
+    $lines = Get-Content $DockerfilePath
+    $result = New-Object System.Collections.Generic.List[string]
+    $skipping = $false
+
+    foreach ($line in $lines) {
+        if ($line -match '(?i)premium|enterprise') {
+            if ($line -match '\\\s*$') { $skipping = $true }
+            continue
+        }
+        if ($skipping) {
+            if ($line -notmatch '\\\s*$') { $skipping = $false }
+            continue
+        }
+
+        $fixed = $line
+        $fixed = $fixed -replace 'PYTHONPATH="/baserow/backend/src:/baserow/premium/backend/src:/baserow/enterprise/backend/src"', 'PYTHONPATH="/baserow/backend/src"'
+        $fixed = $fixed -replace 'PYTHONPATH="/baserow/backend/src:/baserow/premium/backend/src:/baserow/enterprise/backend/src:/baserow/backend/tests:/baserow/premium/backend/tests:/baserow/enterprise/backend/tests"', 'PYTHONPATH="/baserow/backend/src:/baserow/backend/tests"'
+        $fixed = $fixed -replace 'PYTHONPATH=/baserow/backend/src:/baserow/premium/backend/src:/baserow/enterprise/backend/src:/baserow/backend/tests:/baserow/premium/backend/tests:/baserow/enterprise/backend/tests', 'PYTHONPATH=/baserow/backend/src:/baserow/backend/tests'
+        $fixed = $fixed -replace 'RUN mkdir -p /baserow/web-frontend /baserow/premium/web-frontend /baserow/enterprise/web-frontend', 'RUN mkdir -p /baserow/web-frontend'
+        $fixed = $fixed -replace 'RUN mkdir -p /baserow/backend/docker /baserow/premium/ /baserow/enterprise/ /baserow/media', 'RUN mkdir -p /baserow/backend/docker /baserow/media'
+        $fixed = $fixed -replace 'RUN mkdir -p /baserow/backend/reports /baserow/premium/backend /baserow/enterprise/backend /baserow/media', 'RUN mkdir -p /baserow/backend/reports /baserow/media'
+        $result.Add($fixed)
+    }
+
+    $content = ($result -join "`n") + "`n"
+    if ($IsFrontend -and $content -notmatch 'ENV BASEROW_OSS_ONLY=true') {
+        $content = $content -replace '(RUN yarn run build)', "ENV BASEROW_OSS_ONLY=true`n`$1"
+    }
+    if (-not $IsFrontend -and $content -notmatch 'ENV BASEROW_OSS_ONLY=true') {
+        $content = $content -replace '(FROM local AS prod)', "ENV BASEROW_OSS_ONLY=true`n`$1"
+    }
+
+    [System.IO.File]::WriteAllText($DockerfilePath, $content)
+}
+
+Remove-PremiumEnterpriseFromDockerfile (Join-Path $RepoRoot "baserow\Dockerfile.railway-backend")
+Remove-PremiumEnterpriseFromDockerfile (Join-Path $RepoRoot "baserow\Dockerfile.railway-frontend") -IsFrontend
+
 Write-Host "Uretildi: baserow/Dockerfile.railway-backend" -ForegroundColor Green
 Write-Host "Uretildi: baserow/Dockerfile.railway-frontend" -ForegroundColor Green

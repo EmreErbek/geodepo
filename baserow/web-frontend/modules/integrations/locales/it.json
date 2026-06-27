@@ -1,5 +1,5 @@
 {
-    "localBaserowGetRowForm": {
+    "localGeoprojeGetRowForm": {
         "rowFieldHelpText": "Lascia vuoto per ritornare la prima riga.",
         "noTableChosenForSorting": "Scegli una tabella per iniziare ad utilizzare gli ordinamenti delle sorgenti dati.",
         "rowFieldLabel": "ID Riga",
@@ -10,7 +10,7 @@
         "filterTabTitle": "Filtri",
         "searchTabTitle": "Cerca"
     },
-    "localBaserowListRowsForm": {
+    "localGeoprojeListRowsForm": {
         "filterTabTitle": "Filtri",
         "searchTabTitle": "Cerca",
         "sortTabTitle": "Ordinamenti",
@@ -19,19 +19,19 @@
         "noTableChosenForSorting": "Scegli una tabella per iniziare ad utilizzare gli ordinamenti delle sorgenti dati.",
         "defaultResultCountHelp": "Il numero predefinito di record che questa origine dati recupererà sulla tua pagina. Impostare il valore a 0, e utilizzarlo su un elemento collezione, migliorerà le prestazioni al caricamento della pagina recuperando i record solo quando l'elemento è paginato."
     },
-    "localBaserowTableServiceConditionalForm": {
+    "localGeoprojeTableServiceConditionalForm": {
         "noCompatibleFilterTypesErrorTitle": "Nessun tipo di filtro compatibile",
         "noCompatibleFilterTypesErrorMessage": "Nessuno dei tuoi campi ha un tipo di filtro compatibile",
         "addFilter": "Aggiungi un altro filtro",
         "noFilterTitle": "Non hai ancora creato un filtro sulle sorgenti dati",
-        "noFilterText": "I filtri sulle sorgenti dati ti consentono di mostrare le righe della tabella Baserow che si applicano alle tue condizioni.",
+        "noFilterText": "I filtri sulle sorgenti dati ti consentono di mostrare le righe della tabella Geoproje che si applicano alle tue condizioni.",
         "relatedFieldNotFound": "Impossibile trovare il campo correlato.",
         "filterTypeNotFound": "Il tipo di filtro non è compatibile.",
         "formulaFilterInputPlaceholder": "Inserisci il testo...",
         "useFormulaForValue": "Utilizza una formula per questo filtro",
         "useDefaultForValue": "Utilizza il filtro di default per questo campo"
     },
-    "localBaserowTableServiceSortForm": {
+    "localGeoprojeTableServiceSortForm": {
         "noSortTitle": "Non hai ancora creato un ordinamento per le sorgenti dati",
         "noSortText": "L'ordinamento ti permette di ordinare le righe per un campo.",
         "noTableChosenForSorting": "Scegli una tabella per iniziare ad utilizzare gli ordinamenti delle sorgenti dati.",
@@ -40,45 +40,45 @@
         "addSort": "Aggiungi un ordinamento"
     },
     "integrationType": {
-        "localBaserow": "Baserow locale",
-        "localBaserowSummary": "Baserow locale - {name}, {surname}",
-        "localBaserowWarning": "L'autorizzazione del tuo account fornisce a chiunque abbia autorizzazioni di modifica per l'applicazione l'accesso completo ai dati a cui hai accesso. È possibile creare un secondo utente, fornire i permessi corretti e utilizzare quest'ultimo.",
+        "localGeoproje": "Geoproje locale",
+        "localGeoprojeSummary": "Geoproje locale - {name}, {surname}",
+        "localGeoprojeWarning": "L'autorizzazione del tuo account fornisce a chiunque abbia autorizzazioni di modifica per l'applicazione l'accesso completo ai dati a cui hai accesso. È possibile creare un secondo utente, fornire i permessi corretti e utilizzare quest'ultimo.",
         "smtp": "Email SMTP"
     },
     "serviceType": {
-        "localBaserowGetRow": "Leggi single Row",
-        "localBaserowListRows": "Elenca multiple rows",
-        "localBaserowAggregateRows": "Aggrega campo",
+        "localGeoprojeGetRow": "Leggi single Row",
+        "localGeoprojeListRows": "Elenca multiple rows",
+        "localGeoprojeAggregateRows": "Aggrega campo",
         "misconfigured": "Errore di configurazione",
         "trashedField": "Campo eliminato"
     },
     "userSourceType": {
-        "localBaserow": "Autenticazione tramite tabella di Baserow"
+        "localGeoproje": "Autenticazione tramite tabella di Geoproje"
     },
-    "localBaserowForm": {
+    "localGeoprojeForm": {
         "user": "Utente",
-        "userMessage": "Creando questa connessione, autorizzi l'applicazione a utilizzare il tuo account per apportare modifiche nell'area di lavoro Baserow locale."
+        "userMessage": "Creando questa connessione, autorizzi l'applicazione a utilizzare il tuo account per apportare modifiche nell'area di lavoro Geoproje locale."
     },
     "dataProviderType": {
         "dataSource": "Sorgente dati",
         "pageParameter": "Parametro"
     },
-    "localBaserowTableSelector": {
+    "localGeoprojeTableSelector": {
         "viewFieldLabel": "Vista",
         "tableFieldLabel": "Tabella",
         "chooseNoView": "Non selezionato",
         "databaseFieldLabel": "Database"
     },
-    "localBaserowIntegrationType": {
-        "localBaserowSummary": "Baserow Locale - {name}, {username}",
-        "localBaserowNoUser": "Baserow Locale - Non configurato",
-        "localBaserowWarning": "Autorizzare il tuo account consente a chiunque abbia i permessi di modifica sull'applicazione di avere pieno accesso ai dati a cui hai accesso tu. È possibile creare un secondo utente, assegnare i permessi appropriati e utilizzare quello."
+    "localGeoprojeIntegrationType": {
+        "localGeoprojeSummary": "Geoproje Locale - {name}, {username}",
+        "localGeoprojeNoUser": "Geoproje Locale - Non configurato",
+        "localGeoprojeWarning": "Autorizzare il tuo account consente a chiunque abbia i permessi di modifica sull'applicazione di avere pieno accesso ai dati a cui hai accesso tu. È possibile creare un secondo utente, assegnare i permessi appropriati e utilizzare quello."
     },
     "integrationsCommon": {
         "singleRow": "Singola riga",
         "multipleRows": "Più righe"
     },
-    "localBaserowAggregateRowsForm": {
+    "localGeoprojeAggregateRowsForm": {
         "aggregationFieldLabel": "Campo",
         "aggregationTypeLabel": "Aggregazione",
         "searchFieldPlaceHolder": "Inserisci un termine per la ricerca...",

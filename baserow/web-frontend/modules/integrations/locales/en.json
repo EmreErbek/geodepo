@@ -4,15 +4,15 @@
     "multipleRows": "multiple rows"
   },
   "integrationType": {
-    "localBaserow": "Local Baserow",
+    "localGeoproje": "Local Geoproje",
     "smtp": "SMTP Email",
     "slackBot": "Slack Bot",
     "ai": "AI"
   },
-  "localBaserowIntegrationType": {
-    "localBaserowSummary": "Local Baserow - {name}, {username}",
-    "localBaserowNoUser": "Local Baserow - Not configured",
-    "localBaserowWarning": "Authorizing your account gives everyone who has edit permissions to the application full access to the data you have access to. It's possible to create a second user, give the right permissions and use that one."
+  "localGeoprojeIntegrationType": {
+    "localGeoprojeSummary": "Local Geoproje - {name}, {username}",
+    "localGeoprojeNoUser": "Local Geoproje - Not configured",
+    "localGeoprojeWarning": "Authorizing your account gives everyone who has edit permissions to the application full access to the data you have access to. It's possible to create a second user, give the right permissions and use that one."
   },
   "aiIntegrationType": {
     "inheritingWorkspace": "Inheriting workspace AI settings",
@@ -23,24 +23,24 @@
     "slackBotNoToken": "Slack Bot - Not configured"
   },
   "serviceType": {
-    "localBaserowGetRow": "Get single row",
-    "localBaserowGetRowDescription": "Read a single row from a Baserow table.",
-    "localBaserowListRows": "List multiple rows",
-    "localBaserowListRowsDescription": "Reads multiple rows from a Baserow table.",
-    "localBaserowAggregateRows": "Summarize field",
-    "localBaserowAggregateRowsDescription": "Summarizes a field in a Baserow table.",
-    "localBaserowCreateRow": "Create a row",
-    "localBaserowCreateRowDescription": "Creates a new row in a Baserow table.",
-    "localBaserowUpdateRow": "Update a row",
-    "localBaserowUpdateRowDescription": "Updates an existing row in a Baserow table.",
-    "localBaserowDeleteRow": "Delete a row",
-    "localBaserowDeleteRowDescription": "Deletes a row in a Baserow table.",
-    "localBaserowRowsCreated": "Rows are created",
-    "localBaserowRowsCreatedDescription": "Triggered when rows are created in a Baserow table.",
-    "localBaserowRowsUpdated": "Rows are updated",
-    "localBaserowRowsUpdatedDescription": "Triggered when rows are updated in a Baserow table.",
-    "localBaserowRowsDeleted": "Rows are deleted",
-    "localBaserowRowsDeletedDescription": "Triggered when rows are deleted in a Baserow table.",
+    "localGeoprojeGetRow": "Get single row",
+    "localGeoprojeGetRowDescription": "Read a single row from a Geoproje table.",
+    "localGeoprojeListRows": "List multiple rows",
+    "localGeoprojeListRowsDescription": "Reads multiple rows from a Geoproje table.",
+    "localGeoprojeAggregateRows": "Summarize field",
+    "localGeoprojeAggregateRowsDescription": "Summarizes a field in a Geoproje table.",
+    "localGeoprojeCreateRow": "Create a row",
+    "localGeoprojeCreateRowDescription": "Creates a new row in a Geoproje table.",
+    "localGeoprojeUpdateRow": "Update a row",
+    "localGeoprojeUpdateRowDescription": "Updates an existing row in a Geoproje table.",
+    "localGeoprojeDeleteRow": "Delete a row",
+    "localGeoprojeDeleteRowDescription": "Deletes a row in a Geoproje table.",
+    "localGeoprojeRowsCreated": "Rows are created",
+    "localGeoprojeRowsCreatedDescription": "Triggered when rows are created in a Geoproje table.",
+    "localGeoprojeRowsUpdated": "Rows are updated",
+    "localGeoprojeRowsUpdatedDescription": "Triggered when rows are updated in a Geoproje table.",
+    "localGeoprojeRowsDeleted": "Rows are deleted",
+    "localGeoprojeRowsDeletedDescription": "Triggered when rows are deleted in a Geoproje table.",
     "coreHTTPTrigger": "Receive an HTTP Request",
     "coreHTTPTriggerDescription": "Triggered when an HTTP request is received.",
     "coreHTTPRequest": "Send an HTTP request",
@@ -82,11 +82,11 @@
     "slackWriteMessageMissingIntegration": "No Slack integration selected."
   },
   "userSourceType": {
-    "localBaserow": "Baserow table authentication"
+    "localGeoproje": "Geoproje table authentication"
   },
-  "localBaserowForm": {
+  "localGeoprojeForm": {
     "user": "User",
-    "userMessage": "By creating this connection, you're authorizing the application to use your account to make changes in your local Baserow workspace."
+    "userMessage": "By creating this connection, you're authorizing the application to use your account to make changes in your local Geoproje workspace."
   },
   "aiForm": {
     "description": "Configure AI provider settings for this integration. By default, workspace AI settings are inherited.",
@@ -116,7 +116,7 @@
     "addChoice": "Add choice",
     "choicesRequired": "At least one choice is required"
   },
-  "localBaserowGetRowForm": {
+  "localGeoprojeGetRowForm": {
     "rowFieldLabel": "Row ID",
     "invalidFormula": "The formula is invalid",
     "rowFieldPlaceHolder": "Choose a single row ID",
@@ -125,7 +125,7 @@
     "noTableChosenForFiltering": "Choose a table to begin using data source filters.",
     "noTableChosenForSorting": "Choose a table to begin using data source sorts."
   },
-  "localBaserowListRowsForm": {
+  "localGeoprojeListRowsForm": {
     "searchFieldPlaceHolder": "Enter a search term...",
     "noTableChosenForFiltering": "Choose a table to begin using data source filters.",
     "noTableChosenForSorting": "Choose a table to begin using data source sorts.",
@@ -143,16 +143,16 @@
     "noTableChosenForSorting": "Choose a table to begin using data source sorts.",
     "refinements": "Refinements"
   },
-  "localBaserowAggregateRowsForm": {
+  "localGeoprojeAggregateRowsForm": {
     "aggregationFieldLabel": "Field",
     "aggregationTypeLabel": "Aggregation",
     "searchFieldPlaceHolder": "Enter a search term...",
     "noTableChosenForFiltering": "Choose a table to begin using data source filters."
   },
-  "localBaserowTableServiceConditionalForm": {
+  "localGeoprojeTableServiceConditionalForm": {
     "addFilter": "Add additional filter",
     "noFilterTitle": "You have not yet created a data source filter",
-    "noFilterText": "Data source filters allow you to show Baserow table rows that apply to your conditions.",
+    "noFilterText": "Data source filters allow you to show Geoproje table rows that apply to your conditions.",
     "relatedFieldNotFound": "The related field is not found.",
     "filterTypeNotFound": "The filter type is not compatible.",
     "noCompatibleFilterTypesErrorTitle": "No compatible filter types",
@@ -162,7 +162,7 @@
     "useFormulaForValue": "Use a formula for this filter",
     "useDefaultForValue": "Use the default filter for this field"
   },
-  "localBaserowTableServiceSortForm": {
+  "localGeoprojeTableServiceSortForm": {
     "noSortTitle": "You have not yet created a data source sort",
     "noSortText": "Sorts allow you to sort rows by a field.",
     "sortBy": "Sort by",
@@ -225,7 +225,7 @@
     "messagePlaceholder": "Enter a message...",
     "channelNoPrefix": "Remove the '#' before the channel name."
   },
-  "localBaserowTableSelector": {
+  "localGeoprojeTableSelector": {
     "viewFieldLabel": "View",
     "tableFieldLabel": "Table",
     "chooseNoView": "Not selected",
@@ -314,14 +314,14 @@
     "deactivatedTitle": "Periodic trigger deactivated",
     "deactivatedText": "This periodic trigger has been automatically deactivated due to consecutive failures."
   },
-  "localBaserowServiceForm": {
+  "localGeoprojeServiceForm": {
     "integrationDropdownLabel": "Integration",
     "rowIdLabel": "Row ID",
     "rowIdPlaceholder": "Choose a single row ID"
   },
-  "localBaserowUpsertRowServiceForm": {
+  "localGeoprojeUpsertRowServiceForm": {
     "fieldMappingPlaceholderArray": "Choose an array value, e.g [42]",
-    "fieldMappingPlaceholderString": "Choose a string value, e.g. \\'baserow\\'",
+    "fieldMappingPlaceholderString": "Choose a string value, e.g. \\'Geoproje\\'",
     "fieldMappingPlaceholderNumber": "Choose a number value, e.g. 42",
     "fieldMappingPlaceholderBoolean": "Choose a boolean value, e.g. true",
     "fieldMappingPlaceholderDate": "Choose a date value, e.g. 2025-07-25",

@@ -814,7 +814,7 @@
         "defaultTitle": "데이터 로딩 오류",
         "defaultMessage": "페이지의 데이터를 로드하는 중 오류가 발생했습니다."
     },
-    "localBaserowServiceForm": {
+    "localGeoprojeServiceForm": {
         "integrationDropdownLabel": "통합",
         "rowIdLabel": "행 ID",
         "rowIdPlaceholder": "행 ID 선택"
@@ -1077,7 +1077,7 @@
     },
     "dataGuidedTourStep": {
         "title": "데이터를 연결하세요",
-        "content": "여기에 Baserow 테이블을 연결하면 다양한 요소에서 데이터를 동적으로 표시, 필터링, 업데이트할 수 있습니다."
+        "content": "여기에 Geoproje 테이블을 연결하면 다양한 요소에서 데이터를 동적으로 표시, 필터링, 업데이트할 수 있습니다."
     },
     "previewGuidedTourStep": {
         "title": "귀하의 제어 센터",
