@@ -141,44 +141,67 @@ function Add-FrontendSymlinkFixes {
 
 Add-FrontendSymlinkFixes (Join-Path $RepoRoot "baserow\Dockerfile.railway-frontend")
 
+function Apply-MkdirReplacements {
+    param([string]$Line)
+    $fixed = $Line
+    $fixed = $fixed -replace 'RUN mkdir -p /baserow/web-frontend /baserow/premium/web-frontend /baserow/enterprise/web-frontend', 'RUN mkdir -p /baserow/web-frontend'
+    $fixed = $fixed -replace 'RUN mkdir -p /baserow/backend/docker /baserow/premium/ /baserow/enterprise/ /baserow/media', 'RUN mkdir -p /baserow/backend/docker /baserow/media'
+    $fixed = $fixed -replace 'RUN mkdir -p /baserow/backend/reports /baserow/premium/backend /baserow/enterprise/backend /baserow/media', 'RUN mkdir -p /baserow/backend/reports /baserow/media'
+    return $fixed
+}
+
 function Remove-PremiumEnterpriseFromDockerfile {
     param([string]$DockerfilePath, [switch]$IsFrontend)
 
     $lines = Get-Content $DockerfilePath
     $result = New-Object System.Collections.Generic.List[string]
-    $skipping = $false
+    $i = 0
 
-    foreach ($line in $lines) {
-        if ($skipping) {
-            if ($line -notmatch '\\\s*$') { $skipping = $false }
-            if ($skipping) { continue }
-        }
+    while ($i -lt $lines.Count) {
+        $line = $lines[$i]
 
         if ($line -match 'PYTHONPATH=.*(premium|enterprise)') {
             $suffix = if ($line -match '\\\s*$') { ' \' } else { '' }
             if ($line -match 'tests') {
-                $line = "    PYTHONPATH=`"/baserow/backend/src:/baserow/backend/tests`"$suffix"
+                $result.Add("    PYTHONPATH=`"/baserow/backend/src:/baserow/backend/tests`"$suffix")
             } else {
-                $line = "    PYTHONPATH=`"/baserow/backend/src`"$suffix"
+                $result.Add("    PYTHONPATH=`"/baserow/backend/src`"$suffix")
             }
-            $result.Add($line)
+            $i++
             continue
         }
 
-        if ($line -match '(?i)(COPY|RUN ln -s|RUN mkdir|rm -rf|--from=builder-prod /baserow/premium|/baserow/enterprise)') {
+        if ($line -match '^RUN mkdir.*(premium|enterprise)') {
+            $end = Get-RunBlockEndIndex -Lines $lines -StartIndex $i
+            foreach ($blockLine in $lines[$i..$end]) {
+                $result.Add((Apply-MkdirReplacements $blockLine))
+            }
+            $i = $end + 1
+            continue
+        }
+
+        if ($line -match '^RUN ln -s.*(premium|enterprise)') {
+            $end = Get-RunBlockEndIndex -Lines $lines -StartIndex $i
+            $result.Add('RUN mkdir -p /baserow/web-frontend/.cache /baserow/web-frontend/reports/coverage && \')
+            $result.Add('    chown -R $UID:$GID /baserow/web-frontend/.cache /baserow/web-frontend/reports')
+            $i = $end + 1
+            continue
+        }
+
+        if ($line -match '(?i)(COPY|rm -rf|--from=builder-prod /baserow/premium|/baserow/enterprise)') {
             if ($line -match '(?i)premium|enterprise') {
-                if ($line -match '\\\s*$') { $skipping = $true }
+                $i++
                 continue
             }
         }
 
-        if ($line -match '(?i)premium|enterprise') { continue }
+        if ($line -match '(?i)premium|enterprise') {
+            $i++
+            continue
+        }
 
-        $fixed = $line
-        $fixed = $fixed -replace 'RUN mkdir -p /baserow/web-frontend /baserow/premium/web-frontend /baserow/enterprise/web-frontend', 'RUN mkdir -p /baserow/web-frontend'
-        $fixed = $fixed -replace 'RUN mkdir -p /baserow/backend/docker /baserow/premium/ /baserow/enterprise/ /baserow/media', 'RUN mkdir -p /baserow/backend/docker /baserow/media'
-        $fixed = $fixed -replace 'RUN mkdir -p /baserow/backend/reports /baserow/premium/backend /baserow/enterprise/backend /baserow/media', 'RUN mkdir -p /baserow/backend/reports /baserow/media'
-        $result.Add($fixed)
+        $result.Add((Apply-MkdirReplacements $line))
+        $i++
     }
 
     $content = ($result -join "`n") + "`n"

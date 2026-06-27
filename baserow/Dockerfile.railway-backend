@@ -179,6 +179,7 @@ COPY --from=tool-builder /usr/bin/tini /usr/bin/tini
 COPY --from=ghcr.io/astral-sh/uv:0.9.26 /uv /uvx /bin/
 
 # Create baserow directory structure (including subdirs for COPY targets)
+RUN mkdir -p /baserow/backend/reports /baserow/media && \
     chown -R $UID:$GID /baserow/
 
 # Copy the virtual environment and source code with tests
@@ -249,6 +250,7 @@ COPY --from=tool-builder /usr/bin/dos2unix /usr/local/bin/dos2unix
 COPY --from=ghcr.io/astral-sh/uv:0.9.26 /uv /uvx /bin/
 
 # Create directory structure to install dependencies
+RUN mkdir -p /baserow/backend/docker /baserow/media && \
     chown -R $UID:$GID /baserow/
 
 USER $UID:$GID
@@ -300,8 +302,7 @@ ENV POSTGRES_VERSION=15 \
     PYTHONUNBUFFERED=1 \
     PATH="/baserow/venv/bin:$PATH" \
     PYTHONPATH="/baserow/backend/src" \
-    DJANGO_SETTINGS_MODULE='baserow.config.settings.base' \
-    BASEROW_OSS_ONLY=true
+    DJANGO_SETTINGS_MODULE='baserow.config.settings.base'
 
 # Runtime dependencies only
 RUN apt-get update && \
@@ -348,5 +349,4 @@ CMD ["gunicorn"]
 
 FROM local AS prod
 
-ENV BASEROW_OSS_ONLY=true
 CMD ["gunicorn"]

@@ -34,6 +34,8 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ENV YARN_CACHE_FOLDER=/tmp/.yarn-cache
 
+RUN mkdir -p /baserow/web-frontend && \
+    chown -R $UID:$GID /baserow
 
 USER $UID:$GID
 WORKDIR /baserow/web-frontend
@@ -57,6 +59,8 @@ ENV YARN_CACHE_FOLDER=/tmp/.yarn-cache \
     NODE_OPTIONS="--max-old-space-size=4096" \
     NODE_ENV=production
 
+RUN mkdir -p /baserow/web-frontend && \
+    chown -R $UID:$GID /baserow/
 
 # Copy source code
 COPY --chown=$UID:$GID ./web-frontend /baserow/web-frontend/
@@ -66,6 +70,9 @@ RUN rm -f /baserow/web-frontend/i18n/locales && ln -s ../locales /baserow/web-fr
 
 # Copy all dependencies so we can build the production files
 COPY --chown=$UID:$GID --from=builder-ci /baserow/web-frontend/node_modules /baserow/web-frontend/node_modules
+
+RUN mkdir -p /baserow/web-frontend/.cache /baserow/web-frontend/reports/coverage && \
+    chown -R $UID:$GID /baserow/web-frontend/.cache /baserow/web-frontend/reports
 
 COPY --from=tool-builder /usr/bin/dos2unix /usr/local/bin/dos2unix
 RUN dos2unix /baserow/web-frontend/docker/docker-entrypoint.sh \
@@ -125,6 +132,8 @@ COPY --chown=$UID:$GID --from=builder-prod /baserow/web-frontend/.nuxt /baserow/
 COPY --chown=$UID:$GID --from=builder-prod /baserow/web-frontend/.output /baserow/web-frontend/.output
 
 # Create symlinks and cache directories (after COPY so they don't get overwritten)
+RUN mkdir -p /baserow/web-frontend/.cache /baserow/web-frontend/reports/coverage && \
+    chown -R $UID:$GID /baserow/web-frontend/.cache /baserow/web-frontend/reports
 
 COPY --chown=$UID:$GID tests /baserow/tests
 COPY --chown=$UID:$GID deploy/plugins/*.sh /baserow/plugins/
@@ -181,6 +190,8 @@ RUN getent group $GID || groupadd --system --gid $GID ${DOCKER_USER} && \
     echo "${DOCKER_USER} ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/${DOCKER_USER} && \
     chmod 0440 /etc/sudoers.d/${DOCKER_USER}
 
+RUN mkdir -p /baserow/web-frontend && \
+    chown -R $UID:$GID /baserow
 
 USER $UID:$GID
 WORKDIR /baserow/web-frontend
@@ -206,6 +217,9 @@ RUN dos2unix /baserow/web-frontend/docker/docker-entrypoint.sh \
 
 COPY --chown=$UID:$GID web-frontend/package.json /baserow/web-frontend/package.json
 COPY --chown=$UID:$GID web-frontend/yarn.lock /baserow/web-frontend/yarn.lock
+
+RUN mkdir -p /baserow/web-frontend/.cache /baserow/web-frontend/reports/coverage && \
+    chown -R $UID:$GID /baserow/web-frontend/.cache /baserow/web-frontend/reports
 
 # Make sure these directories exist and are owned by the non-root user
 RUN mkdir -p /baserow/web-frontend/.nuxt /baserow/web-frontend/.cache /baserow/web-frontend/.nuxt-storybook /baserow/web-frontend/.output
