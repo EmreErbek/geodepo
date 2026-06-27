@@ -41,9 +41,8 @@ USER $UID:$GID
 WORKDIR /baserow/web-frontend
 
 # Install dependencies (including dev)
-RUN --mount=type=bind,source=web-frontend/package.json,target=/baserow/web-frontend/package.json \
-    --mount=type=bind,source=web-frontend/yarn.lock,target=/baserow/web-frontend/yarn.lock \
-    yarn install --pure-lockfile --cache-folder $YARN_CACHE_FOLDER
+COPY --chown=$UID:$GID web-frontend/package.json web-frontend/yarn.lock /baserow/web-frontend/
+RUN yarn install --pure-lockfile --cache-folder $YARN_CACHE_FOLDER
 
 
 # =============================================================================
