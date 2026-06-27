@@ -1,4 +1,4 @@
-﻿# syntax=docker/dockerfile:1.4
+# syntax=docker/dockerfile:1.4
 ARG PYTHON_BASE_IMAGE="python:3.14.3-slim-trixie"
 ARG UID="9999"
 ARG GID="9999"
@@ -57,7 +57,14 @@ RUN mkdir -p /baserow/ && chown -R $UID:$GID /baserow/
 USER $UID:$GID
 WORKDIR /baserow/backend
 
-RUN uv sync --frozen --no-dev --no-install-workspace --no-install-project \
+RUN --mount=type=bind,source=LICENSE,target=/baserow/LICENSE \
+    --mount=type=bind,source=backend/uv.lock,target=/baserow/backend/uv.lock \
+    --mount=type=bind,source=backend/pyproject.toml,target=/baserow/backend/pyproject.toml \
+    --mount=type=bind,source=premium/LICENSE,target=/baserow/premium/LICENSE \
+    --mount=type=bind,source=premium/backend/pyproject.toml,target=/baserow/premium/backend/pyproject.toml \
+    --mount=type=bind,source=enterprise/LICENSE,target=/baserow/enterprise/LICENSE \
+    --mount=type=bind,source=enterprise/backend/pyproject.toml,target=/baserow/enterprise/backend/pyproject.toml \
+    uv sync --frozen --no-dev --no-install-workspace --no-install-project \
     && find /baserow/venv -type f \( -name "*.c" -o -name "*.h" \) -not -path "*/autobahn/*" -delete \
     # Strip test/doc directories from site-packages (keep django/drf tests - used at runtime)
     # Keep botocore/docs and boto3/docs - they're imported at runtime
@@ -82,7 +89,11 @@ COPY --chown=$UID:$GID premium/LICENSE /baserow/premium/LICENSE
 COPY --chown=$UID:$GID enterprise/LICENSE /baserow/enterprise/LICENSE
 
 # Install dev dependencies before copying source code to leverage caching
-RUN uv sync --frozen --no-install-workspace --no-install-project \
+RUN --mount=type=bind,source=backend/uv.lock,target=/baserow/backend/uv.lock \
+    --mount=type=bind,source=backend/pyproject.toml,target=/baserow/backend/pyproject.toml \
+    --mount=type=bind,source=premium/backend/pyproject.toml,target=/baserow/premium/backend/pyproject.toml \
+    --mount=type=bind,source=enterprise/backend/pyproject.toml,target=/baserow/enterprise/backend/pyproject.toml \
+    uv sync --frozen --no-install-workspace --no-install-project \
     && find /baserow/venv -type f \( -name "*.c" -o -name "*.h" \) -not -path "*/autobahn/*" -delete \
     # Strip test/doc directories from site-packages (keep django/drf tests - used at runtime)
     # Keep botocore/docs and boto3/docs - they're imported at runtime
@@ -268,7 +279,11 @@ COPY --chown=$UID:$GID LICENSE /baserow/LICENSE
 COPY --chown=$UID:$GID premium/LICENSE /baserow/premium/LICENSE
 COPY --chown=$UID:$GID enterprise/LICENSE /baserow/enterprise/LICENSE
 
-RUN uv sync --frozen --no-install-workspace --no-install-project
+RUN --mount=type=bind,source=backend/uv.lock,target=/baserow/backend/uv.lock \
+    --mount=type=bind,source=backend/pyproject.toml,target=/baserow/backend/pyproject.toml \
+    --mount=type=bind,source=premium/backend/pyproject.toml,target=/baserow/premium/backend/pyproject.toml \
+    --mount=type=bind,source=enterprise/backend/pyproject.toml,target=/baserow/enterprise/backend/pyproject.toml \
+    uv sync --frozen --no-install-workspace --no-install-project
 
 # Configure tmux and bashrc
 RUN echo "set -g default-command \"\${SHELL}\"" > /baserow/.tmux.conf && \
