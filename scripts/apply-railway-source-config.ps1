@@ -13,28 +13,28 @@ $services = @(
         Id = "dfaf061c-c264-49b2-8013-a844b9182e1b"
         Name = "Baserow Backend"
         Config = "/deploy/railway/backend.toml"
-        Dockerfile = "backend/Dockerfile"
+        Dockerfile = "Dockerfile.railway-backend"
         Start = $null
     },
     @{
         Id = "e1825ca7-e907-4cfa-8b7a-8c66be4af7f2"
         Name = "Baserow Frontend"
         Config = "/deploy/railway/frontend.toml"
-        Dockerfile = "web-frontend/Dockerfile"
+        Dockerfile = "Dockerfile.railway-frontend"
         Start = $null
     },
     @{
         Id = "a7852707-f94e-4457-b703-621f58e72dcb"
         Name = "Celery Worker"
         Config = "/deploy/railway/celery-worker.toml"
-        Dockerfile = "backend/Dockerfile"
+        Dockerfile = "Dockerfile.railway-backend"
         Start = "/baserow/backend/docker/docker-entrypoint.sh celery-worker"
     },
     @{
         Id = "982ebb27-6e89-4c97-8585-55b54190a934"
         Name = "Celery Beat"
         Config = "/deploy/railway/celery-beat.toml"
-        Dockerfile = "backend/Dockerfile"
+        Dockerfile = "Dockerfile.railway-backend"
         Start = "/baserow/backend/docker/docker-entrypoint.sh celery-beat"
     }
 )
@@ -75,7 +75,7 @@ foreach ($svc in $services) {
         railwayConfigFile = $svc.Config
         dockerfilePath = $svc.Dockerfile
         builder = "DOCKERFILE"
-        watchPatterns = @("backend/**", "web-frontend/**", "deploy/**")
+        watchPatterns = @("backend/**", "web-frontend/**", "deploy/**", "Dockerfile.railway-backend", "Dockerfile.railway-frontend")
     }
     if ($svc.Start) { $input.startCommand = $svc.Start }
 
