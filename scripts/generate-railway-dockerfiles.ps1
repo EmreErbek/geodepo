@@ -112,5 +112,34 @@ Convert-RailwayDockerfile `
     (Join-Path $RepoRoot "baserow\web-frontend\Dockerfile") `
     (Join-Path $RepoRoot "baserow\Dockerfile.railway-frontend")
 
+function Add-FrontendSymlinkFixes {
+    param([string]$DockerfilePath)
+
+    $symlinkFix = @(
+        ''
+        '# Windows git checkout stores symlinks as plain text files'
+        'RUN rm -f /baserow/web-frontend/i18n/locales && ln -s ../locales /baserow/web-frontend/i18n/locales'
+    ) -join "`n"
+
+    $content = Get-Content $DockerfilePath -Raw
+    $patterns = @(
+        '(COPY --chown=\$UID:\$GID \./web-frontend /baserow/web-frontend/\r?\n)',
+        '(COPY --chown=\$UID:\$GID web-frontend /baserow/web-frontend\r?\n)'
+    )
+
+    foreach ($pattern in $patterns) {
+        $content = [regex]::Replace(
+            $content,
+            "($pattern)(?!\r?\n\r?\n# Windows git checkout stores symlinks)",
+            "`$1$symlinkFix`n",
+            1
+        )
+    }
+
+    [System.IO.File]::WriteAllText($DockerfilePath, $content)
+}
+
+Add-FrontendSymlinkFixes (Join-Path $RepoRoot "baserow\Dockerfile.railway-frontend")
+
 Write-Host "Uretildi: baserow/Dockerfile.railway-backend" -ForegroundColor Green
 Write-Host "Uretildi: baserow/Dockerfile.railway-frontend" -ForegroundColor Green

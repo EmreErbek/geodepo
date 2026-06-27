@@ -64,6 +64,9 @@ RUN mkdir -p /baserow/web-frontend /baserow/premium/web-frontend /baserow/enterp
 
 # Copy source code
 COPY --chown=$UID:$GID ./web-frontend /baserow/web-frontend/
+
+# Windows git checkout stores symlinks as plain text files
+RUN rm -f /baserow/web-frontend/i18n/locales && ln -s ../locales /baserow/web-frontend/i18n/locales
 COPY --chown=$UID:$GID ./premium/web-frontend /baserow/premium/web-frontend/
 COPY --chown=$UID:$GID ./enterprise/web-frontend /baserow/enterprise/web-frontend/
 
@@ -122,6 +125,9 @@ RUN mkdir -p /baserow/reports /baserow/.cache /baserow/.yarn && \
 # Copy dependencies and source code
 COPY --chown=$UID:$GID ./eslint.config.mjs /baserow/eslint.config.mjs
 COPY --chown=$UID:$GID web-frontend /baserow/web-frontend
+
+# Windows git checkout stores symlinks as plain text files
+RUN rm -f /baserow/web-frontend/i18n/locales && ln -s ../locales /baserow/web-frontend/i18n/locales
 COPY --chown=$UID:$GID premium/web-frontend /baserow/premium/web-frontend
 COPY --chown=$UID:$GID enterprise/web-frontend /baserow/enterprise/web-frontend
 
