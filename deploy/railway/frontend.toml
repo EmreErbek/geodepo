@@ -5,7 +5,7 @@
 
 [build]
 builder = "DOCKERFILE"
-dockerfilePath = "web-frontend/Dockerfile"
+dockerfilePath = "Dockerfile.railway-frontend"
 watchPatterns = [
   "web-frontend/**",
   "premium/web-frontend/**",
