@@ -1,0 +1,96 @@
+{
+  "version": 1,
+  "lists": {
+    "53031172": {
+      "name": "Devam Eden İşler",
+      "target_table": "Projeler",
+      "clickup_list_field": "ClickUp List",
+      "clickup_list_value": "Devam Eden İşler",
+      "status_map": {
+        "open": "Open",
+        "devam eden i̇şler": "devam eden işler",
+        "devam eden işler": "devam eden işler",
+        "yapilan işler": "yapılan işler",
+        "yapılan işler": "yapılan işler",
+        "i̇ptal olan işler": "iptal olan işler",
+        "iptal olan işler": "iptal olan işler",
+        "kontrol edilecek işler": "kontrol edilecek işler",
+        "üniversite işleri": "üniversite işleri",
+        "closed": "Closed",
+        "complete": "yapılan işler"
+      },
+      "priority_map": {
+        "1": "Urgent",
+        "2": "High",
+        "3": "Normal",
+        "4": "Low"
+      },
+      "fields": {
+        "name": "Proje Adı",
+        "description": "Açıklama",
+        "status": "Durum",
+        "priority": "Öncelik",
+        "tags": "Etiketler"
+      },
+      "custom_fields": {
+        "Konum": "Konum",
+        "PROJE TÜRÜ": "Proje Türü",
+        "Teklif Tarihi": "Teklif Tarihi",
+        "Ödeme Durumu": "Ödeme Durumu",
+        "İşveren": "İşveren",
+        "ADA": "Ada",
+        "PARSEL": "Parsel",
+        "Proje Bedeli": "Proje Bedeli",
+        "BELEDİYE": "Belediye"
+      }
+    },
+    "53031171": {
+      "name": "Teklif",
+      "target_table": "Teklifler",
+      "fields": {
+        "name": "Teklif Adı",
+        "description": "Açıklama",
+        "status": "Durum"
+      },
+      "custom_fields": {}
+    },
+    "53031170": {
+      "name": "Ödeme Takibi",
+      "target_table": "Tahsilatlar",
+      "fields": {
+        "name": "Kayıt Adı",
+        "description": "Not"
+      },
+      "custom_fields": {
+        "Fatura Tutarı": "Fatura Tutarı",
+        "Ödenen Miktar": "Ödenen Miktar",
+        "Ödeme Tarihi": "Ödeme Tarihi",
+        "Ödeme Durumu": "Ödeme Durumu",
+        "İşveren": "Müşteri"
+      }
+    },
+    "53031167": {
+      "name": "Yapılan İşler",
+      "target_table": "Projeler",
+      "clickup_list_field": "ClickUp List",
+      "clickup_list_value": "Yapılan İşler",
+      "inherits": "53031172"
+    },
+    "53031168": {
+      "name": "Alamadığımız İşler",
+      "target_table": "Projeler",
+      "clickup_list_field": "ClickUp List",
+      "clickup_list_value": "Alamadığımız İşler",
+      "inherits": "53031172"
+    },
+    "57089317": {
+      "name": "Tarih Takip Listesi",
+      "target_table": "Tarih Takip",
+      "fields": {
+        "name": "Etkinlik",
+        "description": "Not"
+      },
+      "custom_fields": {}
+    }
+  }
+}

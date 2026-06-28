@@ -547,6 +547,10 @@
   &.grid-view__row-info--matches-search {
     background-color: $color-primary-100;
   }
+
+  &.grid-view__row-info--open-detail {
+    cursor: pointer;
+  }
 }
 
 .grid-view__row-drag {

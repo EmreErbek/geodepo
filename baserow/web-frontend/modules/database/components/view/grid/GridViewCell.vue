@@ -208,6 +208,30 @@ export default {
     },
     select(event, fieldId) {
       event.preventFieldCellUnselect = true
+
+      // A second click on an already selected cell opens the row detail panel,
+      // unless the click targets an interactive field control.
+      if (this.isSelected) {
+        const interactiveSelector = [
+          'a',
+          'button',
+          'input',
+          'textarea',
+          'select',
+          '[contenteditable="true"]',
+          '.grid-field-boolean__checkbox',
+          '.grid-view-single-select',
+          '.grid-view-multiple-select',
+          '.grid-field-link-row',
+          '.grid-field-file',
+        ].join(', ')
+
+        if (!event.target.closest(interactiveSelector)) {
+          this.$emit('edit-modal')
+        }
+        return
+      }
+
       this.$emit('select-cell', fieldId)
     },
     cellMouseDownLeft(event) {

@@ -7,6 +7,10 @@ agent-tools/
 terminals/
 .railway-config-pull-*/
 
+# Geodepo runtime (seed/import ciktilari)
+deploy/geodepo/id-map.json
+deploy/geodepo/clickup-import-log.json
+
 # OS
 Thumbs.db
 .DS_Store

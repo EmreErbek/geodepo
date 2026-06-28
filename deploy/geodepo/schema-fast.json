@@ -1,0 +1,27 @@
+{
+  "tables": [
+    {
+      "name": "Müşteriler",
+      "fields": ["Firma Adı", "Yetkili", "Telefon", "E-posta", "Not", "ClickUp Task ID"]
+    },
+    {
+      "name": "Projeler",
+      "fields": [
+        "Proje Adı", "Durum", "Proje Türü", "Konum", "İşveren", "Ada", "Parsel", "Belediye",
+        "Teklif Tarihi", "Proje Bedeli", "Ödeme Durumu", "Öncelik", "ClickUp Task ID", "ClickUp List", "Açıklama"
+      ]
+    },
+    {
+      "name": "Teklifler",
+      "fields": ["Teklif Adı", "Proje", "Müşteri", "Teklif Tarihi", "Tutar (TRY)", "Durum", "ClickUp Task ID", "Açıklama"]
+    },
+    {
+      "name": "Tahsilatlar",
+      "fields": ["Kayıt Adı", "Proje", "Müşteri", "Fatura Tutarı", "Ödenen Miktar", "Ödeme Tarihi", "Ödeme Durumu", "Not", "ClickUp Task ID"]
+    },
+    {
+      "name": "Tarih Takip",
+      "fields": ["Etkinlik", "Proje", "Tarih", "Tür", "ClickUp Task ID", "Not"]
+    }
+  ]
+}

@@ -1,0 +1,227 @@
+{
+  "version": 1,
+  "workspace": {
+    "name": "GEO_DEPO Ana"
+  },
+  "database": {
+    "name": "Operasyonlar"
+  },
+  "tables": [
+    {
+      "name": "Müşteriler",
+      "order": 1,
+      "primary_field": "Firma Adı",
+      "fields": [
+        { "name": "Firma Adı", "type": "text" },
+        { "name": "Yetkili", "type": "text" },
+        { "name": "Telefon", "type": "phone_number" },
+        { "name": "E-posta", "type": "email" },
+        { "name": "Not", "type": "long_text" },
+        { "name": "ClickUp Task ID", "type": "text" }
+      ]
+    },
+    {
+      "name": "Ekip",
+      "order": 2,
+      "primary_field": "Ad Soyad",
+      "fields": [
+        { "name": "Ad Soyad", "type": "text" },
+        { "name": "E-posta", "type": "email" },
+        { "name": "Rol", "type": "single_select", "select_options": [
+          { "value": "Owner", "color": "dark-red" },
+          { "value": "Admin", "color": "red" },
+          { "value": "Member", "color": "blue" },
+          { "value": "Guest", "color": "gray" }
+        ]},
+        { "name": "ClickUp User ID", "type": "text" }
+      ]
+    },
+    {
+      "name": "Projeler",
+      "order": 3,
+      "primary_field": "Proje Adı",
+      "fields": [
+        { "name": "Proje Adı", "type": "text" },
+        { "name": "Durum", "type": "single_select", "select_options": [
+          { "value": "Open", "color": "blue" },
+          { "value": "devam eden işler", "color": "green" },
+          { "value": "yapılan işler", "color": "dark-green" },
+          { "value": "iptal olan işler", "color": "red" },
+          { "value": "kontrol edilecek işler", "color": "orange" },
+          { "value": "üniversite işleri", "color": "purple" },
+          { "value": "Closed", "color": "gray" }
+        ]},
+        { "name": "Proje Türü", "type": "single_select", "select_options": [
+          { "value": "GEÇİCİ İKSA", "color": "blue" },
+          { "value": "YKZE", "color": "green" },
+          { "value": "DTA", "color": "orange" },
+          { "value": "TGUA", "color": "purple" },
+          { "value": "PLAXIS", "color": "red" },
+          { "value": "Diğer", "color": "gray" }
+        ]},
+        { "name": "Konum", "type": "text" },
+        { "name": "İşveren", "type": "link_row", "link_table": "Müşteriler" },
+        { "name": "Ada", "type": "text" },
+        { "name": "Parsel", "type": "text" },
+        { "name": "Belediye", "type": "text" },
+        { "name": "Teklif Tarihi", "type": "date", "date_format": "EU", "date_include_time": false },
+        { "name": "Proje Bedeli", "type": "number", "number_decimal_places": 2, "number_negative": false },
+        { "name": "Ödeme Durumu", "type": "single_select", "select_options": [
+          { "value": "Ödenmedi", "color": "red" },
+          { "value": "Kısmi Ödendi", "color": "orange" },
+          { "value": "Ödendi", "color": "green" },
+          { "value": "Beklemede", "color": "blue" }
+        ]},
+        { "name": "Öncelik", "type": "single_select", "select_options": [
+          { "value": "Urgent", "color": "dark-red" },
+          { "value": "High", "color": "red" },
+          { "value": "Normal", "color": "blue" },
+          { "value": "Low", "color": "gray" }
+        ]},
+        { "name": "Atanan", "type": "link_row", "link_table": "Ekip", "link_row_multiple": true },
+        { "name": "Etiketler", "type": "multiple_select", "select_options": [] },
+        { "name": "ClickUp Task ID", "type": "text" },
+        { "name": "ClickUp List", "type": "single_select", "select_options": [
+          { "value": "Devam Eden İşler", "color": "green" },
+          { "value": "Teklif", "color": "blue" },
+          { "value": "Yapılan İşler", "color": "dark-green" },
+          { "value": "Alamadığımız İşler", "color": "orange" },
+          { "value": "İptal Olan İşler", "color": "red" },
+          { "value": "Yapılacak İşler", "color": "purple" },
+          { "value": "AR-GE", "color": "gray" }
+        ]},
+        { "name": "Açıklama", "type": "long_text" }
+      ],
+      "views": [
+        { "name": "Tüm Projeler", "type": "grid" },
+        { "name": "Aktif Projeler", "type": "grid", "filters": [
+          { "field": "Durum", "type": "single_select_equal", "value": "devam eden işler" }
+        ]},
+        { "name": "Kanban", "type": "kanban", "kanban_field": "Durum" }
+      ]
+    },
+    {
+      "name": "Teklifler",
+      "order": 4,
+      "primary_field": "Teklif Adı",
+      "fields": [
+        { "name": "Teklif Adı", "type": "text" },
+        { "name": "Proje", "type": "link_row", "link_table": "Projeler" },
+        { "name": "Müşteri", "type": "link_row", "link_table": "Müşteriler" },
+        { "name": "Teklif Tarihi", "type": "date", "date_format": "EU", "date_include_time": false },
+        { "name": "Tutar (TRY)", "type": "number", "number_decimal_places": 2, "number_negative": false },
+        { "name": "Durum", "type": "single_select", "select_options": [
+          { "value": "Beklemede", "color": "blue" },
+          { "value": "Gönderildi", "color": "orange" },
+          { "value": "Kabul", "color": "green" },
+          { "value": "Red", "color": "red" }
+        ]},
+        { "name": "ClickUp Task ID", "type": "text" },
+        { "name": "Açıklama", "type": "long_text" }
+      ]
+    },
+    {
+      "name": "Tahsilatlar",
+      "order": 5,
+      "primary_field": "Kayıt Adı",
+      "fields": [
+        { "name": "Kayıt Adı", "type": "text" },
+        { "name": "Proje", "type": "link_row", "link_table": "Projeler" },
+        { "name": "Müşteri", "type": "link_row", "link_table": "Müşteriler" },
+        { "name": "Fatura Tutarı", "type": "number", "number_decimal_places": 2, "number_negative": false },
+        { "name": "Ödenen Miktar", "type": "number", "number_decimal_places": 2, "number_negative": false },
+        { "name": "Kalan", "type": "formula", "formula": "field('Fatura Tutarı') - field('Ödenen Miktar')", "formula_type": "number" },
+        { "name": "Ödeme Tarihi", "type": "date", "date_format": "EU", "date_include_time": false },
+        { "name": "Ödeme Durumu", "type": "single_select", "select_options": [
+          { "value": "Ödenmedi", "color": "red" },
+          { "value": "Kısmi Ödendi", "color": "orange" },
+          { "value": "Ödendi", "color": "green" }
+        ]},
+        { "name": "Not", "type": "long_text" },
+        { "name": "ClickUp Task ID", "type": "text" },
+        { "name": "Arşiv", "type": "boolean" }
+      ],
+      "views": [
+        { "name": "Ödenmemiş", "type": "grid", "filters": [
+          { "field": "Ödeme Durumu", "type": "single_select_equal", "value": "Ödenmedi" }
+        ]}
+      ]
+    },
+    {
+      "name": "Giderler",
+      "order": 6,
+      "primary_field": "Açıklama",
+      "fields": [
+        { "name": "Açıklama", "type": "text" },
+        { "name": "Tutar (TRY)", "type": "number", "number_decimal_places": 2, "number_negative": false },
+        { "name": "Tarih", "type": "date", "date_format": "EU", "date_include_time": false },
+        { "name": "Yıl", "type": "single_select", "select_options": [
+          { "value": "2022", "color": "gray" },
+          { "value": "2023", "color": "gray" },
+          { "value": "2024", "color": "blue" },
+          { "value": "2025", "color": "green" },
+          { "value": "2026", "color": "orange" }
+        ]},
+        { "name": "Ay", "type": "single_select", "select_options": [
+          { "value": "OCAK", "color": "blue" },
+          { "value": "ŞUBAT", "color": "blue" },
+          { "value": "MART", "color": "green" },
+          { "value": "NİSAN", "color": "green" },
+          { "value": "MAYIS", "color": "orange" },
+          { "value": "HAZİRAN", "color": "orange" },
+          { "value": "TEMMUZ", "color": "red" },
+          { "value": "AĞUSTOS", "color": "red" },
+          { "value": "EYLÜL", "color": "purple" },
+          { "value": "EKİM", "color": "purple" },
+          { "value": "KASIM", "color": "gray" },
+          { "value": "ARALIK", "color": "gray" }
+        ]},
+        { "name": "Kategori", "type": "single_select", "select_options": [
+          { "value": "Ofis", "color": "blue" },
+          { "value": "Personel", "color": "green" },
+          { "value": "Malzeme", "color": "orange" },
+          { "value": "Ulaşım", "color": "purple" },
+          { "value": "Diğer", "color": "gray" }
+        ]},
+        { "name": "ClickUp Task ID", "type": "text" }
+      ]
+    },
+    {
+      "name": "Tarih Takip",
+      "order": 7,
+      "primary_field": "Etkinlik",
+      "fields": [
+        { "name": "Etkinlik", "type": "text" },
+        { "name": "Proje", "type": "link_row", "link_table": "Projeler" },
+        { "name": "Tarih", "type": "date", "date_format": "EU", "date_include_time": false },
+        { "name": "Tür", "type": "single_select", "select_options": [
+          { "value": "Sözleşme", "color": "blue" },
+          { "value": "Ruhsat", "color": "green" },
+          { "value": "Ödeme", "color": "orange" },
+          { "value": "Teslim", "color": "purple" },
+          { "value": "Diğer", "color": "gray" }
+        ]},
+        { "name": "ClickUp Task ID", "type": "text" },
+        { "name": "Not", "type": "long_text" }
+      ]
+    },
+    {
+      "name": "AR-GE",
+      "order": 8,
+      "primary_field": "Konu",
+      "fields": [
+        { "name": "Konu", "type": "text" },
+        { "name": "Durum", "type": "single_select", "select_options": [
+          { "value": "Fikir", "color": "blue" },
+          { "value": "Devam Ediyor", "color": "green" },
+          { "value": "Tamamlandı", "color": "dark-green" },
+          { "value": "İptal", "color": "red" }
+        ]},
+        { "name": "Sorumlu", "type": "link_row", "link_table": "Ekip" },
+        { "name": "Başlangıç", "type": "date", "date_format": "EU", "date_include_time": false },
+        { "name": "ClickUp Task ID", "type": "text" },
+        { "name": "Açıklama", "type": "long_text" }
+      ]
+    }
+  ]
+}

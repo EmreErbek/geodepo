@@ -1,3 +1,9 @@
+.row-edit-modal {
+  .modal__box--right.modal__box--full-height {
+    box-shadow: -4px 0 24px rgba($color-neutral-700, 0.12);
+  }
+}
+
 .row-edit-modal__navigation {
   margin-bottom: 15px;
   height: 20px;

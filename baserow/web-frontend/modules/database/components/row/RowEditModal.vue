@@ -1,9 +1,11 @@
 <template>
   <Modal
     ref="modal"
-    :full-height="hasRightSidebar"
+    class="row-edit-modal"
+    :full-height="true"
+    :right="true"
     :right-sidebar="hasRightSidebar"
-    :content-scrollable="hasRightSidebar"
+    :content-scrollable="true"
     :right-sidebar-scrollable="false"
     :collapsible-right-sidebar="true"
     @hidden="hidden"

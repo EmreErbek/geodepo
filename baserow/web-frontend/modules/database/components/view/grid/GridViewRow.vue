@@ -44,12 +44,14 @@
           :style="{ width: gridViewRowDetailsWidth + 'px' }"
         >
           <div
-            class="grid-view__row-info"
+            class="grid-view__row-info grid-view__row-info--open-detail"
             :class="{
               'grid-view__row-info--matches-search':
                 row._.matchSearch &&
                 row._.fieldSearchMatches.includes('row_id'),
             }"
+            :title="$t('gridViewRow.openRowDetail')"
+            @click="onRowInfoClick"
           >
             <div
               v-if="isCheckboxSelected(row.id) || row._.hover"
@@ -332,6 +334,25 @@ export default {
   methods: {
     onEditModal() {
       this.$emit('edit-modal', this.row)
+    },
+    /**
+     * Opens the row detail panel when the user clicks the row info column
+     * (row number area), matching gallery view row-click behaviour.
+     */
+    onRowInfoClick(event) {
+      if (this.row._.loading) {
+        return
+      }
+
+      if (
+        event.target.closest('.grid-view__row-checkbox') ||
+        event.target.closest('.grid-view__row-drag') ||
+        event.target.closest('.grid-view__row-more')
+      ) {
+        return
+      }
+
+      this.onEditModal()
     },
     isCheckboxDisabled(rowId) {
       const checkboxSelectedRows =

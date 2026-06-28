@@ -57,10 +57,25 @@
   }
 
   &.modal__box--right {
-    margin-right: 20px;
+    margin: 0 0 0 auto;
 
     @media (max-width: 720px) {
       max-width: calc(100% - 50px);
+    }
+
+    &.modal__box--full-height {
+      width: min(560px, 92vw);
+      max-width: min(560px, 92vw);
+      height: 100%;
+      max-height: 100%;
+      margin: 0 0 0 auto;
+
+      @include rounded(0);
+    }
+
+    &.modal__box--with-sidebar {
+      width: min(960px, 96vw);
+      max-width: min(960px, 96vw);
     }
   }
 
