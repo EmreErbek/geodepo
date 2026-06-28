@@ -222,6 +222,10 @@ CELERY_RESULT_EXPIRES = int(
     # default 1 hour
     os.getenv("CELERY_RESULT_EXPIRES") or 3600
 )
+CELERY_TASK_ALWAYS_EAGER = os.getenv(
+    "CELERY_TASK_ALWAYS_EAGER", ""
+).lower() in ("1", "true", "yes")
+CELERY_TASK_EAGER_PROPAGATES = CELERY_TASK_ALWAYS_EAGER
 
 CHANNEL_LAYERS = {
     "default": {
