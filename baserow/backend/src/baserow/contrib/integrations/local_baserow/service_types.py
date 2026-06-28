@@ -2062,6 +2062,12 @@ class LocalBaserowUpsertRowServiceType(
         # Track the field<->mapping relationship.
         context_map = {fm.field: fm for fm in field_mappings}
 
+        # Published automations are cloned with workspace=None; use the table's
+        # database workspace so field write permission checks succeed.
+        workspace = service.integration.application.workspace
+        if workspace is None and service.table_id:
+            workspace = service.table.database.workspace
+
         # Perform a bulk permission check on each field-mapping field.
         permission_check_results = CoreHandler().check_multiple_permissions(
             [
@@ -2072,7 +2078,7 @@ class LocalBaserowUpsertRowServiceType(
                 )
                 for fm in field_mappings
             ],
-            workspace=service.integration.application.workspace,
+            workspace=workspace,
         )
 
         # Only iterate over field mappings which we know our authorized user is
