@@ -206,6 +206,7 @@ export const actions = {
     }
 
     commit('DELETE_ITEM', { database, id: table.id })
+    commit('view/DELETE_SIDEBAR_VIEWS_FOR_TABLE', table.id, { root: true })
   },
   /**
    * When selecting the table we will have to fetch all the views and fields that

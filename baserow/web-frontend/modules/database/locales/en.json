@@ -68,7 +68,9 @@
     "lastSynced": "Last synced",
     "notSynced": "not synced",
     "sync": "Sync table",
-    "updateSyncConfig": "Update sync configuration"
+    "updateSyncConfig": "Update sync configuration",
+    "expandViews": "Show views",
+    "collapseViews": "Hide views"
   },
   "duplicateTableJobType": {
     "name": "Duplicate table",

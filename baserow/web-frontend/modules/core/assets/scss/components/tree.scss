@@ -169,6 +169,15 @@
     background-color: rgba($palette-neutral-1300, 0.04);
   }
 
+  &--expandable {
+    height: auto;
+    min-height: 32px;
+  }
+
+  &--expanded > .tree__subs--nested {
+    display: block;
+  }
+
   &::before,
   &::after {
     content: '';
@@ -198,6 +207,26 @@
   }
 }
 
+.tree__sub-toggle {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $palette-neutral-600;
+  font-size: 12px;
+  cursor: pointer;
+
+  &:hover {
+    color: $palette-neutral-1200;
+    text-decoration: none;
+  }
+}
+
 .tree__sub-link {
   @extend %tree-sub-size;
   @extend %ellipsis;
@@ -208,6 +237,17 @@
   display: flex;
   align-items: center;
   gap: 5px;
+
+  &--expandable {
+    padding-left: 20px;
+  }
+
+  &--view {
+    padding: 0 8px 0 8px;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 400;
+  }
 
   &:hover {
     cursor: pointer;
@@ -268,6 +308,47 @@
   .tree__sub-add:hover & {
     color: $palette-neutral-1200;
   }
+}
+
+.tree__subs--nested {
+  padding: 0 0 4px;
+
+  .tree__sub--view {
+    margin-left: 12px;
+    height: 28px;
+    min-height: 28px;
+
+    &::before {
+      height: 28px;
+    }
+
+    &:not(:last-child)::before {
+      height: 30px;
+    }
+  }
+
+  .tree__sub-link--view {
+    height: 28px;
+    line-height: 28px;
+  }
+
+  .tree__sub--view-loading .loading {
+    @include loading(12px);
+
+    display: inline-block;
+    margin-left: 8px;
+  }
+}
+
+.tree__sub-view-icon {
+  flex-shrink: 0;
+  font-size: 14px;
+}
+
+.tree__sub-view-name {
+  @extend %ellipsis;
+
+  min-width: 0;
 }
 
 .tree__right-icon,

@@ -1,7 +1,29 @@
 <template>
-  <li class="tree__sub" :class="{ active: table._.selected }">
+  <li
+    class="tree__sub tree__sub--expandable"
+    :class="{
+      active: table._.selected,
+      'tree__sub--expanded': expanded,
+    }"
+  >
     <a
-      class="tree__sub-link"
+      class="tree__sub-toggle"
+      :title="
+        expanded
+          ? $t('sidebarItem.collapseViews')
+          : $t('sidebarItem.expandViews')
+      "
+      @click.stop.prevent="toggleExpand"
+      @mousedown.stop
+    >
+      <i
+        :class="
+          expanded ? 'iconoir-nav-arrow-down' : 'iconoir-nav-arrow-right'
+        "
+      ></i>
+    </a>
+    <a
+      class="tree__sub-link tree__sub-link--expandable"
       :class="{ 'tree__sub-link--empty': table.name === '' }"
       :title="table.name"
       :href="resolveTableHref(database, table)"
@@ -196,6 +218,25 @@
       <WebhookModal ref="webhookModal" :database="database" :table="table" />
       <SyncTableModal ref="syncModal" :table="table"></SyncTableModal>
     </Context>
+    <ul v-if="expanded" class="tree__subs tree__subs--nested">
+      <li
+        v-if="sidebarViewsLoading"
+        class="tree__sub tree__sub--view tree__sub--view-loading"
+      >
+        <span class="tree__sub-link tree__sub-link--view">
+          <span class="loading"></span>
+        </span>
+      </li>
+      <template v-else>
+        <SidebarViewItem
+          v-for="view in sidebarViews"
+          :key="view.id"
+          :database="database"
+          :table="table"
+          :view="view"
+        />
+      </template>
+    </ul>
   </li>
 </template>
 
@@ -205,6 +246,7 @@ import { getHumanPeriodAgoCount } from '@baserow/modules/core/utils/date'
 import ExportTableModal from '@baserow/modules/database/components/export/ExportTableModal'
 import WebhookModal from '@baserow/modules/database/components/webhook/WebhookModal'
 import SidebarDuplicateTableContextItem from '@baserow/modules/database/components/sidebar/table/SidebarDuplicateTableContextItem'
+import SidebarViewItem from '@baserow/modules/database/components/sidebar/SidebarViewItem'
 import SyncTableModal from '@baserow/modules/database/components/dataSync/SyncTableModal'
 import ConfigureDataSyncModal from '@baserow/modules/database/components/dataSync/ConfigureDataSyncModal.vue'
 import { pageFinished } from '@baserow/modules/core/utils/routing'
@@ -218,6 +260,7 @@ export default {
     WebhookModal,
     SyncTableModal,
     SidebarDuplicateTableContextItem,
+    SidebarViewItem,
   },
   props: {
     database: {
@@ -236,9 +279,16 @@ export default {
   data() {
     return {
       deleteLoading: false,
+      expanded: false,
     }
   },
   computed: {
+    sidebarViews() {
+      return this.$store.getters['view/getSidebarViewsByTableId'](this.table.id)
+    },
+    sidebarViewsLoading() {
+      return this.$store.getters['view/isSidebarViewsLoading'](this.table.id)
+    },
     showOptions() {
       return (
         this.$hasPermission(
@@ -301,7 +351,31 @@ export default {
       return this.dataSyncType.getDeactivatedClickModal()
     },
   },
+  watch: {
+    'table._.selected': {
+      immediate: true,
+      handler(selected) {
+        if (selected) {
+          this.expanded = true
+          this.loadSidebarViews()
+        }
+      },
+    },
+  },
   methods: {
+    async loadSidebarViews() {
+      try {
+        await this.$store.dispatch('view/fetchSidebarViews', this.table)
+      } catch (error) {
+        // Views are optional in the sidebar, so we can ignore fetch errors here.
+      }
+    },
+    async toggleExpand() {
+      this.expanded = !this.expanded
+      if (this.expanded) {
+        await this.loadSidebarViews()
+      }
+    },
     setLoading(database, value) {
       this.$store.dispatch('application/setItemLoading', {
         application: database,

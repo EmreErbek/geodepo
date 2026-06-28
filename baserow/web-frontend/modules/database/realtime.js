@@ -55,6 +55,7 @@ export const registerRealtimeEvents = (realtime) => {
         store.dispatch('table/forceDelete', { database, table })
       }
     }
+    store.commit('view/DELETE_SIDEBAR_VIEWS_FOR_TABLE', data.table_id)
   })
 
   realtime.registerEvent('field_created', ({ store, app }, data) => {
@@ -271,9 +272,7 @@ export const registerRealtimeEvents = (realtime) => {
   })
 
   realtime.registerEvent('view_created', ({ store }, data) => {
-    if (store.getters['table/getSelectedId'] === data.view.table_id) {
-      store.dispatch('view/forceCreate', { data: data.view })
-    }
+    store.dispatch('view/forceSidebarCreate', { data: data.view })
   })
 
   realtime.registerEvent('view_updated', (context, data) => {
@@ -300,6 +299,15 @@ export const registerRealtimeEvents = (realtime) => {
           })
         }
       }
+    } else if (
+      store.getters['view/hasSidebarViewsForTable'](data.view.table_id)
+    ) {
+      store.commit('view/UPDATE_SIDEBAR_VIEW', {
+        tableId: data.view.table_id,
+        id: data.view.id,
+        values: data.view,
+        registry: app.$registry,
+      })
     }
   })
 
@@ -308,12 +316,21 @@ export const registerRealtimeEvents = (realtime) => {
     if (table !== undefined && table.id === data.table_id) {
       store.commit('view/ORDER_ITEMS', { order: data.order })
     }
+    store.commit('view/ORDER_SIDEBAR_VIEWS', {
+      tableId: data.table_id,
+      order: data.order,
+    })
   })
 
   realtime.registerEvent('view_deleted', ({ store }, data) => {
     const view = store.getters['view/get'](data.view_id)
     if (view !== undefined) {
       store.dispatch('view/forceDelete', view)
+    } else {
+      store.commit('view/DELETE_SIDEBAR_VIEW', {
+        tableId: data.table_id,
+        id: data.view_id,
+      })
     }
   })
 

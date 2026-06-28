@@ -52,6 +52,36 @@ export function populateDecoration(decoration) {
   return decoration
 }
 
+export function populateSidebarView(view, registry) {
+  const type = registry.get('view', view.type)
+
+  view._ = view._ || {
+    type: type.serialize(),
+    selected: false,
+    loading: false,
+  }
+
+  return view
+}
+
+export function getViewTableId(view) {
+  return view.table_id ?? view.table?.id
+}
+
+export function createSidebarViewFromData(view, registry) {
+  return populateSidebarView(
+    {
+      id: view.id,
+      name: view.name,
+      type: view.type,
+      order: view.order,
+      ownership_type: view.ownership_type,
+      table_id: getViewTableId(view),
+    },
+    registry
+  )
+}
+
 export function populateView(view, registry) {
   const type = registry.get('view', view.type)
 
@@ -117,6 +147,8 @@ export const state = () => ({
   selected: {},
   defaultViewId: null,
   tableId: null,
+  sidebarViewsByTableId: {},
+  sidebarViewsLoadingByTableId: {},
 })
 
 export const mutations = {
@@ -327,6 +359,96 @@ export const mutations = {
   SET_DEFAULT_VIEW_ID(state, viewId) {
     state.defaultViewId = viewId
   },
+  SET_SIDEBAR_VIEWS(state, { tableId, views }) {
+    state.sidebarViewsByTableId = {
+      ...state.sidebarViewsByTableId,
+      [tableId]: views,
+    }
+  },
+  SET_SIDEBAR_VIEWS_LOADING(state, { tableId, value }) {
+    state.sidebarViewsLoadingByTableId = {
+      ...state.sidebarViewsLoadingByTableId,
+      [tableId]: value,
+    }
+  },
+  ADD_SIDEBAR_VIEW(state, { tableId, view }) {
+    if (!Object.prototype.hasOwnProperty.call(state.sidebarViewsByTableId, tableId)) {
+      return
+    }
+    const views = state.sidebarViewsByTableId[tableId]
+    if (views.some((existingView) => existingView.id === view.id)) {
+      return
+    }
+    state.sidebarViewsByTableId = {
+      ...state.sidebarViewsByTableId,
+      [tableId]: [...views, view].sort((a, b) => a.order - b.order),
+    }
+  },
+  UPDATE_SIDEBAR_VIEW(state, { tableId, id, values, registry }) {
+    if (!Object.prototype.hasOwnProperty.call(state.sidebarViewsByTableId, tableId)) {
+      return
+    }
+    const views = state.sidebarViewsByTableId[tableId]
+    const index = views.findIndex((view) => view.id === id)
+    if (index === -1) {
+      return
+    }
+    const updatedViews = [...views]
+    Object.assign(updatedViews[index], updatedViews[index], values)
+    if (registry !== null) {
+      populateSidebarView(updatedViews[index], registry)
+    }
+    state.sidebarViewsByTableId = {
+      ...state.sidebarViewsByTableId,
+      [tableId]: updatedViews,
+    }
+  },
+  DELETE_SIDEBAR_VIEW(state, { tableId, id }) {
+    if (!Object.prototype.hasOwnProperty.call(state.sidebarViewsByTableId, tableId)) {
+      return
+    }
+    const views = state.sidebarViewsByTableId[tableId].filter(
+      (view) => view.id !== id
+    )
+    state.sidebarViewsByTableId = {
+      ...state.sidebarViewsByTableId,
+      [tableId]: views,
+    }
+  },
+  ORDER_SIDEBAR_VIEWS(state, { tableId, order, ownershipType }) {
+    if (!Object.prototype.hasOwnProperty.call(state.sidebarViewsByTableId, tableId)) {
+      return
+    }
+    const views = state.sidebarViewsByTableId[tableId]
+    if (ownershipType === undefined) {
+      const firstView = views.find((view) => view.id === order[0])
+      ownershipType = firstView?.ownership_type
+    }
+    const updatedViews = views.map((view) => {
+      if (view.ownership_type !== ownershipType) {
+        return view
+      }
+      const index = order.findIndex((value) => value === view.id)
+      return {
+        ...view,
+        order: index === -1 ? 0 : index + 1,
+      }
+    })
+    state.sidebarViewsByTableId = {
+      ...state.sidebarViewsByTableId,
+      [tableId]: updatedViews.sort((a, b) => a.order - b.order),
+    }
+  },
+  DELETE_SIDEBAR_VIEWS_FOR_TABLE(state, tableId) {
+    if (!Object.prototype.hasOwnProperty.call(state.sidebarViewsByTableId, tableId)) {
+      return
+    }
+    const { [tableId]: removed, ...remainingViews } = state.sidebarViewsByTableId
+    state.sidebarViewsByTableId = remainingViews
+    const { [tableId]: removedLoading, ...remainingLoading } =
+      state.sidebarViewsLoadingByTableId
+    state.sidebarViewsLoadingByTableId = remainingLoading
+  },
 }
 
 export const actions = {
@@ -335,6 +457,52 @@ export const actions = {
    */
   setItemLoading({ commit }, { view, value }) {
     commit('SET_ITEM_LOADING', { view, value })
+  },
+  /**
+   * Fetches a lightweight list of views for the sidebar tree. The full view data is
+   * only fetched when the table is opened.
+   */
+  forceSidebarCreate({ commit, state, dispatch }, { data }) {
+    const { $registry } = this
+    const tableId = getViewTableId(data)
+    if (state.tableId === tableId) {
+      return dispatch('forceCreate', { data })
+    }
+    commit('ADD_SIDEBAR_VIEW', {
+      tableId,
+      view: createSidebarViewFromData(data, $registry),
+    })
+  },
+  async fetchSidebarViews({ commit, state }, table) {
+    const { $client, $registry } = this
+
+    if (state.tableId === table.id) {
+      return
+    }
+
+    if (
+      Object.prototype.hasOwnProperty.call(
+        state.sidebarViewsByTableId,
+        table.id
+      )
+    ) {
+      return
+    }
+
+    commit('SET_SIDEBAR_VIEWS_LOADING', { tableId: table.id, value: true })
+
+    try {
+      const { data } = await ViewService($client).fetchAll(table.id)
+      commit('SET_SIDEBAR_VIEWS', {
+        tableId: table.id,
+        views: data.map((view) => createSidebarViewFromData(view, $registry)),
+      })
+    } catch (error) {
+      commit('SET_SIDEBAR_VIEWS', { tableId: table.id, views: [] })
+      throw error
+    } finally {
+      commit('SET_SIDEBAR_VIEWS_LOADING', { tableId: table.id, value: false })
+    }
   },
   /**
    * Fetches all the views of a given table. The is mostly called when the user
@@ -361,6 +529,10 @@ export const actions = {
       commit('SET_ITEMS', data)
       commit('SET_TABLE_ID', table.id)
       commit('SET_LOADING', false)
+      commit('SET_SIDEBAR_VIEWS', {
+        tableId: table.id,
+        views: data.map((view) => createSidebarViewFromData(view, $registry)),
+      })
 
       // Get the default view for the table.
       const defaultViewId = readDefaultViewIdFromCookie(table.id)
@@ -403,10 +575,17 @@ export const actions = {
   /**
    * Forcefully create a new view without making a request to the server.
    */
-  forceCreate({ commit }, { data }) {
+  forceCreate({ commit, state }, { data }) {
     const { $registry } = this
     populateView(data, $registry)
-    commit('ADD_ITEM', data)
+    const tableId = getViewTableId(data)
+    if (state.tableId === tableId) {
+      commit('ADD_ITEM', data)
+    }
+    commit('ADD_SIDEBAR_VIEW', {
+      tableId,
+      view: createSidebarViewFromData(data, $registry),
+    })
     return { view: data }
   },
   /**
@@ -495,11 +674,17 @@ export const actions = {
   async order({ commit, getters }, { table, ownershipType, order, oldOrder }) {
     const { $registry, $client } = this
     commit('ORDER_ITEMS', { ownershipType, order })
+    commit('ORDER_SIDEBAR_VIEWS', { tableId: table.id, order, ownershipType })
 
     try {
       await ViewService($client).order(table.id, ownershipType, order)
     } catch (error) {
       commit('ORDER_ITEMS', { ownershipType, order: oldOrder })
+      commit('ORDER_SIDEBAR_VIEWS', {
+        tableId: table.id,
+        order: oldOrder,
+        ownershipType,
+      })
       throw error
     }
   },
@@ -507,16 +692,25 @@ export const actions = {
    * Forcefully update an existing view without making a request to the backend.
    */
   forceUpdate(
-    { commit },
+    { commit, state },
     { view, values, repopulate = false, readOnly = false, registry = null }
   ) {
-    commit('UPDATE_ITEM', {
+    const resolvedRegistry = registry || (repopulate ? this.$registry : null)
+    if (state.items.some((item) => item.id === view.id)) {
+      commit('UPDATE_ITEM', {
+        id: view.id,
+        view,
+        values,
+        repopulate,
+        readOnly,
+        registry: resolvedRegistry,
+      })
+    }
+    commit('UPDATE_SIDEBAR_VIEW', {
+      tableId: getViewTableId(view),
       id: view.id,
-      view,
       values,
-      repopulate,
-      readOnly,
-      registry: registry || (repopulate ? this.$registry : null),
+      registry: resolvedRegistry,
     })
   },
   /**
@@ -617,6 +811,10 @@ export const actions = {
     }
 
     commit('DELETE_ITEM', view.id)
+    commit('DELETE_SIDEBAR_VIEW', {
+      tableId: getViewTableId(view),
+      id: view.id,
+    })
   },
   /**
    * Select a view and fetch all the applications related to that view. Note that
@@ -1495,6 +1693,24 @@ export const getters = {
   },
   getAllOrdered(state) {
     return state.items.map((item) => item).sort((a, b) => a.order - b.order)
+  },
+  getSidebarViewsByTableId: (state, getters) => (tableId) => {
+    if (state.tableId === tableId) {
+      return getters.getAllOrdered
+    }
+    return state.sidebarViewsByTableId[tableId] || []
+  },
+  hasSidebarViewsForTable: (state) => (tableId) => {
+    return (
+      state.tableId === tableId ||
+      Object.prototype.hasOwnProperty.call(
+        state.sidebarViewsByTableId,
+        tableId
+      )
+    )
+  },
+  isSidebarViewsLoading: (state) => (tableId) => {
+    return state.sidebarViewsLoadingByTableId[tableId] === true
   },
 }
 
