@@ -6,6 +6,7 @@
 [build]
 builder = "DOCKERFILE"
 dockerfilePath = "Dockerfile.railway-backend"
+dockerTarget = "railway"
 watchPatterns = [
   "backend/**",
   "Dockerfile.railway-backend",

@@ -350,3 +350,14 @@ CMD ["gunicorn"]
 FROM local AS prod
 
 CMD ["gunicorn"]
+
+
+# =============================================================================
+# Railway target: fix /baserow/media volume permissions before dropping to UID 9999
+# =============================================================================
+FROM local AS railway
+USER root
+COPY deploy/railway/backend-entrypoint-wrapper.sh /usr/local/bin/railway-entrypoint-wrapper.sh
+RUN chmod +x /usr/local/bin/railway-entrypoint-wrapper.sh
+ENTRYPOINT ["/usr/bin/tini", "--", "/usr/local/bin/railway-entrypoint-wrapper.sh"]
+CMD ["gunicorn"]
