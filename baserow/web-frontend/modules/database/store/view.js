@@ -473,10 +473,16 @@ export const actions = {
       view: createSidebarViewFromData(data, $registry),
     })
   },
-  async fetchSidebarViews({ commit, state }, table) {
+  async fetchSidebarViews({ commit, state, getters }, table) {
     const { $client, $registry } = this
 
-    if (state.tableId === table.id) {
+    if (state.tableId === table.id && getters.getAllOrdered.length > 0) {
+      commit('SET_SIDEBAR_VIEWS', {
+        tableId: table.id,
+        views: getters.getAllOrdered.map((view) =>
+          createSidebarViewFromData(view, $registry)
+        ),
+      })
       return
     }
 
@@ -1695,7 +1701,7 @@ export const getters = {
     return state.items.map((item) => item).sort((a, b) => a.order - b.order)
   },
   getSidebarViewsByTableId: (state, getters) => (tableId) => {
-    if (state.tableId === tableId) {
+    if (state.tableId === tableId && getters.getAllOrdered.length > 0) {
       return getters.getAllOrdered
     }
     return state.sidebarViewsByTableId[tableId] || []

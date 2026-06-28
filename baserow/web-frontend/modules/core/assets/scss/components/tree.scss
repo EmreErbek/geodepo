@@ -284,10 +284,11 @@
 }
 
 .tree__subs--nested {
-  padding: 0 0 4px;
+  display: block;
+  padding: 2px 0 6px;
 
   .tree__sub--view {
-    margin-left: 12px;
+    margin-left: 16px;
     height: 28px;
     min-height: 28px;
 
@@ -316,6 +317,8 @@
 .tree__sub-view-icon {
   flex-shrink: 0;
   font-size: 14px;
+  width: 16px;
+  text-align: center;
 }
 
 .tree__sub-view-name {

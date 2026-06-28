@@ -89,9 +89,36 @@ export default {
           .isJobPartOfApplication(job, this.application)
       )
     },
+    databaseSelected() {
+      return this.isAppSelected(this.application)
+    },
     ...mapGetters({ isAppSelected: 'application/isSelected' }),
   },
+  watch: {
+    databaseSelected: {
+      immediate: true,
+      handler(selected) {
+        if (selected) {
+          this.prefetchAllTableViews()
+        }
+      },
+    },
+    orderedTables: {
+      handler() {
+        if (this.databaseSelected) {
+          this.prefetchAllTableViews()
+        }
+      },
+    },
+  },
   methods: {
+    async prefetchAllTableViews() {
+      await Promise.all(
+        this.orderedTables.map((table) =>
+          this.$store.dispatch('view/fetchSidebarViews', table).catch(() => {})
+        )
+      )
+    },
     async selected(application) {
       try {
         await this.$store.dispatch('application/select', application)
