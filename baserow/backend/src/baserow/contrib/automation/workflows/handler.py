@@ -693,12 +693,46 @@ class AutomationWorkflowHandler(metaclass=baserow_trace_methods(tracer)):
         cloned_automation.published_from = workflow
         cloned_automation.save(update_fields=["published_from"])
 
-        self._remap_published_automation_formulas(cloned_automation, id_mapping)
+        self._remap_published_automation_formulas(
+            cloned_automation, id_mapping, draft_workflow=workflow
+        )
 
         return cloned_automation, id_mapping
 
+    def _build_published_node_id_mapping(
+        self,
+        draft_workflow: AutomationWorkflow,
+        published_automation: "Automation",
+        id_mapping: Dict,
+    ) -> Dict[int, int]:
+        node_mapping = dict(id_mapping.get("automation_workflow_nodes") or {})
+
+        if node_mapping:
+            return node_mapping
+
+        published_workflow = published_automation.workflows.first()
+        if published_workflow is None:
+            return {}
+
+        draft_nodes = list(
+            draft_workflow.automation_workflow_nodes.order_by("id").only("id")
+        )
+        published_nodes = list(
+            published_workflow.automation_workflow_nodes.order_by("id").only("id")
+        )
+        if len(draft_nodes) != len(published_nodes):
+            return {}
+
+        return {
+            draft_node.id: published_node.id
+            for draft_node, published_node in zip(draft_nodes, published_nodes)
+        }
+
     def _remap_published_automation_formulas(
-        self, automation: "Automation", id_mapping: Dict
+        self,
+        automation: "Automation",
+        id_mapping: Dict,
+        draft_workflow: AutomationWorkflow | None = None,
     ) -> None:
         """
         Ensure previous_node.* formulas reference cloned node IDs after publish.
@@ -709,7 +743,13 @@ class AutomationWorkflowHandler(metaclass=baserow_trace_methods(tracer)):
 
         from baserow.core.formula import BaserowFormulaObject
 
-        node_mapping = id_mapping.get("automation_workflow_nodes") or {}
+        node_mapping = (
+            self._build_published_node_id_mapping(
+                draft_workflow, automation, id_mapping
+            )
+            if draft_workflow is not None
+            else dict(id_mapping.get("automation_workflow_nodes") or {})
+        )
         if not node_mapping:
             return
 
@@ -729,10 +769,11 @@ class AutomationWorkflowHandler(metaclass=baserow_trace_methods(tracer)):
                         continue
                     updated_formula = formula["formula"]
                     for old_id, new_id in node_mapping.items():
-                        updated_formula = updated_formula.replace(
-                            f"previous_node.{old_id}.",
-                            f"previous_node.{new_id}.",
-                        )
+                        for old in (old_id, str(old_id)):
+                            updated_formula = updated_formula.replace(
+                                f"previous_node.{old}.",
+                                f"previous_node.{new_id}.",
+                            )
                     if updated_formula != formula["formula"]:
                         field_mapping.value = {**formula, "formula": updated_formula}
                         mappings_to_update.append(field_mapping)
