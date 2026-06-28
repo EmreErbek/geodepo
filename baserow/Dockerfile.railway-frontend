@@ -51,6 +51,8 @@ RUN yarn install --pure-lockfile --cache-folder $YARN_CACHE_FOLDER
 FROM ${NODE_BASE_IMAGE} AS builder-prod
 ARG UID
 ARG GID
+# Busts Docker layer cache when source changes (set by Railway / local deploy).
+ARG SOURCE_REVISION=dev
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -62,7 +64,8 @@ ENV YARN_CACHE_FOLDER=/tmp/.yarn-cache \
 RUN mkdir -p /baserow/web-frontend && \
     chown -R $UID:$GID /baserow/
 
-# Copy source code
+# Copy source code (SOURCE_REVISION invalidates cache on new commits)
+RUN echo "Building frontend revision: ${SOURCE_REVISION}"
 COPY --chown=$UID:$GID ./web-frontend /baserow/web-frontend/
 
 # Windows git checkout stores symlinks as plain text files
