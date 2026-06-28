@@ -298,9 +298,17 @@ class AutomationWorkflowService:
             context=workflow.automation,
         )
 
+        # GEO DEPO: publish on API process when worker image lags behind backend.
+        import os
+
+        sync_publish = os.environ.get(
+            "BASEROW_SYNC_AUTOMATION_PUBLISH", ""
+        ).lower() in ("1", "true", "yes")
+
         job = JobHandler().create_and_start_job(
             user,
             PublishAutomationWorkflowJobType.type,
+            sync=sync_publish,
             automation_workflow=workflow,
         )
 
