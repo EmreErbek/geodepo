@@ -1,29 +1,10 @@
 <template>
   <li
-    class="tree__sub tree__sub--expandable"
-    :class="{
-      active: table._.selected,
-      'tree__sub--expanded': expanded,
-    }"
+    class="tree__sub tree__sub--with-views"
+    :class="{ active: table._.selected }"
   >
     <a
-      class="tree__sub-toggle"
-      :title="
-        expanded
-          ? $t('sidebarItem.collapseViews')
-          : $t('sidebarItem.expandViews')
-      "
-      @click.stop.prevent="toggleExpand"
-      @mousedown.stop
-    >
-      <i
-        :class="
-          expanded ? 'iconoir-nav-arrow-down' : 'iconoir-nav-arrow-right'
-        "
-      ></i>
-    </a>
-    <a
-      class="tree__sub-link tree__sub-link--expandable"
+      class="tree__sub-link"
       :class="{ 'tree__sub-link--empty': table.name === '' }"
       :title="table.name"
       :href="resolveTableHref(database, table)"
@@ -218,7 +199,7 @@
       <WebhookModal ref="webhookModal" :database="database" :table="table" />
       <SyncTableModal ref="syncModal" :table="table"></SyncTableModal>
     </Context>
-    <ul v-if="expanded" class="tree__subs tree__subs--nested">
+    <ul class="tree__subs tree__subs--nested">
       <li
         v-if="sidebarViewsLoading"
         class="tree__sub tree__sub--view tree__sub--view-loading"
@@ -279,7 +260,6 @@ export default {
   data() {
     return {
       deleteLoading: false,
-      expanded: false,
     }
   },
   computed: {
@@ -351,15 +331,14 @@ export default {
       return this.dataSyncType.getDeactivatedClickModal()
     },
   },
+  mounted() {
+    this.loadSidebarViews()
+  },
   watch: {
-    'table._.selected': {
-      immediate: true,
-      handler(selected) {
-        if (selected) {
-          this.expanded = true
-          this.loadSidebarViews()
-        }
-      },
+    'table._.selected'(selected) {
+      if (selected) {
+        this.loadSidebarViews()
+      }
     },
   },
   methods: {
@@ -368,12 +347,6 @@ export default {
         await this.$store.dispatch('view/fetchSidebarViews', this.table)
       } catch (error) {
         // Views are optional in the sidebar, so we can ignore fetch errors here.
-      }
-    },
-    async toggleExpand() {
-      this.expanded = !this.expanded
-      if (this.expanded) {
-        await this.loadSidebarViews()
       }
     },
     setLoading(database, value) {

@@ -169,13 +169,10 @@
     background-color: rgba($palette-neutral-1300, 0.04);
   }
 
-  &--expandable {
+  &--with-views {
     height: auto;
     min-height: 32px;
-  }
-
-  &--expanded > .tree__subs--nested {
-    display: block;
+    overflow: visible;
   }
 
   &::before,
@@ -207,26 +204,6 @@
   }
 }
 
-.tree__sub-toggle {
-  position: absolute;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 20px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: $palette-neutral-600;
-  font-size: 12px;
-  cursor: pointer;
-
-  &:hover {
-    color: $palette-neutral-1200;
-    text-decoration: none;
-  }
-}
-
 .tree__sub-link {
   @extend %tree-sub-size;
   @extend %ellipsis;
@@ -237,10 +214,6 @@
   display: flex;
   align-items: center;
   gap: 5px;
-
-  &--expandable {
-    padding-left: 20px;
-  }
 
   &--view {
     padding: 0 8px 0 8px;
