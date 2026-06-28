@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "workspace_id": 2,
+  "operasyon": {
+    "table_id": 30,
+    "view_id": 40,
+    "url_hint": "/database/11/table/30/40"
+  },
+  "sistem": {
+    "automation_id": 13,
+    "workflow_id": 4,
+    "trigger_id": 4,
+    "action_id": 5,
+    "publish_state": "live",
+    "publish_job_id": 13
+  },
+  "dashboard": {
+    "dashboard_id": 14,
+    "widgets": [
+      {
+        "title": "Açık Teklifler",
+        "widget_id": 1,
+        "data_source_id": 1
+      },
+      {
+        "title": "Devam Eden Projeler",
+        "widget_id": 2,
+        "data_source_id": 2
+      },
+      {
+        "title": "Ödeme Kayıtları",
+        "widget_id": 3,
+        "data_source_id": 3
+      }
+    ]
+  },
+  "updated_at": "2026-06-29T01:10:54+0300"
+}

@@ -693,7 +693,58 @@ class AutomationWorkflowHandler(metaclass=baserow_trace_methods(tracer)):
         cloned_automation.published_from = workflow
         cloned_automation.save(update_fields=["published_from"])
 
+        self._remap_published_automation_formulas(cloned_automation, id_mapping)
+
         return cloned_automation, id_mapping
+
+    def _remap_published_automation_formulas(
+        self, automation: "Automation", id_mapping: Dict
+    ) -> None:
+        """
+        Ensure previous_node.* formulas reference cloned node IDs after publish.
+
+        import_formulas should handle this, but field mappings can keep stale draft
+        node IDs in published workflows; remap them explicitly using id_mapping.
+        """
+
+        from baserow.core.formula import BaserowFormulaObject
+
+        node_mapping = id_mapping.get("automation_workflow_nodes") or {}
+        if not node_mapping:
+            return
+
+        mappings_to_update = []
+        for workflow in automation.workflows.all():
+            for node in workflow.automation_workflow_nodes.select_related("service"):
+                service = getattr(node, "service", None)
+                if service is None:
+                    continue
+                service = service.specific
+                field_mappings = getattr(service, "field_mappings", None)
+                if field_mappings is None:
+                    continue
+                for field_mapping in field_mappings.all():
+                    formula = BaserowFormulaObject.to_formula(field_mapping.value)
+                    if not formula.get("formula"):
+                        continue
+                    updated_formula = formula["formula"]
+                    for old_id, new_id in node_mapping.items():
+                        updated_formula = updated_formula.replace(
+                            f"previous_node.{old_id}.",
+                            f"previous_node.{new_id}.",
+                        )
+                    if updated_formula != formula["formula"]:
+                        field_mapping.value = {**formula, "formula": updated_formula}
+                        mappings_to_update.append(field_mapping)
+
+        if mappings_to_update:
+            from baserow.contrib.integrations.local_baserow.models import (
+                LocalBaserowTableServiceFieldMapping,
+            )
+
+            LocalBaserowTableServiceFieldMapping.objects.bulk_update(
+                mappings_to_update, ["value"]
+            )
 
     def publish(
         self,
