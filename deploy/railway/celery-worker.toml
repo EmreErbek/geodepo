@@ -6,12 +6,13 @@
 [build]
 builder = "DOCKERFILE"
 dockerfilePath = "Dockerfile.railway-backend"
-dockerTarget = "railway"
+dockerTarget = "railway-worker"
 watchPatterns = [
   "backend/**",
   "Dockerfile.railway-backend",
   "deploy/**",
 ]
+buildArgs = { SOURCE_REVISION = "0e646c4" }
 
 [deploy]
 # Async job'lar (publish, import vb.) "export" kuyruguna gider.

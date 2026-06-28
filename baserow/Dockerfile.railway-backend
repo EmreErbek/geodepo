@@ -121,6 +121,8 @@ RUN uv sync --frozen \
 FROM builder-prod-base AS builder-prod
 ARG UID
 ARG GID
+# Bust Docker layer cache when backend source changes (set via Railway build).
+ARG SOURCE_REVISION=dev
 
 COPY --from=tool-builder /usr/bin/dos2unix /usr/local/bin/dos2unix
 
@@ -128,6 +130,7 @@ USER $UID:$GID
 WORKDIR /baserow/backend
 
 # Copy source code
+RUN echo "SOURCE_REVISION=${SOURCE_REVISION}" > /tmp/build-revision
 COPY --chown=$UID:$GID LICENSE /baserow/LICENSE
 COPY --chown=$UID:$GID backend /baserow/backend
 
@@ -361,3 +364,7 @@ COPY deploy/railway/backend-entrypoint-wrapper.sh /usr/local/bin/railway-entrypo
 RUN chmod +x /usr/local/bin/railway-entrypoint-wrapper.sh
 ENTRYPOINT ["/usr/bin/tini", "--", "/usr/local/bin/railway-entrypoint-wrapper.sh"]
 CMD ["gunicorn"]
+
+# Celery services: disable gunicorn healthcheck inherited from `local`.
+FROM railway AS railway-worker
+HEALTHCHECK NONE
