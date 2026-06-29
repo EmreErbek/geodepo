@@ -16,23 +16,27 @@
   },
   "dashboard": {
     "dashboard_id": 14,
+    "integration_id": 16,
     "widgets": [
       {
         "title": "Açık Teklifler",
-        "widget_id": 1,
-        "data_source_id": 1
+        "widget_id": 5,
+        "data_source_id": 5,
+        "dispatch_count": 20
       },
       {
         "title": "Devam Eden Projeler",
-        "widget_id": 2,
-        "data_source_id": 2
+        "widget_id": 4,
+        "data_source_id": 4,
+        "dispatch_count": 64
       },
       {
         "title": "Ödeme Kayıtları",
-        "widget_id": 3,
-        "data_source_id": 3
+        "widget_id": 6,
+        "data_source_id": 6,
+        "dispatch_count": 835
       }
     ]
   },
-  "updated_at": "2026-06-29T01:10:54+0300"
+  "updated_at": "2026-06-29T03:40:00+0300"
 }

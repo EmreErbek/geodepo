@@ -72,6 +72,9 @@ class Api:
     def patch(self, path: str, body: dict):
         return self._raw("PATCH", path, body)
 
+    def delete(self, path: str):
+        return self._raw("DELETE", path)
+
 
 def load_env() -> dict[str, str]:
     env_file = ROOT / ".env"
@@ -398,6 +401,25 @@ def publish_workflow(api: Api, workflow_id: int, timeout_sec: int = 180) -> dict
     return {"publish_state": "pending", "publish_job_id": job_id}
 
 
+def ensure_dashboard_integration(api: Api, dashboard_id: int) -> int:
+    integrations = api.get(f"/api/application/{dashboard_id}/integrations/")
+    if not integrations:
+        created = api.post(
+            f"/api/application/{dashboard_id}/integrations/",
+            {"type": "local_baserow", "name": "Local Baserow"},
+        )
+        print(f"  Local Baserow integration oluşturuldu: {created['id']}")
+        return created["id"]
+    integration_id = integrations[0]["id"]
+    print(f"  Mevcut Local Baserow integration: {integration_id}")
+    return integration_id
+
+
+def data_source_needs_rebuild(data_sources: dict[int, dict], data_source_id: int) -> bool:
+    ds = data_sources.get(data_source_id)
+    return not ds or not ds.get("integration_id")
+
+
 def setup_dashboard(api: Api, id_map: dict, cfg: dict) -> dict:
     print("\n=== 3) OPERASYON KOKPİT: Dashboard widget'ları ===")
     apps = api.get(f"/api/applications/workspace/{WORKSPACE_ID}/")
@@ -412,7 +434,8 @@ def setup_dashboard(api: Api, id_map: dict, cfg: dict) -> dict:
         print(f"  Mevcut dashboard: {dashboard['id']}")
 
     dashboard_id = dashboard["id"]
-    devam_record_type = field_id(id_map, "Devam Eden İşler", "Kayıt Türü")
+    ensure_dashboard_integration(api, dashboard_id)
+
     widgets_cfg = [
         (
             "Açık Teklifler",
@@ -438,9 +461,17 @@ def setup_dashboard(api: Api, id_map: dict, cfg: dict) -> dict:
     ]
 
     existing_widgets = api.get(f"/api/dashboard/{dashboard_id}/widgets/")
+    data_sources = {
+        int(ds["id"]): ds for ds in api.get(f"/api/dashboard/{dashboard_id}/data-sources/")
+    }
     widget_results = []
     for title, tbl_id, agg_field, agg_type, filters in widgets_cfg:
         widget = next((w for w in existing_widgets if w.get("title") == title), None)
+        if widget and data_source_needs_rebuild(data_sources, widget["data_source_id"]):
+            print(f"  Widget yeniden oluşturulacak (integration eksik): {title} (#{widget['id']})")
+            api.delete(f"/api/dashboard/widgets/{widget['id']}/")
+            widget = None
+
         if not widget:
             widget = api.post(
                 f"/api/dashboard/{dashboard_id}/widgets/",
@@ -460,6 +491,11 @@ def setup_dashboard(api: Api, id_map: dict, cfg: dict) -> dict:
         if agg_field:
             body["field_id"] = agg_field
         api.patch(f"/api/dashboard/data-sources/{ds_id}/", body)
+
+        dispatch = api.post(f"/api/dashboard/data-sources/{ds_id}/dispatch/", {})
+        count_val = dispatch.get("data", {}).get("value") if isinstance(dispatch.get("data"), dict) else dispatch
+        print(f"  Dispatch OK: {title} -> {count_val}")
+
         widget_results.append({"title": title, "widget_id": widget["id"], "data_source_id": ds_id})
 
     return {"dashboard_id": dashboard_id, "widgets": widget_results}
@@ -470,13 +506,17 @@ def main():
     if not env["email"] or not env["password"]:
         sys.exit("GEODEPO_BASEROW_EMAIL/PASSWORD gerekli (.env)")
 
+    step = os.environ.get("GEODEPO_MVP_STEP", "all").lower()
     id_map = load_id_map()
     cfg = load_config()
     api = Api(env["base"], env["email"], env["password"])
 
-    cfg["operasyon"] = setup_payment_form(api, id_map, cfg)
-    cfg["sistem"] = setup_automation(api, id_map, cfg)
-    cfg["dashboard"] = setup_dashboard(api, id_map, cfg)
+    if step in ("all", "operasyon", "form"):
+        cfg["operasyon"] = setup_payment_form(api, id_map, cfg)
+    if step in ("all", "sistem", "automation"):
+        cfg["sistem"] = setup_automation(api, id_map, cfg)
+    if step in ("all", "dashboard", "kokpit"):
+        cfg["dashboard"] = setup_dashboard(api, id_map, cfg)
     cfg["updated_at"] = time.strftime("%Y-%m-%dT%H:%M:%S%z")
     save_config(cfg)
 

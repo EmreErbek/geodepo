@@ -12,12 +12,12 @@ watchPatterns = [
   "Dockerfile.railway-backend",
   "deploy/**",
 ]
-buildArgs = { SOURCE_REVISION = "0e646c4" }
+buildArgs = { SOURCE_REVISION = "celery-worker-fix-1" }
 
 [deploy]
 # Async job'lar (publish, import vb.) "export" kuyruguna gider.
 # Railway env: BASEROW_RUN_MINIMAL=true + BASEROW_AMOUNT_OF_WORKERS=1 -> combined mode.
 # Ayar: scripts/configure-geodepo-celery-worker.ps1
-startCommand = "/baserow/backend/docker/docker-entrypoint.sh celery-worker"
+startCommand = "celery-worker"
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 5
