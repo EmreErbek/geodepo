@@ -28,7 +28,7 @@ $services = @(
         Name = "Celery Worker"
         Config = "/deploy/railway/celery-worker.toml"
         Dockerfile = "Dockerfile.railway-backend"
-        Start = "celery-worker-railway"
+        Start = "celery-worker"
     },
     @{
         Id = "982ebb27-6e89-4c97-8585-55b54190a934"

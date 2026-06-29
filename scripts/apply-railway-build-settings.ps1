@@ -7,7 +7,7 @@ $envId = "2b783f63-147c-4ffd-a3b4-561dae688c02"
 $services = @(
     @{ Id = "dfaf061c-c264-49b2-8013-a844b9182e1b"; Name = "Baserow Backend"; Config = "/deploy/railway/backend.toml"; Dockerfile = "Dockerfile.railway-backend" },
     @{ Id = "e1825ca7-e907-4cfa-8b7a-8c66be4af7f2"; Name = "Baserow Frontend"; Config = "/deploy/railway/frontend.toml"; Dockerfile = "Dockerfile.railway-frontend" },
-    @{ Id = "a7852707-f94e-4457-b703-621f58e72dcb"; Name = "Celery Worker"; Config = "/deploy/railway/celery-worker.toml"; Dockerfile = "Dockerfile.railway-backend"; Start = "celery-worker-railway"; Healthcheck = "/api/_health/"; HealthcheckTimeout = 300 },
+    @{ Id = "a7852707-f94e-4457-b703-621f58e72dcb"; Name = "Celery Worker"; Config = "/deploy/railway/celery-worker.toml"; Dockerfile = "Dockerfile.railway-backend"; Start = "celery-worker"; ClearHealthcheck = $true },
     @{ Id = "982ebb27-6e89-4c97-8585-55b54190a934"; Name = "Celery Beat"; Config = "/deploy/railway/celery-beat.toml"; Dockerfile = "Dockerfile.railway-backend"; Start = "celery-beat" }
 )
 
@@ -30,6 +30,7 @@ foreach ($svc in $services) {
     if ($svc.Start) { $input.startCommand = $svc.Start }
     if ($svc.Healthcheck) { $input.healthcheckPath = $svc.Healthcheck }
     if ($svc.HealthcheckTimeout) { $input.healthcheckTimeout = $svc.HealthcheckTimeout }
+    if ($svc.ClearHealthcheck) { $input.healthcheckPath = $null; $input.healthcheckTimeout = $null }
 
     $r = Invoke-RailwayGql 'mutation($serviceId: String!, $environmentId: String!, $input: ServiceInstanceUpdateInput!) { serviceInstanceUpdate(serviceId: $serviceId, environmentId: $environmentId, input: $input) }' @{
         serviceId = $svc.Id
