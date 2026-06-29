@@ -12,7 +12,7 @@ watchPatterns = [
   "Dockerfile.railway-backend",
   "deploy/**",
 ]
-buildArgs = { SOURCE_REVISION = "celery-worker-fix-2" }
+buildArgs = { SOURCE_REVISION = "celery-worker-fix-3" }
 
 [deploy]
 # Async job'lar (publish, import vb.) "export" kuyruguna gider.
@@ -20,7 +20,6 @@ buildArgs = { SOURCE_REVISION = "celery-worker-fix-2" }
 # Ayar: scripts/configure-geodepo-celery-worker.ps1
 # ENTRYPOINT zaten railway-entrypoint-wrapper.sh -> docker-entrypoint.sh; sadece komut adi ver.
 startCommand = "celery-worker"
-# Worker HTTP sunmaz; dashboard'daki backend healthcheck override edilmesin diye bos.
-healthcheckPath = ""
+# HTTP healthcheck kullanma (worker gunicorn sunmaz). Docker HEALTHCHECK celery ping kullanir.
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 5

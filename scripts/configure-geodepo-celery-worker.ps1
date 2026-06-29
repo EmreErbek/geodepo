@@ -31,6 +31,7 @@ Write-Host "Tamam. Worker yeniden deploy olunca export kuyrugunu da dinler (comb
 Write-Host "Beklenen log: 'Starting combined celery and export worker...'"
 Write-Host ""
 Write-Host "Deploy failed goruyorsaniz Railway UI > Celery Worker > Settings:" -ForegroundColor Yellow
-Write-Host "  - Healthcheck Path: BOS birakin (backend /api/_health/ kullanmayin)" -ForegroundColor Yellow
-Write-Host "  - Config File: baserow/deploy/railway/celery-worker.toml" -ForegroundColor Yellow
-Write-Host "  - startCommand toml'da: celery-worker (tam path degil)" -ForegroundColor Yellow
+Write-Host "  - Healthcheck Path: Disabled / bos (backend /api/_health/ OLMASIN)" -ForegroundColor Yellow
+Write-Host "  - Config File: deploy/railway/celery-worker.json (null healthcheck) veya .toml" -ForegroundColor Yellow
+Write-Host "  - startCommand: celery-worker" -ForegroundColor Yellow
+Write-Host "  - Root Directory: baserow" -ForegroundColor Yellow

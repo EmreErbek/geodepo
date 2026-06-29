@@ -365,7 +365,8 @@ RUN chmod +x /usr/local/bin/railway-entrypoint-wrapper.sh
 ENTRYPOINT ["/usr/bin/tini", "--", "/usr/local/bin/railway-entrypoint-wrapper.sh"]
 CMD ["gunicorn"]
 
-# Celery services: disable gunicorn healthcheck inherited from `local`.
+# Celery services: gunicorn healthcheck yerine celery ping kullan.
 FROM railway AS railway-worker
 RUN echo "railway-worker image for celery services"
-HEALTHCHECK NONE
+HEALTHCHECK --interval=60s --timeout=15s --start-period=120s --retries=3 \
+  CMD ["/bin/bash", "/baserow/backend/docker/docker-entrypoint.sh", "celery-worker-healthcheck"]

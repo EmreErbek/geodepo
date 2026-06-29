@@ -12,10 +12,9 @@ watchPatterns = [
   "Dockerfile.railway-backend",
   "deploy/**",
 ]
-buildArgs = { SOURCE_REVISION = "celery-worker-fix-2" }
+buildArgs = { SOURCE_REVISION = "celery-worker-fix-3" }
 
 [deploy]
 startCommand = "celery-worker"
-healthcheckPath = ""
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 5
