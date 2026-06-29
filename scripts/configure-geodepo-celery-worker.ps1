@@ -29,3 +29,8 @@ foreach ($entry in $vars.GetEnumerator()) {
 Write-Host ""
 Write-Host "Tamam. Worker yeniden deploy olunca export kuyrugunu da dinler (combined mode)."
 Write-Host "Beklenen log: 'Starting combined celery and export worker...'"
+Write-Host ""
+Write-Host "Deploy failed goruyorsaniz Railway UI > Celery Worker > Settings:" -ForegroundColor Yellow
+Write-Host "  - Healthcheck Path: BOS birakin (backend /api/_health/ kullanmayin)" -ForegroundColor Yellow
+Write-Host "  - Config File: baserow/deploy/railway/celery-worker.toml" -ForegroundColor Yellow
+Write-Host "  - startCommand toml'da: celery-worker (tam path degil)" -ForegroundColor Yellow
