@@ -30,7 +30,7 @@ foreach ($svc in $services) {
     if ($svc.Start) { $input.startCommand = $svc.Start }
     if ($svc.Healthcheck) { $input.healthcheckPath = $svc.Healthcheck }
     if ($svc.HealthcheckTimeout) { $input.healthcheckTimeout = $svc.HealthcheckTimeout }
-    if ($svc.ClearHealthcheck) { $input.healthcheckPath = $null; $input.healthcheckTimeout = $null }
+    if ($svc.ClearHealthcheck) { $input.healthcheckPath = ""; $input.healthcheckTimeout = $null }
 
     $r = Invoke-RailwayGql 'mutation($serviceId: String!, $environmentId: String!, $input: ServiceInstanceUpdateInput!) { serviceInstanceUpdate(serviceId: $serviceId, environmentId: $environmentId, input: $input) }' @{
         serviceId = $svc.Id
