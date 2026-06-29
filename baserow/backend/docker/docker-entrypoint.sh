@@ -173,6 +173,7 @@ gunicorn            : Start Baserow backend django using a prod ready gunicorn s
                          * Binds to BASEROW_BACKEND_BIND_ADDRESS which defaults to 0.0.0.0
 gunicorn-wsgi       : Same as gunicorn but runs a wsgi server which does not support WS
 celery-worker       : Start the celery worker queue which runs important async tasks
+celery-worker-railway: Start celery worker + minimal HTTP health stub for Railway
 celery-exportworker : Start the celery worker queue which runs slower async tasks
 celery-beat         : Start the celery beat service used to schedule periodic jobs
 
@@ -217,6 +218,41 @@ start_celery_worker(){
     EXTRA_CELERY_ARGS+=(--concurrency "$BASEROW_AMOUNT_OF_WORKERS")
   fi
   exec celery -A baserow worker "${EXTRA_CELERY_ARGS[@]}" -l INFO "$@"
+}
+
+start_celery_worker_background(){
+  startup_plugin_setup
+  if [[ -n "$BASEROW_RUN_MINIMAL" ]]; then
+    EXTRA_CELERY_ARGS=(--without-heartbeat --without-gossip --without-mingle)
+  else
+    EXTRA_CELERY_ARGS=()
+  fi
+  if [[ -n "$BASEROW_AMOUNT_OF_WORKERS" ]]; then
+    EXTRA_CELERY_ARGS+=(--concurrency "$BASEROW_AMOUNT_OF_WORKERS")
+  fi
+  celery -A baserow worker "${EXTRA_CELERY_ARGS[@]}" -l INFO "$@" &
+}
+
+start_railway_health_stub(){
+  PORT="${PORT:-8000}"
+  echo "Starting Railway health stub on port ${PORT}..."
+  exec python3 -u -c "import os
+from http.server import HTTPServer, BaseHTTPRequestHandler
+port = int(os.environ.get('PORT', '8000'))
+class HealthHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        if self.path.startswith('/api/_health'):
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/plain')
+            self.end_headers()
+            self.wfile.write(b'OK')
+        else:
+            self.send_response(404)
+            self.end_headers()
+    def log_message(self, format, *args):
+        pass
+HTTPServer(('0.0.0.0', port), HealthHandler).serve_forever()
+"
 }
 
 # Lets devs attach to this container running the passed command, press ctrl-c and only
@@ -378,6 +414,17 @@ case "$1" in
         export OTEL_SERVICE_NAME="celery-worker"
         start_celery_worker -Q celery,automation_workflow -n default-worker@%h "${@:2}"
       fi
+    ;;
+    celery-worker-railway)
+      if [[ -n "${BASEROW_RUN_MINIMAL}" && $BASEROW_AMOUNT_OF_WORKERS == "1" ]]; then
+        export OTEL_SERVICE_NAME="celery-worker-combined"
+        echo "Starting combined celery and export worker (Railway)..."
+        start_celery_worker_background -Q celery,export,automation_workflow -n default-worker@%h "${@:2}"
+      else
+        export OTEL_SERVICE_NAME="celery-worker"
+        start_celery_worker_background -Q celery,automation_workflow -n default-worker@%h "${@:2}"
+      fi
+      start_railway_health_stub
     ;;
     celery-worker-healthcheck)
       echo "Running celery worker healthcheck..."
