@@ -29,13 +29,30 @@ RECORD_TYPE_PROJECT = "Proje"
 class Api:
     def __init__(self, base: str, email: str, password: str):
         self.base = base.rstrip("/")
+        self.email = email
+        self.password = password
         self.token = self._login(email, password)
 
     def _login(self, email: str, password: str) -> str:
-        r = self._raw("POST", "/api/user/token-auth/", {"email": email, "password": password})
+        r = self._raw(
+            "POST",
+            "/api/user/token-auth/",
+            {"email": email, "password": password},
+            allow_auth_retry=False,
+        )
         return r["token"]
 
-    def _raw(self, method: str, path: str, body: dict | None = None):
+    def _refresh_token(self) -> None:
+        self.token = self._login(self.email, self.password)
+
+    def _raw(
+        self,
+        method: str,
+        path: str,
+        body: dict | None = None,
+        *,
+        allow_auth_retry: bool = True,
+    ):
         url = f"{self.base}{path}"
         data = None
         headers = {"Accept": "application/json"}
@@ -52,6 +69,15 @@ class Api:
                     return json.loads(raw) if raw else {}
             except urllib.error.HTTPError as e:
                 err = e.read().decode("utf-8", errors="replace")
+                if (
+                    e.code == 401
+                    and allow_auth_retry
+                    and path != "/api/user/token-auth/"
+                ):
+                    self._refresh_token()
+                    return self._raw(
+                        method, path, body, allow_auth_retry=False
+                    )
                 if e.code in (502, 503, 504) and attempt < 9:
                     time.sleep(attempt * 2)
                     continue
