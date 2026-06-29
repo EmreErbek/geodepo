@@ -10,7 +10,7 @@
       "deploy/**"
     ],
     "buildArgs": {
-      "SOURCE_REVISION": "celery-worker-fix-4"
+      "SOURCE_REVISION": "celery-worker-fix-5"
     }
   },
   "deploy": {
