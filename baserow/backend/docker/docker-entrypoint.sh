@@ -233,10 +233,10 @@ start_celery_worker_background(){
   celery -A baserow worker "${EXTRA_CELERY_ARGS[@]}" -l INFO "$@" &
 }
 
-start_railway_health_stub(){
+start_railway_health_stub_background(){
   PORT="${PORT:-8000}"
   echo "Starting Railway health stub on port ${PORT}..."
-  exec python3 -u -c "import os
+  python3 -u -c "import os
 from http.server import HTTPServer, BaseHTTPRequestHandler
 port = int(os.environ.get('PORT', '8000'))
 class HealthHandler(BaseHTTPRequestHandler):
@@ -252,7 +252,7 @@ class HealthHandler(BaseHTTPRequestHandler):
     def log_message(self, format, *args):
         pass
 HTTPServer(('0.0.0.0', port), HealthHandler).serve_forever()
-"
+" &
 }
 
 # Lets devs attach to this container running the passed command, press ctrl-c and only
@@ -416,15 +416,15 @@ case "$1" in
       fi
     ;;
     celery-worker-railway)
+      start_railway_health_stub_background
       if [[ -n "${BASEROW_RUN_MINIMAL}" && $BASEROW_AMOUNT_OF_WORKERS == "1" ]]; then
         export OTEL_SERVICE_NAME="celery-worker-combined"
         echo "Starting combined celery and export worker (Railway)..."
-        start_celery_worker_background -Q celery,export,automation_workflow -n default-worker@%h "${@:2}"
+        start_celery_worker -Q celery,export,automation_workflow -n default-worker@%h "${@:2}"
       else
         export OTEL_SERVICE_NAME="celery-worker"
-        start_celery_worker_background -Q celery,automation_workflow -n default-worker@%h "${@:2}"
+        start_celery_worker -Q celery,automation_workflow -n default-worker@%h "${@:2}"
       fi
-      start_railway_health_stub
     ;;
     celery-worker-healthcheck)
       echo "Running celery worker healthcheck..."

@@ -12,7 +12,7 @@ watchPatterns = [
   "Dockerfile.railway-backend",
   "deploy/**",
 ]
-buildArgs = { SOURCE_REVISION = "celery-worker-fix-5" }
+buildArgs = { SOURCE_REVISION = "celery-worker-fix-6" }
 
 [deploy]
 # Async job'lar (publish, import vb.) "export" kuyruguna gider.
