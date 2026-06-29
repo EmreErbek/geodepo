@@ -367,4 +367,5 @@ CMD ["gunicorn"]
 
 # Celery services: disable gunicorn healthcheck inherited from `local`.
 FROM railway AS railway-worker
+RUN echo "railway-worker image for celery services"
 HEALTHCHECK NONE
